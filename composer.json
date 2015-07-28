@@ -17,11 +17,11 @@
         "pinterest"
     ],
     "require": {
-        
+
     },
     "autoload": {
         "psr-4": {
-            "Pinterest\\": "src/Pinterest/"
+            "DirkGroenen\\Pinterest\\": "src/"
         }
     }
 }

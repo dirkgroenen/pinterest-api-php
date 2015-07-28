@@ -8,8 +8,8 @@
  * file that was distributed with this source code.
  */
 
-namespace Pinterest\Tests;
+namespace DirkGroenen\Pinterest\Exceptions;
 
-class PinterestTest {
+class PinterestException extends \Exception {
     
 }

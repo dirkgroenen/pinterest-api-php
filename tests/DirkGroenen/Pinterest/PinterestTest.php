@@ -8,8 +8,8 @@
  * file that was distributed with this source code.
  */
 
-namespace Pinterest;
+namespace DirkGroenen\Pinterest\Tests;
 
-class Pinterest {
+class PinterestTest {
     
 }
