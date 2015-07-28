@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "DirkGroenen\\Pinterest\\": "src/"
+            "DirkGroenen\\Pinterest\\": "src/Pinterest"
         }
     }
 }
