@@ -16,10 +16,12 @@
         "wrapper",
         "pinterest"
     ],
-    "require": {},
+    "require": {
+        
+    },
     "autoload": {
         "psr-4": {
             "Pinterest\\": "src/Pinterest/"
         }
-    },
+    }
 }
