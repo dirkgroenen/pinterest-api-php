@@ -4,8 +4,17 @@
     "authors": [
         {
             "name": "Dirk Groenen",
-            "email": "dirk@bitlabs.nl"
+            "email": "dirk@bitlabs.nl",
+            "homepage": "http://dirkgroenen.nl",
+            "role": "Creator/Developer"
         }
     ],
-    "require": {}
+    "license": "Apache-2.0",
+    "type": "library",
+    "keywords": [
+        "api",
+        "wrapper",
+        "pinterest"
+    ],
+    "require": {},
 }
