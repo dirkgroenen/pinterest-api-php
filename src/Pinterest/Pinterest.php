@@ -10,6 +10,8 @@
 
 namespace DirkGroenen\Pinterest;
 
+use DirkGroenen\Pinterest\Auth\PinterestOAuth;
+
 class Pinterest {
     
     /**

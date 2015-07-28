@@ -110,7 +110,7 @@ class PinterestOAuth {
         );
 
         // Perform post request
-        $response = $request->post("oauth/token", $data)
+        $response = $request->post("oauth/token", $data);
 
         var_dump($response);
     }
