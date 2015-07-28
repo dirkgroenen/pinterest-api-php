@@ -1,0 +1,11 @@
+{
+    "name": "dirkgroenen/pinterest-api-php",
+    "description": "PHP Wrapper for the official Pinterest API",
+    "authors": [
+        {
+            "name": "Dirk Groenen",
+            "email": "dirk@bitlabs.nl"
+        }
+    ],
+    "require": {}
+}
