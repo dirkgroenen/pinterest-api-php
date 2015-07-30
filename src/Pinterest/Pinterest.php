@@ -46,9 +46,15 @@ class Pinterest {
         $this->auth = new PinterestOAuth($client_id, $client_secret, $this->request);
     }
 
-
+    /**
+     * Get the provided user
+     * 
+     * @access public
+     * @param  string   $user
+     * @return User
+     */
     public function getUser($user)
     {
-        return $this->request->get("me");
+        return $this->request->get($user);
     }
 }

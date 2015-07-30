@@ -98,7 +98,7 @@ class Request {
         // Check if the access token needs to be added 
         if($this->access_token != null){
             $headers = array_merge($headers, array(
-                "Authorization" => "Bearer " . $this->access_token 
+                "Authorization: Bearer " . $this->access_token 
             ));
         }
 
@@ -113,7 +113,8 @@ class Request {
         curl_setopt($ch, CURLOPT_TIMEOUT, 90);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_HEADER, true);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         switch ($method) {
             case 'POST':
                 curl_setopt($ch, CURLOPT_POST, count($parameters));
@@ -122,19 +123,20 @@ class Request {
             case 'DELETE':
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
                 break;
+            default:
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+                break;
         }
 
         // Execute request and catch response
         $response_data = curl_exec($ch);
-
-        print_r(curl_getinfo($ch));
 
         if ( !$response_data || curl_errno($ch) ) {
             throw new PinterestException('Error: execute() - cURL error: ' . curl_error($ch));
         }
 
         // Return decoded data
-        return json_decode($response_data);
+        return json_decode($response_data, true);
     }
 
 }
