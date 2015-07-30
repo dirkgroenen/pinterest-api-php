@@ -38,6 +38,13 @@ class PinterestOAuth {
     private $state;
 
     /**
+     * A reference to the request instance
+     * 
+     * @var Transport\Request
+     */
+    private $request;
+
+    /**
      * Pinterest's oauth endpoint
      */
     const AUTH_HOST = "https://api.pinterest.com/oauth/";
@@ -48,13 +55,16 @@ class PinterestOAuth {
      * @param  string   $client_id
      * @param  string   $client_secret
      */
-    public function __construct($client_id, $client_secret)
+    public function __construct($client_id, $client_secret, $request)
     {
         $this->client_id = $client_id;
         $this->client_secret = $client_secret;
 
         // Generate and set the state
         $this->state = $this->generateState();
+
+        // Set request instance
+        $this->request = $request;
     }
 
     /**
@@ -92,16 +102,13 @@ class PinterestOAuth {
     }
 
     /**
+     * Change the code for an access_token
      * 
-     * 
-     * @param  [type]   $code [description]
-     * @return [type]         [description]
+     * @param  string   $code 
+     * @return array        
      */
     public function getOAuthToken($code)
     {
-        // Initialize new request 
-        $request = new Request();
-
         // Build data array
         $data = array(
             "grant_type"    => "authorization_code",
@@ -110,9 +117,20 @@ class PinterestOAuth {
         );
 
         // Perform post request
-        $response = $request->post("oauth/token", $data);
+        $response = $this->request->post("oauth/token", $data);
 
-        var_dump($response);
+        return $response;
     }
 
+    /**
+     * Set the access_token for further requests
+     * 
+     * @access public
+     * @param  string   $access_token
+     * @return void
+     */
+    public function setOAuthToken($access_token) 
+    {
+        $this->request->setAccessToken($access_token);
+    }
 }

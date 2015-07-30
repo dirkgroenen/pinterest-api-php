@@ -11,6 +11,7 @@
 namespace DirkGroenen\Pinterest;
 
 use DirkGroenen\Pinterest\Auth\PinterestOAuth;
+use DirkGroenen\Pinterest\Transport\Request;
 
 class Pinterest {
     
@@ -22,6 +23,14 @@ class Pinterest {
     public $auth;
 
     /**
+     * A reference to the request class which travels
+     * through the application 
+     * 
+     * @var Transport\Request
+     */
+    private $request;
+
+    /**
      * Constructor
      * 
      * @param  string   $client_id
@@ -30,8 +39,16 @@ class Pinterest {
      */
     public function __construct($client_id, $client_secret)
     {
+        // Create new instance of Transport\Request
+        $this->request = new Request();
+
         // Create and set new instance of the OAuth class
-        $this->auth = new PinterestOAuth($client_id, $client_secret);
+        $this->auth = new PinterestOAuth($client_id, $client_secret, $this->request);
     }
 
+
+    public function getUser($user)
+    {
+        return $this->request->get("me");
+    }
 }

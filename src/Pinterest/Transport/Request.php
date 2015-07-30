@@ -78,7 +78,7 @@ class Request {
      * @param  array    $parameters
      * @return [type]
      */
-    public function post($endpoint, array $parameters = array())
+    public function post($path, array $parameters = array())
     {
         $this->execute("POST", $path, $parameters );
     }
@@ -103,7 +103,7 @@ class Request {
         }
 
         // Build the url
-        $apiCall = sprintf("%s/%s", $this->host, $path);
+        $apiCall = sprintf("%s%s", $this->host, $path);
 
         // Setup CURL
         $ch = curl_init();
@@ -127,7 +127,9 @@ class Request {
         // Execute request and catch response
         $response_data = curl_exec($ch);
 
-        if (!$jsonData) {
+        print_r(curl_getinfo($ch));
+
+        if ( !$response_data || curl_errno($ch) ) {
             throw new PinterestException('Error: execute() - cURL error: ' . curl_error($ch));
         }
 
