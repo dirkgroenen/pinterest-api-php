@@ -80,7 +80,7 @@ class Request {
      */
     public function post($path, array $parameters = array())
     {
-        $this->execute("POST", $path, $parameters );
+        return $this->execute("POST", $path, $parameters );
     }
 
     /**
@@ -135,8 +135,11 @@ class Request {
             throw new PinterestException('Error: execute() - cURL error: ' . curl_error($ch));
         }
 
-        // Return decoded data
-        return json_decode($response_data, true);
+        // Decode the response
+        $response = json_decode($response_data, true);
+
+        // Return the data
+        return ($response["data"] == null) ? [] : $response["data"];
     }
 
 }

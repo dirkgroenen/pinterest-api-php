@@ -10,23 +10,26 @@
 
 namespace DirkGroenen\Pinterest\Models;
 
+use DirkGroenen\Pinterest\Endpoints\Boards;
+
 class User extends Model {
         
     /**
-     * Holds the username
+     * The available object keys
      * 
-     * @var string
+     * @var array
      */
-    private $username;
+    protected $fillable = ["id", "username", "first_name", "last_name", "bio", "created_at", "counts", "image"];
 
     /**
-     * Constructor
+     * Return the boards for the current user
      * 
-     * @param  string   $username
+     * @access public
+     * @return [type]   [description]
      */
-    public function __construct( $username )
+    public function boards()
     {
-        $this->username = $username;
+        
     }
 
 }

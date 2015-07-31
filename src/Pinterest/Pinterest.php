@@ -12,6 +12,7 @@ namespace DirkGroenen\Pinterest;
 
 use DirkGroenen\Pinterest\Auth\PinterestOAuth;
 use DirkGroenen\Pinterest\Transport\Request;
+use DirkGroenen\Pinterest\Exceptions\InvalidEndpointException;
 
 class Pinterest {
     
@@ -31,6 +32,13 @@ class Pinterest {
     private $request;
 
     /**
+     * A array containing the cached endpoints
+     * 
+     * @var array
+     */
+    private $cachedEndpoints = [];
+
+    /**
      * Constructor
      * 
      * @param  string   $client_id
@@ -47,14 +55,32 @@ class Pinterest {
     }
 
     /**
-     * Get the provided user
-     * 
+     * Get an Instagram API endpoint
+     *
      * @access public
-     * @param  string   $user
-     * @return User
+     * @param string    $endpoint
+     * @return mixed 
+     * @throws Exceptions\InvalidEndpointException
      */
-    public function getUser($user)
+    public function __get($endpoint)
     {
-        return $this->request->get($user);
+        $endpoint = strtolower($endpoint);
+        $class = "\\DirkGroenen\\Pinterest\\Endpoints\\" . ucfirst($endpoint);
+        
+        // Check if an instance has already been initiated
+        if(!isset($this->cachedEndpoints[$endpoint])){
+            // Check endpoint existence
+            if(!class_exists($class))
+                throw new InvalidEndpointException;
+
+            // Create a reflection of the called class and initialize it 
+            // with a reference to the request class
+            $ref = new \ReflectionClass($class);
+            $obj = $ref->newInstanceArgs([ $this->request ]);        
+
+            $this->cachedEndpoints[$endpoint] = $obj;
+        }
+
+        return $this->cachedEndpoints[$endpoint];
     }
 }

@@ -10,6 +10,8 @@
 
 namespace DirkGroenen\Pinterest\Models;
 
+use DirkGroenen\Pinterest\Exceptions\PinterestException;
+
 class Model {
 
     /**
@@ -18,6 +20,13 @@ class Model {
      * @var array
      */
     protected $attributes = [];
+
+    /**
+     * The available object keys
+     * 
+     * @var array
+     */
+    protected $fillable = [];
 
     /**
      * Create a new model instance
@@ -34,24 +43,31 @@ class Model {
      * Get the model's attribute
      * 
      * @access public
-     * @param  string   $attribute
-     * @return void
+     * @param  string   $key
+     * @return mixed
      */
-    public function __get($attribute)
+    public function __get($key)
     {
-        $this->getAttribute($attribute);
+        return isset($this->attributes[$key]) ? $this->attributes[$key] : null;
     }
 
     /**
      * Set the model's attribute
      * 
      * @access public
-     * @param  string   $attribute
+     * @param  string   $key
+     * @param  mixed   $value
+     * @throws Exceptions\PinterestException
      * @return void
      */
-    public function __set($attribute)
+    public function __set($key, $value)
     {
-        $this->setAttribute($attribute);    
+        if($this->isFillable($key)){
+            $this->attributes[$key] = $value;
+        }
+        else{
+            throw new PinterestException( sprintf("%s is not a fillable attribute.", $key) );
+        }
     }
 
     /**
@@ -63,6 +79,60 @@ class Model {
      */
     private function fill(array $attributes)
     {
-
+        foreach($attributes as $key => $value){
+            if($this->isFillable($key)){
+                $this->attributes[$key] = $value;
+            }
+        }
     }
+
+    /**
+     * Check if the key is fillable
+     * 
+     * @access public
+     * @param  string   $key
+     * @return boolean      
+     */
+    public function isFillable($key)
+    {
+        return in_array($key, $this->fillable);
+    }
+
+    /**
+     * Convert the model instance to an array
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $array = array();
+        
+        foreach($this->fillable as $key){
+            $array[$key] = $this->{$key};
+        }
+
+        return $array;
+    }
+
+    /**
+     * Convert the model instance to JSON
+     *
+     * @param  int  $options
+     * @return string
+     */
+    public function toJson($options = 0)
+    {
+        return json_encode($this->toArray(), $options);
+    }
+
+    /**
+     * Convert the model to its string representation
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toJson();
+    }
+
 }
