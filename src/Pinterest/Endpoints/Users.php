@@ -19,12 +19,13 @@ class Users extends Endpoint {
      * Get the current user
      * 
      * @access public
+     * @param array     $data
      * @return Models\User
      */
-    public function me()
+    public function me( array $data = [] )
     {
-        $user = $this->request->get("me");
-        return new User( $user );
+        $user = $this->request->get("me/", $data );
+        return $user;
     }
 
     /**
@@ -32,99 +33,91 @@ class Users extends Endpoint {
      * 
      * @access public
      * @param string    $username
+     * @param array     $data
      * @return Models\User
      */
-    public function find($username)
+    public function find( $username, array $data = [] )
     {
-        $user = $this->request->get( sprintf("users/%s", $username) );
-        return new User( $user );
+        $user = $this->request->get( sprintf("users/%s/", $username), $data );
+        return $user;
     }
 
     /**
      * Get the authenticated user's pins
      * 
      * @access public
+     * @param array     $data
      * @return Collection
      */
-    public function getMePins()
+    public function getMePins( array $data = [] )
     {
-        $pins = $this->request->get( "me/pins" );
-        return new Collection( $pins, "Pin" );
+        $pins = $this->request->get( "me/pins/", $data );
+        return $pins;
     }
 
     /**
      * Get the authenticated user's boards
      * 
      * @access public
+     * @param array     $data
      * @return Collection
      */
-    public function getMeBoards()
+    public function getMeBoards( array $data = [] )
     {
-        $boards = $this->request->get( "me/boards" );
-        return new Collection( $boards, "Board" );
+        $boards = $this->request->get( "me/boards/", $data );
+        return $boards;
     }
 
     /**
      * Get the authenticated user's likes
      * 
      * @access public
+     * @param array     $data
      * @return Collection
      */
-    public function getMeLikes()
+    public function getMeLikes( array $data = [] )
     {
-        $likes = $this->request->get( "me/likes" );
-        return new Collection( $likes, "Like" );
+        $likes = $this->request->get( "me/likes/", $data );
+        return $likes;
     }
 
     /**
      * Get the authenticated user's following users
      * 
      * @access public
+     * @param array     $data
      * @return Collection
      */
-    public function getMeFollowingUsers()
+    public function getMeFollowingUsers( array $data = [] )
     {
-        $users = $this->request->get( "me/following/users" );
-        return new Collection( $users, "User" );
+        $users = $this->request->get( "me/following/users/", $data );
+        return $users;
     }
 
     /**
      * Get the authenticated user's following boards
      * 
      * @access public
+     * @param array     $data
      * @return Collection
      */
-    public function getMeFollowingBoards()
+    public function getMeFollowingBoards( array $data = [] )
     {
-        $boards = $this->request->get( "me/following/boards" );
-        return new Collection( $boards, "Board" );
+        $boards = $this->request->get( "me/following/boards/", $data );
+        return $boards;
     }
 
     /**
      * Get the authenticated user's following interest
      * 
      * @access public
+     * @param array     $data
      * @return Collection
      */
-    public function getMeFollowingInterest()
+    public function getMeFollowingInterest( array $data = [] )
     {
-        $interest = $this->request->get( "me/following/interest" );
-        return new Collection( $interest, "Board" );
+        $interest = $this->request->get( "me/following/interest/", $data );
+        return $interest;
     }
-    
-
-    /**
-     * Get the pins for the given user
-     * 
-     * @access public
-     * @param string $username
-     * @return Collection
-     */
-    public function getUserPins($username)
-    {
-        $pins = $this->request->get( sprintf("users/%s/pins", $username) );
-        return new Collection( $pins, "Pin" );
-    }
-
 
 }
