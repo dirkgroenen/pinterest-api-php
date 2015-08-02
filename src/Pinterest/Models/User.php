@@ -21,15 +21,4 @@ class User extends Model {
      */
     protected $fillable = ["id", "username", "first_name", "last_name", "bio", "created_at", "counts", "image"];
 
-    /**
-     * Return the boards for the current user
-     * 
-     * @access public
-     * @return [type]   [description]
-     */
-    public function boards()
-    {
-        
-    }
-
 }

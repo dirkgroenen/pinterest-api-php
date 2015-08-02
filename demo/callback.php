@@ -33,6 +33,8 @@
     // Set the access token
     $pinterest->auth->setOAuthToken( $_COOKIE["access_token"]  );
 
-    echo json_encode($data);
-    
+    // Get ben and get his pins
+    $boards = $pinterest->users->getMeLikes();
+
+    echo $boards;
 ?>

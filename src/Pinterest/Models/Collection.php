@@ -10,6 +10,8 @@
 
 namespace DirkGroenen\Pinterest\Models;
 
+use \DirkGroenen\Pinterest\Pinterest;
+
 class Collection {
 
     /**
@@ -27,14 +29,25 @@ class Collection {
     protected $model;
 
     /**
+     * Instance of Pinterest master class
+     * 
+     * @var Pinterest
+     */
+    private $master;
+
+    /**
      * Construct
      * 
      * @access public
-     * @param  array    $items
-     * @param  string   $model
+     * @param  Pinterest    $master
+     * @param  array        $items
+     * @param  string       $model
      * @throws InvalidModelException
      */
-    public function __construct(array $items = [], $model){
+    public function __construct( Pinterest $master, array $items = [], $model ){
+        $this->master = $master;
+
+        // Create class path
         $this->model = "\\DirkGroenen\\Pinterest\\Models\\" . ucfirst( strtolower($model) );
 
         if(!class_exists($this->model))
@@ -67,10 +80,21 @@ class Collection {
 
         foreach($items as $item){
             $class = new \ReflectionClass($this->model);
-            $modelcollection[] = $class->newInstanceArgs( [$item] );
+            $modelcollection[] = $class->newInstanceArgs( [$this->master, $item] );
         }
 
         return $modelcollection;
+    }
+
+    /**
+     * Return the item at the given index
+     * 
+     * @param  int $index
+     * @return Model
+     */
+    public function get( $index )
+    {
+        return $this->items[$index];
     }
 
     /**
@@ -109,4 +133,5 @@ class Collection {
     {
         return $this->toJson();
     }
+
 }

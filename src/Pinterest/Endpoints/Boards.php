@@ -25,8 +25,8 @@ class Boards extends Endpoint {
      */
     public function get( $board_id, array $data = [] )
     {
-        $board = $this->request->get( sprintf("boards/%s/", $board_id), $data );
-        return $board;
+        $board = $this->request->get( sprintf("boards/%s", $board_id), $data );
+        return new Board( $this->master, $board );
     }
 
     /**
@@ -38,8 +38,8 @@ class Boards extends Endpoint {
      */
     public function create( array $data )
     {
-        $board = $this->request->post( "boards/", $data );
-        return $board;
+        $board = $this->request->post( "boards", $data );
+        return new Board( $this->master, $board );
     }
 
     /**
@@ -51,7 +51,7 @@ class Boards extends Endpoint {
      */
     public function delete( $board_id )
     {
-        $board = $this->request->delete( sprintf("boards/%s/", $board_id) );
-        return $board;
+        $board = $this->request->delete( sprintf("boards/%s", $board_id) );
+        return new Board( $this->master, $board );
     }
 }

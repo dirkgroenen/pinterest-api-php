@@ -11,6 +11,7 @@
 namespace DirkGroenen\Pinterest\Models;
 
 use DirkGroenen\Pinterest\Exceptions\PinterestException;
+use DirkGroenen\Pinterest\Pinterest;
 
 class Model {
 
@@ -29,13 +30,22 @@ class Model {
     protected $fillable = [];
 
     /**
+     * Instance of the master Pinterest class
+     * 
+     * @var Pinterest
+     */
+    protected $master;
+
+    /**
      * Create a new model instance
      *
-     * @param  array  $attributes
+     * @param  Pinterest    $master
+     * @param  array        $attributes
      * @return void
      */
-    public function __construct(array $attributes = array())
-    {
+    public function __construct( Pinterest $master, array $attributes = array() )
+    {   
+        $this->master = $master;
         $this->fill($attributes);
     }
 

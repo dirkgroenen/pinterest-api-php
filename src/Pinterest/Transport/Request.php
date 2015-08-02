@@ -61,7 +61,7 @@ class Request {
     public function get( $endpoint, array $parameters = array() )
     {
         if(!empty($parameters)) {
-            $path = sprintf("%s?%s", $endpoint, http_build_query($parameters));
+            $path = sprintf("%s/?%s", $endpoint, http_build_query($parameters));
         }
         else {
             $path = $endpoint;
@@ -80,7 +80,7 @@ class Request {
      */
     public function post( $path, array $parameters = array() )
     {
-        return $this->execute("POST", $path, $parameters );
+        return $this->execute("POST", $path . "/", $parameters );
     }
 
     /**
@@ -93,7 +93,7 @@ class Request {
      */
     public function delete( $path, array $parameters = array() )
     {
-        return $this->execute("DELETE", $path, $parameters );
+        return $this->execute("DELETE", $path . "/", $parameters );
     }
 
     /**
@@ -106,7 +106,7 @@ class Request {
      */
     public function update( $path, array $parameters = array() )
     {
-        return $this->execute("PATCH", $path, $parameters );
+        return $this->execute("PATCH", $path . "/", $parameters );
     }
 
     /**

@@ -76,7 +76,7 @@ class Pinterest {
             // Create a reflection of the called class and initialize it 
             // with a reference to the request class
             $ref = new \ReflectionClass($class);
-            $obj = $ref->newInstanceArgs([ $this->request ]);        
+            $obj = $ref->newInstanceArgs([ $this->request, $this ]);        
 
             $this->cachedEndpoints[$endpoint] = $obj;
         }
