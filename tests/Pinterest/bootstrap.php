@@ -8,4 +8,9 @@
  * file that was distributed with this source code.
  */
 
-require __DIR__ . "/../vendor/autoload.php";
+require __DIR__ . "/../../vendor/autoload.php";
+
+define('CLIENT_ID', getenv('CLIENT_ID'));
+define('CLIENT_SECRET', getenv('CLIENT_SECRET'));
+define('ACCESS_TOKEN', getenv('ACCESS_TOKEN'));
+define('CALLBACK_URL', getenv('CALLBACK_URL'));

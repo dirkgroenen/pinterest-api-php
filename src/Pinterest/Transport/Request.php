@@ -174,7 +174,7 @@ class Request {
         $response = json_decode($response_data, true);
 
         if ( $responsecode >= 400 ) {
-            throw new PinterestException('Pinterest error (code: ' . $responsecode . ', type: ' . $response['type'] . ') with message: ' . $response["message"]);
+            throw new PinterestException('Pinterest error (code: ' . $responsecode . ') with message: ' . $response["message"]);
         }
 
         curl_close($ch);
