@@ -8,8 +8,4 @@
  * file that was distributed with this source code.
  */
 
-namespace DirkGroenen\Pinterest\Tests;
-
-class PinterestTest {
-    
-}
+require __DIR__ . "/../vendor/autoload.php";
