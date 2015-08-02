@@ -21,6 +21,7 @@ class Boards extends Endpoint {
      * @access public
      * @param string    $board_id
      * @param array     $data
+     * @throws Exceptions/PinterestExceptions
      * @return Models\Board
      */
     public function get( $board_id, array $data = [] )
@@ -34,6 +35,7 @@ class Boards extends Endpoint {
      *
      * @access public
      * @param  array    $data
+     * @throws Exceptions/PinterestExceptions
      * @return Models\Board
      */
     public function create( array $data )
@@ -47,6 +49,7 @@ class Boards extends Endpoint {
      *
      * @access public
      * @param  string    $board_id
+     * @throws Exceptions/PinterestExceptions
      * @return Models\Board
      */
     public function delete( $board_id )

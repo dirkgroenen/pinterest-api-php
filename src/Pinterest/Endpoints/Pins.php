@@ -21,6 +21,7 @@ class Pins extends Endpoint {
      * @access public
      * @param  string   $pin_id
      * @param array     $data
+     * @throws Exceptions/PinterestExceptions
      * @return Models\Pin
      */
     public function get( $pin_id, array $data = [] )
@@ -35,6 +36,7 @@ class Pins extends Endpoint {
      * @access public
      * @param  string   $board_id
      * @param array     $data
+     * @throws Exceptions/PinterestExceptions
      * @return Models\Collection
      */
     public function fromBoard( $board_id, array $data = [] )
@@ -48,6 +50,7 @@ class Pins extends Endpoint {
      *
      * @access public
      * @param  array    $data
+     * @throws Exceptions/PinterestExceptions
      * @return Models\Pin
      */
     public function create( array $data )
@@ -62,6 +65,7 @@ class Pins extends Endpoint {
      * @access public
      * @param  string   $pin_id
      * @param  array    $data
+     * @throws Exceptions/PinterestExceptions
      * @return Models\Pin
      */
     public function update( $pin_id, array $data )
@@ -75,6 +79,7 @@ class Pins extends Endpoint {
      *
      * @access public
      * @param  string   $pin_id
+     * @throws Exceptions/PinterestExceptions
      * @return Models\Pin
      */
     public function delete( $pin_id )

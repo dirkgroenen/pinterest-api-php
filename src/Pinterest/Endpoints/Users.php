@@ -20,6 +20,7 @@ class Users extends Endpoint {
      * 
      * @access public
      * @param array     $data
+     * @throws Exceptions/PinterestExceptions
      * @return Models\User
      */
     public function me( array $data = [] )
@@ -34,6 +35,7 @@ class Users extends Endpoint {
      * @access public
      * @param string    $username
      * @param array     $data
+     * @throws Exceptions/PinterestExceptions
      * @return Models\User
      */
     public function find( $username, array $data = [] )
@@ -47,6 +49,7 @@ class Users extends Endpoint {
      * 
      * @access public
      * @param array     $data
+     * @throws Exceptions/PinterestExceptions
      * @return Collection
      */
     public function getMePins( array $data = [] )
@@ -59,6 +62,7 @@ class Users extends Endpoint {
      * Search in the user's pins
      * 
      * @param  string   $query
+     * @throws Exceptions/PinterestExceptions
      * @return Collection
      */
     public function searchMePins( $query )
@@ -73,6 +77,7 @@ class Users extends Endpoint {
      * Search in the user's boards
      * 
      * @param  string   $query
+     * @throws Exceptions/PinterestExceptions
      * @return Collection
      */
     public function searchMeBoards( $query )
@@ -88,6 +93,7 @@ class Users extends Endpoint {
      * 
      * @access public
      * @param array     $data
+     * @throws Exceptions/PinterestExceptions
      * @return Collection
      */
     public function getMeBoards( array $data = [] )
@@ -101,51 +107,13 @@ class Users extends Endpoint {
      * 
      * @access public
      * @param array     $data
+     * @throws Exceptions/PinterestExceptions
      * @return Collection
      */
     public function getMeLikes( array $data = [] )
     {
         $likes = $this->request->get( "me/likes", $data );
         return new Collection( $this->master, $likes, "Pin" );
-    }
-
-    /**
-     * Get the authenticated user's following users
-     * 
-     * @access public
-     * @param array     $data
-     * @return Collection
-     */
-    public function getMeFollowingUsers( array $data = [] )
-    {
-        $users = $this->request->get( "me/following/users", $data );
-        return new Collection( $this->master, $users, "User" );
-    }
-
-    /**
-     * Get the authenticated user's following boards
-     * 
-     * @access public
-     * @param array     $data
-     * @return Collection
-     */
-    public function getMeFollowingBoards( array $data = [] )
-    {
-        $boards = $this->request->get( "me/following/boards", $data );
-        return new Collection( $this->master, $boards, "Board" );
-    }
-
-    /**
-     * Get the authenticated user's following interest
-     * 
-     * @access public
-     * @param array     $data
-     * @return Collection
-     */
-    public function getMeFollowingInterest( array $data = [] )
-    {
-        $interest = $this->request->get( "me/following/interest", $data );
-        return new Collection( $this->master, $interest, "Model" );
     }
 
 }
