@@ -13,7 +13,7 @@ namespace DirkGroenen\Pinterest\Endpoints;
 use DirkGroenen\Pinterest\Models\User;
 use DirkGroenen\Pinterest\Models\Collection;
 
-class Users extends Endpoint {
+class Following extends Endpoint {
     
    
     /**
@@ -24,7 +24,7 @@ class Users extends Endpoint {
      * @throws Exceptions/PinterestExceptions
      * @return Collection
      */
-    public function getUsers( array $data = [] )
+    public function users( array $data = [] )
     {
         $users = $this->request->get( "me/following/users", $data );
         return new Collection( $this->master, $users, "User" );
@@ -38,7 +38,7 @@ class Users extends Endpoint {
      * @throws Exceptions/PinterestExceptions
      * @return Collection
      */
-    public function getBoards( array $data = [] )
+    public function boards( array $data = [] )
     {
         $boards = $this->request->get( "me/following/boards", $data );
         return new Collection( $this->master, $boards, "Board" );
@@ -52,9 +52,9 @@ class Users extends Endpoint {
      * @throws Exceptions/PinterestExceptions
      * @return Collection
      */
-    public function getInterests( array $data = [] )
+    public function interests( array $data = [] )
     {
-        $interest = $this->request->get( "me/following/interest", $data );
+        $interest = $this->request->get( "me/following/interests", $data );
         return new Collection( $this->master, $interest, "Model" );
     }
 
@@ -84,7 +84,7 @@ class Users extends Endpoint {
      */
     public function unfollowUser( $user )
     {
-        $user = $this->request->delete( sprintf("me/following/users/%s", $user_id) );
+        $user = $this->request->delete( sprintf("me/following/users/%s", $user) );
         return true;
     }
 
@@ -98,7 +98,7 @@ class Users extends Endpoint {
      */
     public function followBoard( $board )
     {
-        $user = $this->request->delete( "me/following/boards", array(
+        $user = $this->request->post( "me/following/boards", array(
             "board"  => $board
         ) );
         return true;
@@ -128,7 +128,7 @@ class Users extends Endpoint {
      */
     public function followInterest( $interest )
     {
-        $user = $this->request->delete( "me/following/interests", array(
+        $user = $this->request->post( "me/following/interests", array(
             "interest"  => $interest
         ) );
         return true;
