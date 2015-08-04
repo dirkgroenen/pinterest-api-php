@@ -11,6 +11,7 @@
 namespace DirkGroenen\Pinterest\Models;
 
 use DirkGroenen\Pinterest\Exceptions\PinterestException;
+use DirkGroenen\Pinterest\Pinterest\Transport\Response;
 use DirkGroenen\Pinterest\Pinterest;
 
 class Model {
@@ -39,14 +40,21 @@ class Model {
     /**
      * Create a new model instance
      *
-     * @param  Pinterest    $master
-     * @param  array        $attributes
+     * @param  Pinterest                    $master
+     * @param  array|Transport\Response     $modeldata
      * @return void
      */
-    public function __construct( Pinterest $master, array $attributes = array() )
+    public function __construct( Pinterest $master, $modeldata = null )
     {   
         $this->master = $master;
-        $this->fill($attributes);
+
+        // Fill the model
+        if( is_array($modeldata) ){
+            $this->fill($modeldata);
+        }
+        else if( $modeldata instanceof \DirkGroenen\Pinterest\Transport\Response ){
+            $this->fill($response->data);    
+        }
     }
 
     /**

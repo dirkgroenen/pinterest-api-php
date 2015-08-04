@@ -10,7 +10,10 @@
 
 namespace DirkGroenen\Pinterest\Models;
 
+use DirkGroenen\Pinterest\Exceptions\PinterestException;
+
 use \DirkGroenen\Pinterest\Pinterest;
+use \DirkGroenen\Pinterest\Transport\Response;
 
 class Collection {
 
@@ -19,14 +22,21 @@ class Collection {
      * 
      * @var array
      */
-    protected $items = [];
+    private $items = [];
 
     /**
      * The model of each collection item
      * 
      * @var Model
      */
-    protected $model;
+    private $model;
+
+    /**
+     * Stores the pagination object
+     * 
+     * @var array
+     */
+    private $pagination;
 
     /**
      * Instance of Pinterest master class
@@ -36,25 +46,48 @@ class Collection {
     private $master;
 
     /**
+     * Response instance
+     * 
+     * @var Response
+     */
+    private $response;
+
+    /**
      * Construct
      * 
      * @access public
-     * @param  Pinterest    $master
-     * @param  array        $items
-     * @param  string       $model
+     * @param  Pinterest            $master
+     * @param  array|Response       $items
+     * @param  string               $model
      * @throws InvalidModelException
      */
-    public function __construct( Pinterest $master, array $items = [], $model ){
+    public function __construct( Pinterest $master, $items, $model ){
         $this->master = $master;
 
         // Create class path
-        $this->model = "\\DirkGroenen\\Pinterest\\Models\\" . ucfirst( strtolower($model) );
+        $this->model = ucfirst( strtolower($model) );
 
-        if(!class_exists($this->model))
+        if(!class_exists("\\DirkGroenen\\Pinterest\\Models\\" . $this->model))
             throw new InvalidModelException;
 
+        // Get items and response instance 
+        if( is_array($items) ){
+            $this->response = null;
+            $this->items = $items;
+        }
+        else if( $items instanceof \DirkGroenen\Pinterest\Transport\Response ){
+            $this->response = $items;
+            $this->items = $items->data;
+        }
+        else{
+           throw new PinterestException("$items needs to be an instance of Transport\Response or an array."); 
+        }
+
         // Transform the raw collection data to models
-        $this->items = $this->buildCollectionModels($items);
+        $this->items = $this->buildCollectionModels($this->items);
+
+        // Add pagination object
+        $this->pagination = $this->response->page;
     }
 
     /**
@@ -63,7 +96,8 @@ class Collection {
      * @access public
      * @return array
      */
-    public function all(){
+    public function all()
+    {
         return $this->items;
     }
 
@@ -79,11 +113,22 @@ class Collection {
         $modelcollection = [];
 
         foreach($items as $item){
-            $class = new \ReflectionClass($this->model);
+            $class = new \ReflectionClass("\\DirkGroenen\\Pinterest\\Models\\" . $this->model);
             $modelcollection[] = $class->newInstanceArgs( [$this->master, $item] );
         }
 
         return $modelcollection;
+    }
+
+    /**
+     * Check if their is a next page available
+     * 
+     * @access public
+     * @return boolean
+     */
+    public function hasNextPage()
+    {
+        return ($this->response != null && isset($this->response->page['next']) );
     }
 
     /**
@@ -104,13 +149,16 @@ class Collection {
      */
     public function toArray()
     {
-        $array = [];
+        $items = [];
         
         foreach($this->items as $item){
-            $array[] = $item->toArray();
+            $items[] = $item->toArray();
         }        
 
-        return $array;
+        return array(   
+            "data" => $items,
+            "page"  => $this->pagination
+        );
     }
 
     /**

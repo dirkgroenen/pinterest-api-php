@@ -67,7 +67,7 @@ class Request {
             $path = $endpoint;
         }
 
-        return $this->execute("GET", $path);
+        return $this->execute("GET", sprintf("%s%s", $this->host, $path));
     }
 
     /**
@@ -80,7 +80,7 @@ class Request {
      */
     public function post( $path, array $parameters = array() )
     {
-        return $this->execute("POST", $path . "/", $parameters );
+        return $this->execute("POST", sprintf("%s%s", $this->host, $path) . "/", $parameters );
     }
 
     /**
@@ -93,7 +93,7 @@ class Request {
      */
     public function delete( $path, array $parameters = array() )
     {
-        return $this->execute("DELETE", $path . "/", $parameters );
+        return $this->execute("DELETE", sprintf("%s%s", $this->host, $path) . "/", $parameters );
     }
 
     /**
@@ -106,20 +106,20 @@ class Request {
      */
     public function update( $path, array $parameters = array() )
     {
-        return $this->execute("PATCH", $path . "/", $parameters );
+        return $this->execute("PATCH", sprintf("%s%s", $this->host, $path) . "/", $parameters );
     }
 
     /**
      * Execute the http request
      * 
-     * @access private
+     * @access public
      * @param  string   $method     
-     * @param  string   $path       
+     * @param  string   $apiCall       
      * @param  array    $parameters 
      * @param  array    $headers 
      * @return mixed
      */
-    private function execute( $method, $path, array $parameters = array(), $headers = array() )
+    public function execute( $method, $apiCall, array $parameters = array(), $headers = array() )
     {   
         // Check if the access token needs to be added 
         if($this->access_token != null){
@@ -128,9 +128,6 @@ class Request {
                 "Content-Type: application/x-www-form-urlencoded"
             ));
         }
-
-        // Build the url
-        $apiCall = sprintf("%s%s", $this->host, $path);
 
         // Setup CURL
         $ch = curl_init();
@@ -164,23 +161,25 @@ class Request {
 
         // Execute request and catch response
         $response_data = curl_exec($ch);
-        $responsecode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
+        // Check if we have a valid response
         if ( !$response_data || curl_errno($ch) ) {
             throw new PinterestException('Error: execute() - cURL error: ' . curl_error($ch));
         }
 
-        // Decode the response
-        $response = json_decode($response_data, true);
+        // Initiate the response
+        $response = new Response($response_data, $ch);
 
-        if ( $responsecode >= 400 ) {
-            throw new PinterestException('Pinterest error (code: ' . $responsecode . ') with message: ' . $response["message"]);
+        // Check the response code
+        if ( $response->getResponseCode() >= 400 ) {
+            throw new PinterestException('Pinterest error (code: ' . $response->getResponseCode() . ') with message: ' . $response->message);
         }
 
+        // Close curl resource
         curl_close($ch);
-
-        // Return the data
-        return ($response["data"] == null) ? [] : $response["data"];
+        
+        // Return the response
+        return $response;
     }
 
 }

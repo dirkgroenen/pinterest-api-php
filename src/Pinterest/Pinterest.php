@@ -29,7 +29,7 @@ class Pinterest {
      * 
      * @var Transport\Request
      */
-    private $request;
+    public $request;
 
     /**
      * A array containing the cached endpoints

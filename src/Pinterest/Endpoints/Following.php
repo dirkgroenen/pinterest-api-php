@@ -26,8 +26,8 @@ class Following extends Endpoint {
      */
     public function users( array $data = [] )
     {
-        $users = $this->request->get( "me/following/users", $data );
-        return new Collection( $this->master, $users, "User" );
+        $response = $this->request->get( "me/following/users", $data );
+        return new Collection( $this->master, $response, "User" );
     }
 
     /**
@@ -40,8 +40,8 @@ class Following extends Endpoint {
      */
     public function boards( array $data = [] )
     {
-        $boards = $this->request->get( "me/following/boards", $data );
-        return new Collection( $this->master, $boards, "Board" );
+        $response = $this->request->get( "me/following/boards", $data );
+        return new Collection( $this->master, $response, "Board" );
     }
 
     /**
@@ -54,8 +54,8 @@ class Following extends Endpoint {
      */
     public function interests( array $data = [] )
     {
-        $interest = $this->request->get( "me/following/interests", $data );
-        return new Collection( $this->master, $interest, "Model" );
+        $response = $this->request->get( "me/following/interests", $data );
+        return new Collection( $this->master, $response, "Interest" );
     }
 
     /**
