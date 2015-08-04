@@ -25,7 +25,7 @@ class Users extends Endpoint {
      */
     public function me( array $data = [] )
     {
-        $user = $this->request->get("me", $data );
+        $response = $this->request->get("me", $data );
         return new User( $this->master, $user );
     }
 
@@ -40,8 +40,8 @@ class Users extends Endpoint {
      */
     public function find( $username, array $data = [] )
     {
-        $user = $this->request->get( sprintf("users/%s", $username), $data );
-        return new User( $this->master, $user );
+        $response = $this->request->get( sprintf("users/%s", $username), $data );
+        return new User( $this->master, $response );
     }
 
     /**
@@ -54,8 +54,8 @@ class Users extends Endpoint {
      */
     public function getMePins( array $data = [] )
     {
-        $pins = $this->request->get( "me/pins", $data );
-        return new Collection( $this->master, $pins, "Pin" );
+        $response = $this->request->get( "me/pins", $data );
+        return new Collection( $this->master, $response, "Pin" );
     }
 
     /**
@@ -69,8 +69,8 @@ class Users extends Endpoint {
     public function searchMePins( $query, array $data = [] )
     {
         $data["query"] = $query;
-        $pins = $this->request->get( "me/search/pins", $data );
-        return new Collection( $this->master, $pins, "Pin" );   
+        $response = $this->request->get( "me/search/pins", $data );
+        return new Collection( $this->master, $response, "Pin" );   
     }
 
     /**
@@ -85,8 +85,8 @@ class Users extends Endpoint {
     {
         $data["query"] = $query;
 
-        $boards = $this->request->get( "me/search/boards", $data );
-        return new Collection( $this->master, $boards, "Board" );   
+        $response = $this->request->get( "me/search/boards", $data );
+        return new Collection( $this->master, $response, "Board" );   
     }
 
     /**
@@ -99,8 +99,8 @@ class Users extends Endpoint {
      */
     public function getMeBoards( array $data = [] )
     {
-        $boards = $this->request->get( "me/boards", $data );
-        return new Collection( $this->master, $boards, "Board" );
+        $response = $this->request->get( "me/boards", $data );
+        return new Collection( $this->master, $response, "Board" );
     }
 
     /**
@@ -113,8 +113,8 @@ class Users extends Endpoint {
      */
     public function getMeLikes( array $data = [] )
     {
-        $likes = $this->request->get( "me/likes", $data );
-        return new Collection( $this->master, $likes, "Pin" );
+        $response = $this->request->get( "me/likes", $data );
+        return new Collection( $this->master, $response, "Pin" );
     }
 
 }

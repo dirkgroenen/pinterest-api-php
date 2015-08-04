@@ -53,7 +53,7 @@ class Model {
             $this->fill($modeldata);
         }
         else if( $modeldata instanceof \DirkGroenen\Pinterest\Transport\Response ){
-            $this->fill($response->data);    
+            $this->fill($modeldata->data);    
         }
     }
 
