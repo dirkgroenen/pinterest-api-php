@@ -10,6 +10,7 @@
 
 namespace DirkGroenen\Pinterest\Transport;
 
+use DirkGroenen\Pinterest\Utils\CurlBuilder;
 use DirkGroenen\Pinterest\Exceptions\PinterestException;
 
 class Request {
@@ -29,14 +30,20 @@ class Request {
     protected $access_token = null;
 
     /**
+     * Instance of the CurlBuilder class
+     * 
+     * @var CurlBuilder
+     */
+    private $curlbuilder;
+
+    /**
      * Constructor
      * 
-     * @param  string   $host  posibility to override the host
+     * @param  CurlBuilder   $curlbuilder
      */
-    public function __construct( $host = null )
+    public function __construct( CurlBuilder $curlbuilder )
     {
-        if($host != null)
-            $this->host = $host;
+        $this->curlbuilder = $curlbuilder;
     }
 
     /**
@@ -130,7 +137,7 @@ class Request {
         }
 
         // Setup CURL
-        $ch = new CurlBuilder();
+        $ch = $this->curlbuilder->create();
 
         // Set default options
         $ch->setOptions( array(

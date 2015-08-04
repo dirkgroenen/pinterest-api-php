@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace DirkGroenen\Pinterest\Transport;
+namespace DirkGroenen\Pinterest\Utils;
 
 use DirkGroenen\Pinterest\Exceptions\PinterestException;
 
@@ -27,7 +27,17 @@ class CurlBuilder {
     public function __construct()
     {
         $this->curl = curl_init();
-        return $this;
+    }
+
+    /**
+     * Return a new instance of the CurlBuilder
+     * 
+     * @access public
+     * @return CurlBuilder
+     */
+    public function create()
+    {
+        return new self();
     }
 
     /**

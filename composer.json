@@ -26,5 +26,10 @@
         "psr-4": {
             "DirkGroenen\\Pinterest\\": "src/Pinterest"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DirkGroenen\\Pinterest\\Tests\\": "tests/Pinterest"
+        }
     }
 }

@@ -10,6 +10,7 @@
 
 namespace DirkGroenen\Pinterest\Transport;
 
+use DirkGroenen\Pinterest\Utils\CurlBuilder;
 use DirkGroenen\Pinterest\Exceptions\PinterestException;
 
 class Response {
@@ -31,10 +32,11 @@ class Response {
     /**
      * Constructor
      * 
-     * @param  array   $response
+     * @param  array        $response
+     * @param  CurlBuilder  $curl
      * @param  curl    $curl
      */
-    public function __construct( $response, $curl )
+    public function __construct( $response, CurlBuilder $curl )
     {
         $this->response = $response;
         $this->curl = $curl;

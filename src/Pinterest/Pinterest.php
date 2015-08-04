@@ -11,6 +11,7 @@
 namespace DirkGroenen\Pinterest;
 
 use DirkGroenen\Pinterest\Auth\PinterestOAuth;
+use DirkGroenen\Pinterest\Utils\CurlBuilder;
 use DirkGroenen\Pinterest\Transport\Request;
 use DirkGroenen\Pinterest\Exceptions\InvalidEndpointException;
 
@@ -41,14 +42,18 @@ class Pinterest {
     /**
      * Constructor
      * 
-     * @param  string   $client_id
-     * @param  string   $client_secret
-     * @param  string   $redirect_uri
+     * @param  string       $client_id
+     * @param  string       $client_secret
+     * @param  CurlBuilder  $curlbuilder
+     * @param  string       $redirect_uri
      */
-    public function __construct($client_id, $client_secret)
+    public function __construct($client_id, $client_secret, $curlbuilder = null)
     {
+        if($curlbuilder == null)
+            $curlbuilder = new CurlBuilder();
+
         // Create new instance of Transport\Request
-        $this->request = new Request();
+        $this->request = new Request( $curlbuilder );
 
         // Create and set new instance of the OAuth class
         $this->auth = new PinterestOAuth($client_id, $client_secret, $this->request);
