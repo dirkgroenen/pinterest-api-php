@@ -130,41 +130,47 @@ class Request {
         }
 
         // Setup CURL
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $apiCall);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 90);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        $ch = new CurlBuilder();
+
+        // Set default options
+        $ch->setOptions( array(
+            CURLOPT_URL             => $apiCall,
+            CURLOPT_HTTPHEADER      => $headers,
+            CURLOPT_CONNECTTIMEOUT  => 20,
+            CURLOPT_TIMEOUT         => 90,
+            CURLOPT_RETURNTRANSFER  => true,
+            CURLOPT_SSL_VERIFYPEER  => false,
+            CURLOPT_SSL_VERIFYHOST  => false,
+            CURLOPT_HEADER          => false,
+            CURLINFO_HEADER_OUT     => true,
+            CURLOPT_FOLLOWLOCATION  => true
+        ) );
 
         switch ($method) {
             case 'POST':
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');  
-                curl_setopt($ch, CURLOPT_POST, count($parameters));
-                curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($parameters));
+                $ch->setOptions( array(
+                    CURLOPT_CUSTOMREQUEST   => 'POST',
+                    CURLOPT_POST            => count($parameters),
+                    CURLOPT_POSTFIELDS      => http_build_query($parameters)
+                ) );
                 break;
             case 'DELETE':
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
+                $ch->setOption( CURLOPT_CUSTOMREQUEST, "DELETE" );
                 break;
             case 'PATCH':
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');
+                $ch->setOption( CURLOPT_CUSTOMREQUEST, "PATCH" );
                 break;
             default:
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+                $ch->setOption( CURLOPT_CUSTOMREQUEST, "GET" );
                 break;
         }
 
         // Execute request and catch response
-        $response_data = curl_exec($ch);
+        $response_data = $ch->execute();
 
         // Check if we have a valid response
-        if ( !$response_data || curl_errno($ch) ) {
-            throw new PinterestException('Error: execute() - cURL error: ' . curl_error($ch));
+        if ( !$response_data || $ch->hasErrors() ) {
+            throw new PinterestException( 'Error: execute() - cURL error: ' . $ch->getErrors() );
         }
 
         // Initiate the response
@@ -172,11 +178,11 @@ class Request {
 
         // Check the response code
         if ( $response->getResponseCode() >= 400 ) {
-            throw new PinterestException('Pinterest error (code: ' . $response->getResponseCode() . ') with message: ' . $response->message);
+            throw new PinterestException( 'Pinterest error (code: ' . $response->getResponseCode() . ') with message: ' . $response->message );
         }
 
         // Close curl resource
-        curl_close($ch);
+        $ch->close();
         
         // Return the response
         return $response;

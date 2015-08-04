@@ -76,7 +76,7 @@ class Response {
      */
     public function getResponseCode()
     {
-        return curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
+        return $this->curl->getInfo(CURLINFO_HTTP_CODE);
     }
 
 }
