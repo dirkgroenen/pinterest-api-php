@@ -55,6 +55,6 @@ class Boards extends Endpoint {
     public function delete( $board_id )
     {
         $response = $this->request->delete( sprintf("boards/%s", $board_id) );
-        return new Board( $this->master, $response );
+        return true;
     }
 }
