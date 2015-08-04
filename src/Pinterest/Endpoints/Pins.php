@@ -26,8 +26,8 @@ class Pins extends Endpoint {
      */
     public function get( $pin_id, array $data = [] )
     {
-        $pin = $this->request->get( sprintf("pins/%s", $pin_id), $data );
-        return new Pin( $this->master, $pin );
+        $response = $this->request->get( sprintf("pins/%s", $pin_id), $data );
+        return new Pin( $this->master, $response );
     }
 
     /**
@@ -41,8 +41,8 @@ class Pins extends Endpoint {
      */
     public function fromBoard( $board_id, array $data = [] )
     {
-        $pins = $this->request->get( sprintf("boards/%s/pins", $board_id), $data );
-        return new Collection( $this->master, $pins, "Pin" );
+        $response = $this->request->get( sprintf("boards/%s/pins", $board_id), $data );
+        return new Collection( $this->master, $response, "Pin" );
     }
 
     /**
@@ -55,8 +55,8 @@ class Pins extends Endpoint {
      */
     public function create( array $data )
     {
-        $pin = $this->request->post( "pins", $data );
-        return new Pin( $this->master, $pin );
+        $response = $this->request->post( "pins", $data );
+        return new Pin( $this->master, $response );
     }
 
     /**
@@ -70,8 +70,8 @@ class Pins extends Endpoint {
      */
     public function update( $pin_id, array $data )
     {
-        $pin = $this->request->update( sprintf("pins/%s", $pin_id), $data );
-        return new Pin( $this->master, $pin );
+        $response = $this->request->update( sprintf("pins/%s", $pin_id), $data );
+        return new Pin( $this->master, $response );
     }
 
     /**
@@ -84,7 +84,7 @@ class Pins extends Endpoint {
      */
     public function delete( $pin_id )
     {
-        $pin = $this->request->delete( sprintf("pins/%s", $pin_id) );
-        return new Pin( $this->master, $pin );
+        $response = $this->request->delete( sprintf("pins/%s", $pin_id) );
+        return new Pin( $this->master, $response );
     }
 }
