@@ -62,14 +62,14 @@ class Users extends Endpoint {
      * Search in the user's pins
      * 
      * @param  string   $query
+     * @param  array    $data
      * @throws Exceptions/PinterestExceptions
      * @return Collection
      */
-    public function searchMePins( $query )
+    public function searchMePins( $query, array $data = [] )
     {
-        $pins = $this->request->get( "me/search/pins", array(
-            "query" => $query
-        ) );
+        $data["query"] = $query;
+        $pins = $this->request->get( "me/search/pins", $data );
         return new Collection( $this->master, $pins, "Pin" );   
     }
 
@@ -77,14 +77,15 @@ class Users extends Endpoint {
      * Search in the user's boards
      * 
      * @param  string   $query
+     * @param  array    $data
      * @throws Exceptions/PinterestExceptions
      * @return Collection
      */
-    public function searchMeBoards( $query )
+    public function searchMeBoards( $query, array $data = [] )
     {
-        $boards = $this->request->get( "me/search/boards", array(
-            "query" => $query
-        ) );
+        $data["query"] = $query;
+
+        $boards = $this->request->get( "me/search/boards", $data );
         return new Collection( $this->master, $boards, "Board" );   
     }
 
