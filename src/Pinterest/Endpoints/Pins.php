@@ -80,11 +80,11 @@ class Pins extends Endpoint {
      * @access public
      * @param  string   $pin_id
      * @throws Exceptions/PinterestExceptions
-     * @return Models\Pin
+     * @return boolean
      */
     public function delete( $pin_id )
     {
         $response = $this->request->delete( sprintf("pins/%s", $pin_id) );
-        return new Pin( $this->master, $response );
+        return true;
     }
 }

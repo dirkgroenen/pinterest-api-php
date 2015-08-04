@@ -135,12 +135,11 @@ class Model {
     /**
      * Convert the model instance to JSON
      *
-     * @param  int  $options
      * @return string
      */
-    public function toJson($options = 0)
+    public function toJson()
     {
-        return json_encode($this->toArray(), $options);
+        return json_encode($this->toArray(), true);
     }
 
     /**
