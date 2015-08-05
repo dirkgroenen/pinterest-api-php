@@ -7,4 +7,9 @@ php:
 before_script:
     - composer self-update
     - composer install --prefer-source --no-interaction
-script: phpunit
+script: 
+    - mkdir build/logs
+    - phpunit --coverage-clover build/logs/clover.xml
+
+after_script:
+    - php vendor/bin/coveralls -v
