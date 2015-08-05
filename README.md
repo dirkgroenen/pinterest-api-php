@@ -1,6 +1,252 @@
-Pinterest API - PHP  [![](https://travis-ci.org/dirkgroenen/Pinterest-API-PHP.svg)](https://travis-ci.org/dirkgroenen/Pinterest-API-PHP)
+![](http://i.imgur.com/cacgQlq.png) Pinterest API - PHP  [![](https://travis-ci.org/dirkgroenen/Pinterest-API-PHP.svg)](https://travis-ci.org/dirkgroenen/Pinterest-API-PHP)
 -------------------
 
-PHP wrapper for the official Pinterest API which as been released lately. 
+A PHP wrapper for the official [Pinterest API](https://dev.pinterest.com).
 
 **Work in progress**
+
+# Requirements
+- PHP 5.4 or higher
+- cURL
+- Registered Pinterest App
+
+# Get started
+To use the Pinterest API you have to register yourself as a developer and [create](https://dev.pinterest.com/apps/) an application. After you've created your app you will receive a `app_id` and `app_secret`. 
+
+> The terms `client_id` and `client_secret` are in this case `app_id` and `app_secret`.
+
+## Installation
+The Pinterest API wrapper is available on Composer.
+
+```
+composer require dirkgroenen/Pinterest-API-PHP
+```
+
+## Simple Example 
+```php
+use DirkGroenen\Pinterest\Pinterest;
+
+#pinterest = new Pinterest(CLIENT_ID, CLIENT_SECRET);
+```
+
+After you have initialized the class you can get a login URL:
+
+```php
+$loginurl = $pinterest->auth->getLoginUrl(CALLBACK_URL, array('read_public'));
+echo '<a href=' . $loginurl . '>Authorize Pinterest</a>';
+```
+
+Check the [Pinterest documentation](https://dev.pinterest.com/docs/api/overview/#scopes) for the available scopes. 
+
+## Get the user's profile
+
+To get the profile of the current logged in user you can use the `Users::me(<array>);` method. 
+
+```php
+$me = $pinterest->users->me();
+echo $me;
+```
+
+# Models
+The API wrapper will parse all data through it's corresponding model. This results in the possibility to (for example) directly `echo` your model into a JSON string. 
+
+Models also show the available fields (which are also described in the Pinterest documentation). By default, not all fields are returned, so this can help you when providing extra fields to the request. 
+
+## Available models 
+
+### User
+- id
+- username
+- first_name
+- last_name
+- bio
+- created_at
+- counts
+- image[original,large,medium,small]
+
+### Pin
+- id
+- link
+- creator
+- board
+- created_at
+- noet
+- color
+- counts
+- media
+- attribution 
+- image
+- metadata
+
+### Board
+- id
+- name
+- url
+- description
+- creator
+- created_at
+- counts
+- image
+
+### Interest
+- id
+- name
+
+## Retrieving extra fields
+If you want more fields you can specify these in the `$data` array. Example:
+
+```php
+$pinterest->users->me();
+```
+
+Response:
+
+```json
+{
+    id: "503066358284560467",
+    username: null,
+    first_name: "Dirk ",
+    last_name: "Groenen",
+    bio: null,
+    created_at: null,
+    counts: null,
+    image: null
+}
+```
+
+By default, not all fields are returned. The returned data from the API has been parsed into the `User` model. Every field in this model can be filled by parsing an extra `$data` array with the key `fields`. Say we want the user's username, first_name, last_name and image (small and large): 
+
+```php
+$pinterest->users->me(array(
+    'fields' => 'username,first_name,last_name,image[small,large]'
+));
+```
+
+The response will now be: 
+
+```json
+{
+    id: "503066358284560467",
+    username: "dirkgroenen",
+    first_name: "Dirk ",
+    last_name: "Groenen",
+    bio: null,
+    created_at: null,
+    counts: null,
+    image: {
+        small: {
+                url: "http://media-cache-ak0.pinimg.com/avatars/dirkgroenen_1438089829_30.jpg",
+                width: 30,
+                height: 30
+            },
+            large: {
+                url: "http://media-cache-ak0.pinimg.com/avatars/dirkgroenen_1438089829_280.jpg",
+                width: 280,
+                height: 280
+            }
+        }
+    }
+}
+```
+
+# Available methods
+
+> Every method containing a `data` array can be filled with extra data. This can be for example extra fields or pagination. 
+
+## Authentication 
+
+The methods below are available through `$pinterest->auth`.
+
+### Get login URL
+`getLoginUrl(string $redirect_uri, array $scopes);`
+
+```php
+$pinterest->auth->getLoginUrl("https://pinterest.dev/callback.php", array("read_public"));
+```
+
+Check the [Pinterest documentation](https://dev.pinterest.com/docs/api/overview/#scopes) for the available scopes. 
+
+** At this moment the Pinterest API returns the user's `access_token` in the query string on the callback page. The documentation states that this should be a code, so the next method has been writing assuming this will be changed somewhere in the future **
+
+### Get access_token
+`getOAuthToken(string $code );`
+
+```php
+$pinterest->auth->getOAuthToken($code);
+```
+
+### Set access_token
+`setOAuthToken(string $access_token );`
+
+```php
+$pinterest->auth->setOAuthToken($access_token);
+```
+
+## Users
+
+The methods below are available through `$pinterest->users`.
+
+> You also cannot access a user’s boards or Pins who has not authorized your app.
+
+### Get logged in user
+`me( array $data );`
+
+```php
+$pinterest->users->me();
+```
+
+Returns: `User`
+
+### Find a user
+`find( string $username_or_id );`
+
+```php
+$pinterest->users->find('dirkgroenen');
+```
+
+Returns: `User`
+
+### Get user's pins
+`getMePins( array $data );`
+
+```php
+$pinterest->users->getMePins();
+```
+
+Returns: `Collection<Pin>`
+
+### Search in user's pins
+`getMePins( string $query, array $data );`
+
+```php
+$pinterest->users->searchMePins("cats");
+```
+
+Returns: `Collection<Pin>`
+
+### Search in user's boards
+`searchMeBoards( string $query, array $data );`
+
+```php
+$pinterest->users->searchMeBoards("cats");
+```
+
+Returns: `Collection<Board>`
+
+### Get user's boards
+`getMeBoards( array $data );`
+
+```php
+$pinterest->users->getMeBoards();
+```
+
+Returns: `Collection<Board>`
+
+### Get user's likes
+`getMeLikes( array $data );`
+
+```php
+$pinterest->users->getMeLikes();
+```
+
+Returns: `Collection<Pin>`
