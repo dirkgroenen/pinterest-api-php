@@ -158,9 +158,12 @@ class Request {
                 $ch->setOptions( array(
                     CURLOPT_CUSTOMREQUEST   => 'POST',
                     CURLOPT_POST            => count($parameters),
-                    CURLOPT_POSTFIELDS      => $parameters,
-                    CURLOPT_SAFE_UPLOAD     => false
+                    CURLOPT_POSTFIELDS      => $parameters
                 ) );
+
+                if(defined(CURLOPT_SAFE_UPLOAD))
+                    $ch->setOption( CURLOPT_SAFE_UPLOAD, false );
+
                 break;
             case 'DELETE':
                 $ch->setOption( CURLOPT_CUSTOMREQUEST, "DELETE" );
