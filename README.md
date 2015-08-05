@@ -75,14 +75,14 @@ Response:
 
 ```json
 {
-    id: "503066358284560467",
-    username: null,
-    first_name: "Dirk ",
-    last_name: "Groenen",
-    bio: null,
-    created_at: null,
-    counts: null,
-    image: null
+    "id": "503066358284560467",
+    "username": null,
+    "first_name": "Dirk ",
+    "last_name": "Groenen",
+    "bio": null,
+    "created_at": null,
+    "counts": null,
+    "image": null
 }
 ```
 
@@ -98,23 +98,23 @@ The response will now be:
 
 ```json
 {
-    id: "503066358284560467",
-    username: "dirkgroenen",
-    first_name: "Dirk ",
-    last_name: "Groenen",
-    bio: null,
-    created_at: null,
-    counts: null,
-    image: {
-        small: {
-                url: "http://media-cache-ak0.pinimg.com/avatars/dirkgroenen_1438089829_30.jpg",
-                width: 30,
-                height: 30
+    "id": "503066358284560467",
+    "username": "dirkgroenen",
+    "first_name": "Dirk ",
+    "last_name": "Groenen",
+    "bio": null,
+    "created_at": null,
+    "counts": null,
+    "image": {
+        "small": {
+                "url": "http://media-cache-ak0.pinimg.com/avatars/dirkgroenen_1438089829_30.jpg",
+                "width": 30,
+                "height": 30
             },
-            large: {
-                url: "http://media-cache-ak0.pinimg.com/avatars/dirkgroenen_1438089829_280.jpg",
-                width: 280,
-                height: 280
+            "large": {
+                "url": "http://media-cache-ak0.pinimg.com/avatars/dirkgroenen_1438089829_280.jpg",
+                "width": 280,
+                "height": 280
             }
         }
     }
