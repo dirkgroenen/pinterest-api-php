@@ -138,7 +138,7 @@ $pinterest->auth->getLoginUrl("https://pinterest.dev/callback.php", array("read_
 
 Check the [Pinterest documentation](https://dev.pinterest.com/docs/api/overview/#scopes) for the available scopes. 
 
-> **At this moment the Pinterest API returns the user's `access_token` in the query string on the callback page. The documentation states that this should be a code, so the next method has been writing assuming this will be changed somewhere in the future
+> At this moment the Pinterest API returns the user's `access_token` in the query string on the callback page. The documentation states that this should be a code, so the next method has been writing assuming this will be changed somewhere in the future
 
 ### Get access_token
 `getOAuthToken(string $code );`
