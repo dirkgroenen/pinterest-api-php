@@ -64,9 +64,7 @@ class CurlBuilder {
      */
     public function setOptions( array $options = [] )
     {
-        foreach($options as $option => $value){
-            $this->setOption( $option, $value );
-        }
+        curl_setopt_array($this->curl, $options);
 
         return $this;
     }

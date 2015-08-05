@@ -55,6 +55,15 @@ class Pins extends Endpoint {
      */
     public function create( array $data )
     {
+        if( array_key_exists("image", $data) ){
+            if(class_exists("\CURLFile")){
+                $data["image"] = new \CURLFile($data['image']);
+            }
+            else{
+                $data["image"] = '@' . $data['image'];  
+            }
+        }
+
         $response = $this->request->post( "pins", $data );
         return new Pin( $this->master, $response );
     }

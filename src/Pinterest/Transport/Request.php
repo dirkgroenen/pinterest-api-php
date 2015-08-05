@@ -132,7 +132,7 @@ class Request {
         if($this->access_token != null){
             $headers = array_merge($headers, array(
                 "Authorization: Bearer " . $this->access_token,
-                "Content-Type: application/x-www-form-urlencoded"
+                "Content-ype: multipart/form-data",
             ));
         }
 
@@ -158,7 +158,8 @@ class Request {
                 $ch->setOptions( array(
                     CURLOPT_CUSTOMREQUEST   => 'POST',
                     CURLOPT_POST            => count($parameters),
-                    CURLOPT_POSTFIELDS      => http_build_query($parameters)
+                    CURLOPT_POSTFIELDS      => $parameters,
+                    CURLOPT_SAFE_UPLOAD     => false
                 ) );
                 break;
             case 'DELETE':
@@ -172,6 +173,7 @@ class Request {
                 break;
         }
 
+        
         // Execute request and catch response
         $response_data = $ch->execute();
 
