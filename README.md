@@ -26,7 +26,7 @@ composer require dirkgroenen/Pinterest-API-PHP
 ```php
 use DirkGroenen\Pinterest\Pinterest;
 
-#pinterest = new Pinterest(CLIENT_ID, CLIENT_SECRET);
+$pinterest = new Pinterest(CLIENT_ID, CLIENT_SECRET);
 ```
 
 After you have initialized the class you can get a login URL:
@@ -54,39 +54,11 @@ Models also show the available fields (which are also described in the Pinterest
 
 ## Available models 
 
-### User
-- id
-- username
-- first_name
-- last_name
-- bio
-- created_at
-- counts
-- image[original,large,medium,small]
+### [User](https://dev.pinterest.com/docs/api/users/#user-object)
 
-### Pin
-- id
-- link
-- creator
-- board
-- created_at
-- noet
-- color
-- counts
-- media
-- attribution 
-- image
-- metadata
+### [Pin](https://dev.pinterest.com/docs/api/pins/#pin-object)
 
-### Board
-- id
-- name
-- url
-- description
-- creator
-- created_at
-- counts
-- image
+### [Board](https://dev.pinterest.com/docs/api/boards/#board-object)
 
 ### Interest
 - id
