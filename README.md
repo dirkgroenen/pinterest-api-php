@@ -121,6 +121,45 @@ The response will now be:
 }
 ```
 
+# Collection
+
+When the API returns multiple models (for instance when your requesting the pins from a board) the wrapper will put those into a `Collection`.
+
+Collections can, like models, directly output a json string when you echo them.
+
+Available methods for the collection class:
+
+## Get all items
+`all()`
+
+```php
+$pins = $pinterest->users->getMeLikes();
+$pins->all();
+```
+
+Returns: `array<Model>`
+
+## Get item at index
+`all()`
+
+```php
+$pins = $pinterest->users->getMeLikes();
+$pins->get(0);
+```
+
+Returns: `Model`
+
+## Check if collection has next page
+
+`hasNextPage()`
+
+```php
+$pins = $pinterest->users->getMeLikes();
+$pins->hasNextPage();
+```
+
+Returns: `Boolean`
+
 # Available methods
 
 > Every method containing a `data` array can be filled with extra data. This can be for example extra fields or pagination. 
