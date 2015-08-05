@@ -222,3 +222,195 @@ $pinterest->users->getMeLikes();
 ```
 
 Returns: `Collection<Pin>`
+
+## Boards
+
+The methods below are available through `$pinterest->boards`.
+
+### Get board
+`get( string $board_id, array $data );`
+
+```php
+$pinterest->boards->get("503066289565421201");
+```
+
+Returns: `Board`
+
+### Create board
+`create( array $data );`
+
+```php
+$pinterest->boards->create(array(
+    "name"          => "Test board from API",
+    "description"   => "Test Board From API Test"
+));
+```
+
+Returns: `Board`
+
+### Delete board
+`delete( string $board_id, array $data );`
+
+```php
+$pinterest->boards->delete("503066289565421201");
+```
+
+Returns: `True|PinterestException`
+
+## Pins
+
+The methods below are available through `$pinterest->pins`.
+
+### Get pin
+`get( string $pin_id, array $data );`
+
+```php
+$pinterest->pins->get("181692166190246650");
+```
+
+Returns: `Pin`
+
+### Get pins from board
+`fromBoard( string $board_id, array $data );`
+
+```php
+$pinterest->pins->fromBoard("503066289565421201");
+```
+
+Returns: `Collection<Pin>`
+
+### Create pin
+`create( array $data );`
+
+Creating a pin with an image hosted somewhere else:
+
+```php
+$pinterest->pins->create(array(
+    "note"          => "Test board from API",
+    "image_url"     => "https://download.unsplash.com/photo-1438216983993-cdcd7dea84ce",
+    "board"         => "503066289565421201"
+));
+```
+
+Creating a pin with an image located on the server:
+
+```php
+$pinterest->pins->create(array(
+    "note"          => "Test board from API",
+    "image"         => "/path/to/image.png",
+    "board"         => "503066289565421201"
+));
+```
+
+Returns: `Pin`
+
+### Update pin
+> According to the Pinterest documentation this endpoint exists, but for some reason their API is returning an error at the moment of writing.
+
+`update( string $pin_id, array $data );`
+
+```php
+$pinterest->pins->update("181692166190246650");
+```
+
+Returns: `Pin`
+
+### Delete pin
+`delete( string $pin_id, array $data );`
+
+```php
+$pinterest->pins->delete("181692166190246650");
+```
+
+Returns: `True|PinterestException`
+
+## Following
+
+The methods below are available through `$pinterest->following`.
+
+### Following users
+`users( array $data );`
+
+```php
+$pinterest->following->users();
+```
+
+Returns: `Collection<User>`
+
+### Following boards
+`boards( array $data );`
+
+```php
+$pinterest->following->boards();
+```
+
+Returns: `Collection<Board>`
+
+### Following interests/categories
+`interests( array $data );`
+
+```php
+$pinterest->following->interests();
+```
+
+Returns: `Collection<Interest>`
+
+### Follow an user
+`followUser( string $username_or_id );`
+
+```php
+$pinterest->following->followUser("dirkgroenen");
+```
+
+Returns: `True|PinterestException`
+
+### Unfollow an user
+`unfollowUser( string $username_or_id );`
+
+```php
+$pinterest->following->unfollowUser("dirkgroenen");
+```
+
+Returns: `True|PinterestException`
+
+### Follow a board
+`followBoard( string $board_id );`
+
+```php
+$pinterest->following->followBoard("503066289565421201");
+```
+
+Returns: `True|PinterestException`
+
+### Unfollow a board
+`unfollowBoard( string $board_id );`
+
+```php
+$pinterest->following->unfollowBoard("503066289565421201");
+```
+
+Returns: `True|PinterestException`
+
+### Follow an interest
+
+> According to the Pinterest documentation this endpoint exists, but for some reason their API is returning an error at the moment.
+
+`followInterest( string $interest );`
+
+```php
+$pinterest->following->followInterest("architecten-911112299766");
+```
+
+Returns: `True|PinterestException`
+
+### Unfollow an interest
+
+> According to the Pinterest documentation this endpoint exists, but for some reason their API is returning an error at the moment.
+
+`unfollowInterest( string $interest );`
+
+```php
+$pinterest->following->unfollowInterest("architecten-911112299766");
+```
+
+Returns: `True|PinterestException`
