@@ -15,7 +15,7 @@ use DirkGroenen\Pinterest\Exceptions\PinterestException;
 use \DirkGroenen\Pinterest\Pinterest;
 use \DirkGroenen\Pinterest\Transport\Response;
 
-class Collection {
+class Collection implements \JsonSerializable, \ArrayAccess, \IteratorAggregate{
 
     /**
      * The items in the collection
@@ -133,7 +133,8 @@ class Collection {
 
     /**
      * Return the item at the given index
-     * 
+     *
+     * @access public
      * @param  int $index
      * @return Model
      */
@@ -145,6 +146,7 @@ class Collection {
     /**
      * Convert the collection to an array
      *
+     * @access public
      * @return array
      */
     public function toArray()
@@ -164,6 +166,7 @@ class Collection {
     /**
      * Convert the collection to JSON
      *
+     * @access public
      * @return string
      */
     public function toJson()
@@ -172,13 +175,81 @@ class Collection {
     }
 
     /**
+     * Convert the object into something JSON serializable.
+     *
+     * @access public
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
+    }
+
+    /**
      * Convert the collection to its string representation
      *
+     * @access public
      * @return string
      */
     public function __toString()
     {
         return $this->toJson();
+    }
+
+    /**
+     * Determine if the given item exists.
+     *
+     * @access public
+     * @param  mixed  $offset
+     * @return bool
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->items[$offset]);
+    }
+    /**
+     * Get the value for a given offset.
+     * 
+     * @access public
+     * @param  mixed  $offset
+     * @return mixed
+     */
+    public function offsetGet($offset)
+    {
+        return $this->items[$offset];
+    }
+    /**
+     * Set the value for a given offset.
+     * 
+     * @access public
+     * @param  mixed  $offset
+     * @param  mixed  $value
+     * @return void
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->items[$offset] = $value;
+    }
+    /**
+     * Unset the value for a given offset.
+     *
+     * @access public
+     * @param  mixed  $offset
+     * @return void
+     */
+    public function offsetUnset($offset)
+    {
+        unset($this->items[$offset]);
+    }
+
+    /**
+     * Make the collection items iteratable
+     * 
+     * @access public
+     * @return ArrayIterator
+     */
+    public function getIterator() {
+        return new \ArrayIterator($this->items);
     }
 
 }

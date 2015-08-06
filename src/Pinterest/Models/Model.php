@@ -14,7 +14,7 @@ use DirkGroenen\Pinterest\Exceptions\PinterestException;
 use DirkGroenen\Pinterest\Pinterest\Transport\Response;
 use DirkGroenen\Pinterest\Pinterest;
 
-class Model {
+class Model implements \JsonSerializable {
 
     /**
      * The model's attributes
@@ -119,6 +119,7 @@ class Model {
     /**
      * Convert the model instance to an array
      *
+     * @access public
      * @return array
      */
     public function toArray()
@@ -134,7 +135,8 @@ class Model {
 
     /**
      * Convert the model instance to JSON
-     *
+     * 
+     * @access public
      * @return string
      */
     public function toJson()
@@ -143,8 +145,20 @@ class Model {
     }
 
     /**
-     * Convert the model to its string representation
+     * Convert the object into something JSON serializable.
      *
+     * @access public
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
+    }
+
+    /**
+     * Convert the model to its string representation
+     * 
+     * @access public
      * @return string
      */
     public function __toString()

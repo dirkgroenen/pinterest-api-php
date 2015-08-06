@@ -125,7 +125,7 @@ The response will now be:
 
 When the API returns multiple models (for instance when your requesting the pins from a board) the wrapper will put those into a `Collection`.
 
-Collections can, like models, directly output a json string when you echo them.
+The output of a collection contains the `data` and page `key`. If you echo the collection you will see a json encoded output containing both of these. Using the collection as an array will only return the items from `data`.
 
 Available methods for the collection class:
 
@@ -140,7 +140,7 @@ $pins->all();
 Returns: `array<Model>`
 
 ## Get item at index
-`all()`
+`get( int $index )`
 
 ```php
 $pins = $pinterest->users->getMeLikes();
@@ -453,3 +453,7 @@ $pinterest->following->unfollowInterest("architecten-911112299766");
 ```
 
 Returns: `True|PinterestException`
+
+# Examples
+
+Please check [need to specify] for an example.
