@@ -3,7 +3,7 @@
 
 A PHP wrapper for the official [Pinterest API](https://dev.pinterest.com).
 
-**Work in progress**
+**Still a work in progress**
 
 # Requirements
 - PHP 5.4 or higher
