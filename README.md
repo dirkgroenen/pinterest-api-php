@@ -456,4 +456,4 @@ Returns: `True|PinterestException`
 
 # Examples
 
-Please check [need to specify] for an example.
+Please check [https://bitlabs.nl/pinterest](https://bitlabs.nl/pinterest) for an example project.
