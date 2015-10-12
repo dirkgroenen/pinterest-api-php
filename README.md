@@ -341,6 +341,17 @@ $pinterest->pins->create(array(
 ));
 ```
 
+Creating a pin with a base64 encoded image:
+
+```php
+$pinterest->pins->create(array(
+    "note"          => "Test board from API",
+    "image_base64"  => "[base64 encoded image]",
+    "board"         => "503066289565421201"
+));
+```
+
+
 Returns: `Pin`
 
 ### Update pin
