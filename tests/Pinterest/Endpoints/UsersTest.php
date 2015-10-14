@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2015 Dirk Groenen 
+ * Copyright 2015 Dirk Groenen
  *
  * (c) Dirk Groenen <dirk@bitlabs.nl>
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -17,7 +17,7 @@ class UsersTest extends \PHPUnit_Framework_TestCase{
 
     /**
      * The Pinterest instance
-     * 
+     *
      * @var Pinterest
      */
     private $pinterest;
@@ -30,7 +30,7 @@ class UsersTest extends \PHPUnit_Framework_TestCase{
     public function setUp()
     {
         $curlbuilder = CurlBuilderMock::create( $this );
-        
+
         // Setup Pinterest
         $this->pinterest = new Pinterest("0", "0", $curlbuilder);
         $this->pinterest->auth->setOAuthToken( "0" );
@@ -79,7 +79,7 @@ class UsersTest extends \PHPUnit_Framework_TestCase{
             "fields"    => "image[original,large,small]"
         ));
 
-        $this->assertEquals( $response->get(0)->image['small']['url'] , "http://media-cache-ak0.pinimg.com/30x30/e1/4e/45/e14e4532c516e2c532744a6ad6d2d2d0.jpg" );   
+        $this->assertEquals( $response->get(0)->image['small']['url'] , "http://media-cache-ak0.pinimg.com/30x30/e1/4e/45/e14e4532c516e2c532744a6ad6d2d2d0.jpg" );
     }
 
     public function testSearchMePins()
@@ -98,15 +98,16 @@ class UsersTest extends \PHPUnit_Framework_TestCase{
         $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Board", $response->get(0) );
     }
 
-    public function getMeBoards()
+    public function testGetMeBoards()
     {
         $response = $this->pinterest->users->getMeBoards();
 
         $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Collection", $response );
         $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Board", $response->get(0) );
+        $this->assertEquals( $response->pagination, false );
     }
 
-    public function getMeLikes()
+    public function testGetMeLikes()
     {
         $response = $this->pinterest->users->getMeLikes();
 
