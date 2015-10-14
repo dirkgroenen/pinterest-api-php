@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
- * Copyright 2015 Dirk Groenen 
+ * Copyright 2015 Dirk Groenen
  *
  * (c) Dirk Groenen <dirk@bitlabs.nl>
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -19,42 +19,42 @@ class Collection implements \JsonSerializable, \ArrayAccess, \IteratorAggregate{
 
     /**
      * The items in the collection
-     * 
+     *
      * @var array
      */
     private $items = [];
 
     /**
      * The model of each collection item
-     * 
+     *
      * @var Model
      */
     private $model;
 
     /**
      * Stores the pagination object
-     * 
+     *
      * @var array
      */
-    private $pagination;
+    public $pagination;
 
     /**
      * Instance of Pinterest master class
-     * 
+     *
      * @var Pinterest
      */
     private $master;
 
     /**
      * Response instance
-     * 
+     *
      * @var Response
      */
     private $response;
 
     /**
      * Construct
-     * 
+     *
      * @access public
      * @param  Pinterest            $master
      * @param  array|Response       $items
@@ -70,7 +70,7 @@ class Collection implements \JsonSerializable, \ArrayAccess, \IteratorAggregate{
         if(!class_exists("\\DirkGroenen\\Pinterest\\Models\\" . $this->model))
             throw new InvalidModelException;
 
-        // Get items and response instance 
+        // Get items and response instance
         if( is_array($items) ){
             $this->response = null;
             $this->items = $items;
@@ -80,19 +80,24 @@ class Collection implements \JsonSerializable, \ArrayAccess, \IteratorAggregate{
             $this->items = $items->data;
         }
         else{
-           throw new PinterestException("$items needs to be an instance of Transport\Response or an array."); 
+           throw new PinterestException("$items needs to be an instance of Transport\Response or an array.");
         }
 
         // Transform the raw collection data to models
         $this->items = $this->buildCollectionModels($this->items);
 
         // Add pagination object
-        $this->pagination = $this->response->page;
+        if( isset($this->response->page) ){
+            $this->pagination = $this->response->page;
+        }
+        else{
+            $this->pagination = false;
+        }
     }
 
     /**
      * Get all items from the collection
-     * 
+     *
      * @access public
      * @return array
      */
@@ -103,7 +108,7 @@ class Collection implements \JsonSerializable, \ArrayAccess, \IteratorAggregate{
 
     /**
      * Transform each raw item into a model
-     * 
+     *
      * @access private
      * @param array $items
      * @return array
@@ -122,7 +127,7 @@ class Collection implements \JsonSerializable, \ArrayAccess, \IteratorAggregate{
 
     /**
      * Check if their is a next page available
-     * 
+     *
      * @access public
      * @return boolean
      */
@@ -152,12 +157,12 @@ class Collection implements \JsonSerializable, \ArrayAccess, \IteratorAggregate{
     public function toArray()
     {
         $items = [];
-        
+
         foreach($this->items as $item){
             $items[] = $item->toArray();
-        }        
+        }
 
-        return array(   
+        return array(
             "data" => $items,
             "page"  => $this->pagination
         );
@@ -209,7 +214,7 @@ class Collection implements \JsonSerializable, \ArrayAccess, \IteratorAggregate{
     }
     /**
      * Get the value for a given offset.
-     * 
+     *
      * @access public
      * @param  mixed  $offset
      * @return mixed
@@ -220,7 +225,7 @@ class Collection implements \JsonSerializable, \ArrayAccess, \IteratorAggregate{
     }
     /**
      * Set the value for a given offset.
-     * 
+     *
      * @access public
      * @param  mixed  $offset
      * @param  mixed  $value
@@ -244,7 +249,7 @@ class Collection implements \JsonSerializable, \ArrayAccess, \IteratorAggregate{
 
     /**
      * Make the collection items iteratable
-     * 
+     *
      * @access public
      * @return ArrayIterator
      */
