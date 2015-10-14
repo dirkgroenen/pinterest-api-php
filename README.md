@@ -1,4 +1,4 @@
-![](http://i.imgur.com/cacgQlq.png) Pinterest API - PHP  [![](https://travis-ci.org/dirkgroenen/Pinterest-API-PHP.svg)](https://travis-ci.org/dirkgroenen/Pinterest-API-PHP)
+![](http://i.imgur.com/cacgQlq.png) Pinterest API - PHP  [![](https://travis-ci.org/dirkgroenen/Pinterest-API-PHP.svg)](https://travis-ci.org/dirkgroenen/Pinterest-API-PHP) ![](https://img.shields.io/packagist/v/dirkgroenen/pinterest-api-php.svg)
 -------------------
 
 A PHP wrapper for the official [Pinterest API](https://dev.pinterest.com).
