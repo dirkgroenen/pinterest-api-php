@@ -17,6 +17,6 @@ class Pin extends Model {
      * 
      * @var array
      */
-    protected $fillable = ["id", "link", "creator", "board", "created_at", "note", "color", "counts", "media", "attribution", "image", "metadata"];
+    protected $fillable = ["id", "link", "url", "creator", "board", "created_at", "note", "color", "counts", "media", "attribution", "image", "metadata"];
 
 }
