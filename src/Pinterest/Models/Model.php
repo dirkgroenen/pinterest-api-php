@@ -89,6 +89,17 @@ class Model implements \JsonSerializable {
     }
 
     /**
+     * Check if the model's attribute is set
+     *
+     * @param $key
+     * @return bool
+     */
+    public function __isset($key)
+    {
+        return array_key_exists($key, $this->attributes);
+    }
+
+    /**
      * Fill the attributes
      *
      * @access private
