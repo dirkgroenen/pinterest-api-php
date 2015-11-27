@@ -115,4 +115,12 @@ class UsersTest extends \PHPUnit_Framework_TestCase{
         $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Pin", $response->get(0) );
     }
 
+    public function testGetMeFollowers()
+    {
+        $response = $this->pinterest->users->getMeFollowers();
+
+        $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Collection", $response );
+        $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Pin", $response->get(0) );
+    }
+
 }
