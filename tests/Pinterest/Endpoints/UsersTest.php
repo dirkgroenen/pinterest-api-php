@@ -120,7 +120,7 @@ class UsersTest extends \PHPUnit_Framework_TestCase{
         $response = $this->pinterest->users->getMeFollowers();
 
         $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Collection", $response );
-        $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Pin", $response->get(0) );
+        $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\User", $response->get(0) );
     }
 
 }
