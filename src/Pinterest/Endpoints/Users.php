@@ -122,13 +122,13 @@ class Users extends Endpoint {
      *
      * @access public
      * @param array     $data
-     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
+     * @throws Exceptions\PinterestException
      * @return Collection
      */
     public function getMeFollowers(array $data = [])
     {
         $response = $this->request->get( "me/followers", $data );
-        return new Collection( $this->master, $response, "Pin" );
+        return new Collection( $this->master, $response, "User" );
     }
 
 }

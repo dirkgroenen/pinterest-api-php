@@ -262,6 +262,15 @@ $pinterest->users->getMeLikes();
 
 Returns: `Collection<Pin>`
 
+### Get user's followers
+`getMeLikes( array $data );`
+
+```php
+$pinterest->users->getMeFollowers();
+```
+
+Returns: `Collection<Pin>`
+
 ## Boards
 
 The methods below are available through `$pinterest->boards`.
