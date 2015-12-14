@@ -87,7 +87,7 @@ class Collection implements \JsonSerializable, \ArrayAccess, \IteratorAggregate{
         $this->items = $this->buildCollectionModels($this->items);
 
         // Add pagination object
-        if( isset($this->response->page) && !empty($this->response->page['next']) ){
+        if( is_array($this->response->page) && !empty($this->response->page['next']) ){
             $this->pagination = $this->response->page;
         }
         else{
