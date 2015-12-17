@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
- * Copyright 2015 Dirk Groenen 
+ * Copyright 2015 Dirk Groenen
  *
  * (c) Dirk Groenen <dirk@bitlabs.nl>
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -14,32 +14,32 @@ use DirkGroenen\Pinterest\Transport\Request;
 use DirkGroenen\Pinterest\Exceptions\PinterestException;
 
 class PinterestOAuth {
-    
+
     /**
      * The application ID
-     * 
+     *
      * @var string
      */
     private $client_id;
 
     /**
      * The app secret
-     * 
+     *
      * @var string
      */
     private $client_secret;
 
     /**
-     * Random string indicating the state 
+     * Random string indicating the state
      * to prevent spoofing
-     * 
+     *
      * @var void
      */
     private $state;
 
     /**
      * A reference to the request instance
-     * 
+     *
      * @var Transport\Request
      */
     private $request;
@@ -51,7 +51,7 @@ class PinterestOAuth {
 
     /**
      * Construct
-     * 
+     *
      * @param  string   $client_id
      * @param  string   $client_secret
      */
@@ -69,16 +69,16 @@ class PinterestOAuth {
 
     /**
      * Returns the login url
-     * 
+     *
      * @access public
      * @param  array    $scopes
      * @param  string   $redirect_uri
      * @return string
      */
-    public function getLoginUrl( $redirect_uri, $scopes = array("read_public") )
+    public function getLoginUrl( $redirect_uri, $scopes = array("read_public"), $response_type = "code" )
     {
         $queryparams = array(
-            "response_type"     => "token",
+            "response_type"     => $response_type,
             "redirect_uri"      => $redirect_uri,
             "client_id"         => $this->client_id,
             "client_secret"     => $this->client_secret,
@@ -92,7 +92,7 @@ class PinterestOAuth {
 
     /**
      * Generates a random string and returns is
-     * 
+     *
      * @access private
      * @return string       random string
      */
@@ -103,9 +103,9 @@ class PinterestOAuth {
 
     /**
      * Change the code for an access_token
-     * 
-     * @param  string   $code 
-     * @return array        
+     *
+     * @param  string   $code
+     * @return array
      */
     public function getOAuthToken( $code )
     {
@@ -113,6 +113,7 @@ class PinterestOAuth {
         $data = array(
             "grant_type"    => "authorization_code",
             "client_id"     => $this->client_id,
+            "client_secret" => $this->client_secret,
             "code"          => $code
         );
 
@@ -124,7 +125,7 @@ class PinterestOAuth {
 
     /**
      * Set the access_token for further requests
-     * 
+     *
      * @access public
      * @param  string   $access_token
      * @return void

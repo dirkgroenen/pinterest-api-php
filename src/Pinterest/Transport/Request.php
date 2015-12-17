@@ -87,7 +87,7 @@ class Request {
      */
     public function post( $path, array $parameters = array() )
     {
-        return $this->execute("POST", sprintf("%s%s", $this->host, $path) . "/", $parameters );
+        return $this->execute("POST", sprintf("%s%s", $this->host, $path), $parameters );
     }
 
     /**
