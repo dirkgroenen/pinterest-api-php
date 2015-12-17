@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
- * Copyright 2015 Dirk Groenen 
+ * Copyright 2015 Dirk Groenen
  *
  * (c) Dirk Groenen <dirk@bitlabs.nl>
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -14,7 +14,7 @@ use DirkGroenen\Pinterest\Utils\CurlBuilder;
 use DirkGroenen\Pinterest\Exceptions\PinterestException;
 
 class Request {
-    
+
     /**
      * Host to make the calls to
      *
@@ -24,21 +24,21 @@ class Request {
 
     /**
      * Access token
-     * 
+     *
      * @var string
      */
     protected $access_token = null;
 
     /**
      * Instance of the CurlBuilder class
-     * 
+     *
      * @var CurlBuilder
      */
     private $curlbuilder;
 
     /**
      * Constructor
-     * 
+     *
      * @param  CurlBuilder   $curlbuilder
      */
     public function __construct( CurlBuilder $curlbuilder )
@@ -48,7 +48,7 @@ class Request {
 
     /**
      * Set the access token
-     * 
+     *
      * @access public
      * @param  string   $token
      */
@@ -59,9 +59,9 @@ class Request {
 
     /**
      * Make a get request to the given endpoint
-     * 
+     *
      * @access public
-     * @param  string   $endpoint  
+     * @param  string   $endpoint
      * @param  array    $parameters
      * @return [type]
      */
@@ -79,9 +79,9 @@ class Request {
 
     /**
      * Make a post request to the given endpoint
-     * 
+     *
      * @access public
-     * @param  string   $endpoint  
+     * @param  string   $endpoint
      * @param  array    $parameters
      * @return [type]
      */
@@ -92,9 +92,9 @@ class Request {
 
     /**
      * Make a delete request to the given endpoint
-     * 
+     *
      * @access public
-     * @param  string   $endpoint  
+     * @param  string   $endpoint
      * @param  array    $parameters
      * @return [type]
      */
@@ -105,9 +105,9 @@ class Request {
 
     /**
      * Make an update request to the given endpoint
-     * 
+     *
      * @access public
-     * @param  string   $endpoint  
+     * @param  string   $endpoint
      * @param  array    $parameters
      * @return [type]
      */
@@ -118,17 +118,17 @@ class Request {
 
     /**
      * Execute the http request
-     * 
+     *
      * @access public
-     * @param  string   $method     
-     * @param  string   $apiCall       
-     * @param  array    $parameters 
-     * @param  array    $headers 
+     * @param  string   $method
+     * @param  string   $apiCall
+     * @param  array    $parameters
+     * @param  array    $headers
      * @return mixed
      */
     public function execute( $method, $apiCall, array $parameters = array(), $headers = array() )
-    {   
-        // Check if the access token needs to be added 
+    {
+        // Check if the access token needs to be added
         if($this->access_token != null){
             $headers = array_merge($headers, array(
                 "Authorization: Bearer " . $this->access_token,
@@ -149,8 +149,7 @@ class Request {
             CURLOPT_SSL_VERIFYPEER  => false,
             CURLOPT_SSL_VERIFYHOST  => false,
             CURLOPT_HEADER          => false,
-            CURLINFO_HEADER_OUT     => true,
-            CURLOPT_FOLLOWLOCATION  => true
+            CURLINFO_HEADER_OUT     => true
         ) );
 
         switch ($method) {
@@ -176,7 +175,7 @@ class Request {
                 break;
         }
 
-        
+
         // Execute request and catch response
         $response_data = $ch->execute();
 
@@ -195,7 +194,7 @@ class Request {
 
         // Close curl resource
         $ch->close();
-        
+
         // Return the response
         return $response;
     }
