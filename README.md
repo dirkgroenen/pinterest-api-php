@@ -36,6 +36,15 @@ echo '<a href=' . $loginurl . '>Authorize Pinterest</a>';
 
 Check the [Pinterest documentation](https://dev.pinterest.com/docs/api/overview/#scopes) for the available scopes. 
 
+After your user has used the login link to authorize he will be send back to the given `CALLBACK_URL`. The URL will contain the `code` which can be exchanged into an `access_token`. To exchange the code for an `access_token` and set it you can use the following code: 
+
+```php
+if(isset($_GET["code"])){
+    $token = $pinterest->auth->getOAuthToken($_GET["code"]);
+    $pinterest->auth->setOAuthToken($token->access_token);
+}
+```
+
 ## Get the user's profile
 
 To get the profile of the current logged in user you can use the `Users::me(<array>);` method. 
@@ -167,7 +176,7 @@ Returns: `Boolean`
 The methods below are available through `$pinterest->auth`.
 
 ### Get login URL
-`getLoginUrl(string $redirect_uri, array $scopes);`
+`getLoginUrl(string $redirect_uri, array $scopes, string $response_type = "code");`
 
 ```php
 $pinterest->auth->getLoginUrl("https://pinterest.dev/callback.php", array("read_public"));
@@ -175,7 +184,7 @@ $pinterest->auth->getLoginUrl("https://pinterest.dev/callback.php", array("read_
 
 Check the [Pinterest documentation](https://dev.pinterest.com/docs/api/overview/#scopes) for the available scopes. 
 
-> At this moment the Pinterest API returns the user's `access_token` in the query string on the callback page. The documentation states that this should be a code, so the next method has been writing assuming this will be changed somewhere in the future
+**Note: since 0.2.0 the default authentication method has changed to `code` instead of `token`. This means you have to exchange the returned code for an access_token.**
 
 ### Get access_token
 `getOAuthToken(string $code );`
