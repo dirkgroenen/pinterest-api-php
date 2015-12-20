@@ -1,4 +1,4 @@
-![](http://i.imgur.com/cacgQlq.png) Pinterest API - PHP  [![](https://travis-ci.org/dirkgroenen/Pinterest-API-PHP.svg)](https://travis-ci.org/dirkgroenen/Pinterest-API-PHP) ![https://packagist.org/packages/dirkgroenen/pinterest-api-php](https://img.shields.io/packagist/v/dirkgroenen/pinterest-api-php.svg)
+![](http://i.imgur.com/cacgQlq.png) Pinterest API - PHP  [![](https://travis-ci.org/dirkgroenen/Pinterest-API-PHP.svg)](https://travis-ci.org/dirkgroenen/Pinterest-API-PHP) [![Packagist](https://img.shields.io/packagist/v/dirkgroenen/pinterest-api-php.svg)](https://packagist.org/packages/dirkgroenen/pinterest-api-php) [![Support me with some coffee](https://img.shields.io/badge/donate-paypal-orange.svg)](https://www.paypal.me/dirkgroenen)
 -------------------
 
 A PHP wrapper for the official [Pinterest API](https://dev.pinterest.com).
@@ -483,4 +483,4 @@ Returns: `True|PinterestException`
 
 # Examples
 
-Please check [https://bitlabs.nl/pinterest](https://bitlabs.nl/pinterest) for an example project.
+There are no examples available yet. Let me know if you have an (example) project using the this library.
