@@ -187,18 +187,35 @@ Check the [Pinterest documentation](https://dev.pinterest.com/docs/api/overview/
 **Note: since 0.2.0 the default authentication method has changed to `code` instead of `token`. This means you have to exchange the returned code for an access_token.**
 
 ### Get access_token
-`getOAuthToken(string $code );`
+`getOAuthToken( string $code );`
 
 ```php
 $pinterest->auth->getOAuthToken($code);
 ```
 
 ### Set access_token
-`setOAuthToken(string $access_token );`
+`setOAuthToken( string $access_token );`
 
 ```php
 $pinterest->auth->setOAuthToken($access_token);
 ```
+
+### Get state
+`getState();`
+
+```php
+$pinterest->auth->getState();
+```
+
+### Set state
+`setState( string $state );`
+
+This method can be used to set a state manually, but this isn't required since the API will automatically generate a random state on initialize. 
+
+```php
+$pinterest->auth->setState($state);
+```
+
 
 ## Users
 
