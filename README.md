@@ -207,6 +207,8 @@ $pinterest->auth->setOAuthToken($access_token);
 $pinterest->auth->getState();
 ```
 
+Returns: `string`
+
 ### Set state
 `setState( string $state );`
 
