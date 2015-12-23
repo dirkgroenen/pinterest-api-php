@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2015 Dirk Groenen 
+ * Copyright 2015 Dirk Groenen
  *
  * (c) Dirk Groenen <dirk@bitlabs.nl>
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -13,20 +13,25 @@ namespace DirkGroenen\Pinterest\Tests\Utils;
 class CurlBuilderMock {
 
     /**
-     * Create a new mock of the curlbuilder and return 
+     * Create a new mock of the curlbuilder and return
      * the given filename as content
-     * 
+     *
      * @access public
      * @param  PHPUnit_Framework_TestCase   $instance
      * @return mock
      */
     public static function create( $instance )
-    {   
+    {
         $reflection = new \ReflectionMethod( $instance, $instance->getName() );
         $doc_block  = $reflection->getDocComment();
 
         $responsefile = self::parseDocBlock( $doc_block, '@responsefile' );
         $responsecode = self::parseDocBlock( $doc_block, '@responsecode' );
+
+        $skipmock = self::parseDocBlock( $doc_block, '@skipmock' );
+
+        if(isset($skipmock[0]))
+            return false;
 
         if(empty($responsecode))
             $responsecode = [201];
@@ -56,11 +61,11 @@ class CurlBuilderMock {
     /**
      * Parse the methods docblock and search for the
      * requested tag's value
-     * 
+     *
      * @access private
-     * @param  string   $doc_block 
-     * @param  string   $tag      
-     * @return array 
+     * @param  string   $doc_block
+     * @param  string   $tag
+     * @return array
      */
     private static function parseDocBlock( $doc_block, $tag ) {
 

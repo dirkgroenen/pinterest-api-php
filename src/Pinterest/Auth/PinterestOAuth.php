@@ -102,6 +102,27 @@ class PinterestOAuth {
     }
 
     /**
+     * Get the generated state
+     *
+     * @return string
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * Set a state manually
+     *
+     * @param  string    state
+     * @return void
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+    }
+
+    /**
      * Change the code for an access_token
      *
      * @param  string   $code
