@@ -181,7 +181,7 @@ class Request {
 
         // Check if we have a valid response
         if ( !$response_data || $ch->hasErrors() ) {
-            throw new PinterestException( 'Error: execute() - cURL error: ' . $ch->getErrors() );
+            throw new PinterestException( 'Error: execute() - cURL error: ' . $ch->getErrors(), $ch->getErrorNumber() );
         }
 
         // Initiate the response
@@ -189,7 +189,7 @@ class Request {
 
         // Check the response code
         if ( $response->getResponseCode() >= 400 ) {
-            throw new PinterestException( 'Pinterest error (code: ' . $response->getResponseCode() . ') with message: ' . $response->message );
+            throw new PinterestException( 'Pinterest error (code: ' . $response->getResponseCode() . ') with message: ' . $response->message, $response->getResponseCode() );
         }
 
         // Close curl resource

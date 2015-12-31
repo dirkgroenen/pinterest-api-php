@@ -103,6 +103,18 @@ class CurlBuilder {
     }
 
     /**
+     * Get last curl error number
+     *
+     * @access public
+     * @return int
+     */
+    public function getErrorNumber()
+    {
+        return curl_errno($this->curl);
+    }
+
+
+    /**
      * Get curl info key
      *
      * @access public
