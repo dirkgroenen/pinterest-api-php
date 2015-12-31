@@ -1,3 +1,7 @@
+### 0.2.2 (31-12-2015)
+
+- Add error codes to PinterestException ( [#17](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/17) )
+
 ### 0.2.1 (23-12-2015)
 
 - Add `setState` and `getState` methods ( [#15](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/15) )
