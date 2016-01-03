@@ -1,3 +1,8 @@
+### 0.2.3 (03-01-2016)
+
+- Add error codes to PinterestException ( [#17](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/17) )
+- Remove `whoops` as dependency 
+
 ### 0.2.2 (31-12-2015)
 
 - Add error codes to PinterestException ( [#17](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/17) )
