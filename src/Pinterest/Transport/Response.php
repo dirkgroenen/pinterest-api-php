@@ -67,7 +67,7 @@ class Response {
      */
     public function __get($key)
     {
-        return $this->response[$key];
+        return isset($this->response[$key]) ? $this->response[$key] : [];
     }
 
     /**
