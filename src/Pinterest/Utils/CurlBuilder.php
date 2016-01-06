@@ -20,6 +20,7 @@ class CurlBuilder {
      * @var resource
      */
     private $curl;
+    private $headers;
 
     /**
      * Constructor
@@ -127,6 +128,17 @@ class CurlBuilder {
     }
 
     /**
+     * Get headers
+     *
+     * @access public
+     * @return string
+     */
+    public function getHeaders()
+    {
+        return $this->headers;
+    }    
+    
+    /**
      * Close the curl resource
      *
      * @access public
@@ -135,6 +147,24 @@ class CurlBuilder {
     public function close()
     {
         curl_close($this->curl);
+    }
+    
+    /**
+     * Parse string headers into array
+     * 
+     * @access private
+     * @param array $headers
+     * @return array
+     */
+    private function parseHeaders($headers) {
+        $result = array();
+        foreach(explode("\n",$headers) as $row)
+        {
+            $header = explode(':', $row,2);
+            if (count($header) == 2) $result[$header[0]] = trim($header[1]);
+            else $result[] = $header[0];
+        }
+        return $result;
     }
 
     /**
@@ -148,7 +178,8 @@ class CurlBuilder {
      */
     private function execFollow() {
         $mr = 5;
-
+        $body = null;
+        
         if(ini_get("open_basedir") == "" && ini_get("safe_mode" == "Off")){
             curl_setopt($this->curl, CURLOPT_FOLLOWLOCATION, $mr > 0);
             curl_setopt($this->curl, CURLOPT_MAXREDIRS, $mr);
@@ -163,13 +194,17 @@ class CurlBuilder {
                 $rch = curl_copy_handle($this->curl);
 
                 curl_setopt($rch, CURLOPT_HEADER, true);
-                curl_setopt($rch, CURLOPT_NOBODY, true);
+                //curl_setopt($rch, CURLOPT_NOBODY, true);
                 curl_setopt($rch, CURLOPT_FORBID_REUSE, false);
 
                 do{
                     curl_setopt($rch, CURLOPT_URL, $newurl);
-                    $header = curl_exec($rch);
-
+                    $response = curl_exec($rch);
+                    
+                    $header_size = curl_getinfo($rch, CURLINFO_HEADER_SIZE);
+                    $header = substr($response, 0, $header_size);
+                    $body = substr($response, $header_size);
+                    
                     if(curl_errno($rch)){
                         $code = 0;
                     }
@@ -199,9 +234,22 @@ class CurlBuilder {
                     return false;
                 }
                 $this->setOption(CURLOPT_URL, $newurl);
+                
+                $this->headers = $this->parseHeaders($header);
+               
             }
         }
 
-        return curl_exec($this->curl);
+        if (!$body){
+            curl_setopt($this->curl, CURLOPT_HEADER, true);
+            $response = curl_exec($this->curl);
+                    
+            $header_size = curl_getinfo($rch, CURLINFO_HEADER_SIZE);
+            $header = substr($response, 0, $header_size);
+            $body = substr($response, $header_size);
+            
+            $this->headers = $this->parseHeaders($header);
+        }
+        return $body;
     }
 }

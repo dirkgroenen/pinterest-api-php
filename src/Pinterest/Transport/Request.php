@@ -35,6 +35,14 @@ class Request {
      * @var CurlBuilder
      */
     private $curlbuilder;
+    
+    /**
+     * Instance of the CurlBuilder class
+     *
+     * @var CurlBuilder
+     */
+    private $headers;
+    
 
     /**
      * Constructor
@@ -115,6 +123,18 @@ class Request {
     {
         return $this->execute("PATCH", sprintf("%s%s", $this->host, $path) . "/", $parameters );
     }
+    
+    /**
+     * Create a new model instance
+     *
+     * @param  Transport\Request    $request
+     * @param  Pinterest            $master
+     * @return void
+     */
+    public function getHeaders()
+    {
+        return $this->headers;
+    }
 
     /**
      * Execute the http request
@@ -191,6 +211,7 @@ class Request {
         if ( $response->getResponseCode() >= 400 ) {
             throw new PinterestException( 'Pinterest error (code: ' . $response->getResponseCode() . ') with message: ' . $response->message, $response->getResponseCode() );
         }
+        $this->headers = $ch->getHeaders();
 
         // Close curl resource
         $ch->close();
