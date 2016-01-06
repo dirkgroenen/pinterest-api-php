@@ -28,10 +28,13 @@ class CurlBuilderMock {
         $responsefile = self::parseDocBlock( $doc_block, '@responsefile' );
         $responsecode = self::parseDocBlock( $doc_block, '@responsecode' );
 
-        $skipmock = self::parseDocBlock( $doc_block, '@skipmock' );
+        $defaultheaders = array(
+            "X-Ratelimit-Limit" => "1000",
+            "X-Ratelimit-Remaining" => "998",
+            "X-Varnish" => "4059929980"
+        );
 
-        if(isset($skipmock[0]))
-            return false;
+        $skipmock = self::parseDocBlock( $doc_block, '@skipmock' );
 
         if(empty($responsecode))
             $responsecode = [201];
@@ -43,13 +46,18 @@ class CurlBuilderMock {
         $curlbuilder = $instance->getMockBuilder("\\DirkGroenen\\Pinterest\\Utils\\CurlBuilder")
                         ->getMock();
 
-        $curlbuilder->expects($instance->once())
+        $curlbuilder->expects($instance->any())
             ->method('create')
             ->will($instance->returnSelf());
 
-        $curlbuilder->expects($instance->once())
-            ->method('execute')
-            ->will( $instance->returnValue( file_get_contents( __DIR__ . '/../responses/' . (new \ReflectionClass($instance))->getShortName() . '/' . $responsefile[0] . ".json" ) ) );
+        // Build response file path
+        $responseFilePath = __DIR__ . '/../responses/' . (new \ReflectionClass($instance))->getShortName() . '/' . $responsefile[0] . ".json";
+
+        if(file_exists($responseFilePath)){
+            $curlbuilder->expects($instance->once())
+                ->method('execute')
+                ->will( $instance->returnValue( file_get_contents( $responseFilePath ) ) );
+        }
 
         $curlbuilder->expects($instance->any())
             ->method('getInfo')

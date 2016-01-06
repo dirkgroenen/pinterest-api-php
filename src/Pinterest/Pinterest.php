@@ -94,28 +94,28 @@ class Pinterest {
 
         return $this->cachedEndpoints[$endpoint];
     }
-    
-    
-        
+
     /**
      * Get rate limit from the headers
      *
+     * @access public
      * @return integer
      */
-    public function getLimit()
+    public function getRateLimit()
     {
         $header = $this->request->getHeaders();
-        return (isset($header['X-Ratelimit-Limit']) ? $header['X-Ratelimit-Limit'] : 200); //docs say 1000 but praktice shows 200/h
+        return (isset($header['X-Ratelimit-Limit']) ? $header['X-Ratelimit-Limit'] : 1000);
     }
 
     /**
      * Get rate limit remaining from the headers
      *
-     * @return integer
+     * @access public
+     * @return mixed
      */
-    public function getRemaining()
+    public function getRateLimitRemaining()
     {
         $header = $this->request->getHeaders();
         return (isset($header['X-Ratelimit-Remaining']) ? $header['X-Ratelimit-Remaining'] : 'unknown');
-    }   
+    }
 }

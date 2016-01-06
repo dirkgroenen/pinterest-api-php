@@ -218,6 +218,29 @@ This method can be used to set a state manually, but this isn't required since t
 $pinterest->auth->setState($state);
 ```
 
+## Rate limit
+
+### Get limit
+`getRateLimit();`
+
+This method can be used to get the maximum number of requests.
+
+```php
+$pinterest->getRateLimit();
+```
+
+Returns: `int`
+
+### Get remaining
+`getRateLimitRemaining();`
+
+This method can be used to get the remaining number of calls.
+
+```php
+$pinterest->getRateLimitRemaining();
+```
+
+Returns: `int`
 
 ## Users
 

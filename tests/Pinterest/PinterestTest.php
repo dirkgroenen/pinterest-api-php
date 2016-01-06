@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  */
 
-namespace DirkGroenen\Pinterest\Tests\Endpoints;
+namespace DirkGroenen\Pinterest\Tests;
 
 use \DirkGroenen\Pinterest\Pinterest;
 use \DirkGroenen\Pinterest\Tests\Utils\CurlBuilderMock;
 
-class AuthTest extends \PHPUnit_Framework_TestCase{
+class PinterestTest extends \PHPUnit_Framework_TestCase{
 
     /**
      * The Pinterest instance
@@ -36,18 +36,15 @@ class AuthTest extends \PHPUnit_Framework_TestCase{
         $this->pinterest->auth->setOAuthToken( "0" );
     }
 
-    public function testRandomStateIsSet()
+    public function testGetRateLimit()
     {
-        $state = $this->pinterest->auth->getState();
-
-        $this->assertNotEmpty( $state );
+        $ratelimit = $this->pinterest->getRateLimit();
+        $this->assertEquals( $ratelimit, 1000 );
     }
 
-    public function testSetState()
+    public function testGetRateLimitRemaining()
     {
-        $state = substr( md5( rand() ), 0, 7 );
-        $this->pinterest->auth->setState($state);
-
-        $this->assertEquals( $this->pinterest->auth->getState(), $state );
+        $ratelimit = $this->pinterest->getRateLimitRemaining();
+        $this->assertEquals( $ratelimit, 'unknown' );
     }
 }
