@@ -35,14 +35,14 @@ class Request {
      * @var CurlBuilder
      */
     private $curlbuilder;
-    
+
     /**
      * Instance of the CurlBuilder class
      *
      * @var CurlBuilder
      */
     private $headers;
-    
+
 
     /**
      * Constructor
@@ -123,7 +123,7 @@ class Request {
     {
         return $this->execute("PATCH", sprintf("%s%s", $this->host, $path) . "/", $parameters );
     }
-    
+
     /**
      * Create a new model instance
      *
@@ -180,7 +180,7 @@ class Request {
                     CURLOPT_POSTFIELDS      => $parameters
                 ) );
 
-                if(defined('CURLOPT_SAFE_UPLOAD'))
+                if(!class_exists("\CURLFile") && defined('CURLOPT_SAFE_UPLOAD'))
                     $ch->setOption( CURLOPT_SAFE_UPLOAD, false );
 
                 break;
