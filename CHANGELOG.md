@@ -1,3 +1,7 @@
+### 0.2.4 (09-01-2016)
+
+- Fixed disabling CURL safe_mode issue in PHP 7.0 [#21](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/21)
+
 ### 0.2.3 (03-01-2016)
 
 - Add error codes to PinterestException ( [#17](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/17) )
