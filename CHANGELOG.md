@@ -1,4 +1,4 @@
-### 0.2.4 (09-01-2016)
+### 0.2.5 (09-01-2016)
 
 - Fixed disabling CURL safe_mode issue in PHP 7.0 [#21](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/21)
 
