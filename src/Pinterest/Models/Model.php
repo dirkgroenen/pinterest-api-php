@@ -40,8 +40,8 @@ class Model implements \JsonSerializable {
     /**
      * Create a new model instance
      *
-     * @param  Pinterest          $master
-     * @param  array|Response     $modeldata
+     * @param  Pinterest  $master
+     * @param  mixed      $modeldata
      */
     public function __construct( Pinterest $master, $modeldata = null )
     {
