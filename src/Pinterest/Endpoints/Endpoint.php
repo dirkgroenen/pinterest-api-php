@@ -36,7 +36,7 @@ class Endpoint {
      * @param  Request              $request
      * @param  Pinterest            $master
      */
-    public function __construct( Request $request, Pinterest $master )
+    public function __construct(Request $request, Pinterest $master)
     {
         $this->request = $request;
         $this->master = $master;

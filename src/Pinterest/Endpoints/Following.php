@@ -24,10 +24,10 @@ class Following extends Endpoint {
      * @throws Exceptions/PinterestExceptions
      * @return Collection
      */
-    public function users( array $data = [] )
+    public function users(array $data = [])
     {
-        $response = $this->request->get( "me/following/users", $data );
-        return new Collection( $this->master, $response, "User" );
+        $response = $this->request->get("me/following/users", $data);
+        return new Collection($this->master, $response, "User");
     }
 
     /**
@@ -38,10 +38,10 @@ class Following extends Endpoint {
      * @throws Exceptions/PinterestExceptions
      * @return Collection
      */
-    public function boards( array $data = [] )
+    public function boards(array $data = [])
     {
-        $response = $this->request->get( "me/following/boards", $data );
-        return new Collection( $this->master, $response, "Board" );
+        $response = $this->request->get("me/following/boards", $data);
+        return new Collection($this->master, $response, "Board");
     }
 
     /**
@@ -52,10 +52,10 @@ class Following extends Endpoint {
      * @throws Exceptions/PinterestExceptions
      * @return Collection
      */
-    public function interests( array $data = [] )
+    public function interests(array $data = [])
     {
-        $response = $this->request->get( "me/following/interests", $data );
-        return new Collection( $this->master, $response, "Interest" );
+        $response = $this->request->get("me/following/interests", $data);
+        return new Collection($this->master, $response, "Interest");
     }
 
     /**
@@ -66,11 +66,11 @@ class Following extends Endpoint {
      * @throws Exceptions/PinterestExceptions
      * @return boolean
      */
-    public function followUser( $user )
+    public function followUser($user)
     {
-        $this->request->post( "me/following/users", array(
+        $this->request->post("me/following/users", array(
             "user"  => $user
-        ) );
+        ));
         return true;
     }
 
@@ -82,9 +82,9 @@ class Following extends Endpoint {
      * @throws Exceptions/PinterestExceptions
      * @return boolean
      */
-    public function unfollowUser( $user )
+    public function unfollowUser($user)
     {
-        $this->request->delete( sprintf("me/following/users/%s", $user) );
+        $this->request->delete(sprintf("me/following/users/%s", $user));
         return true;
     }
 
@@ -96,11 +96,11 @@ class Following extends Endpoint {
      * @throws Exceptions/PinterestExceptions
      * @return boolean
      */
-    public function followBoard( $board )
+    public function followBoard($board)
     {
-        $this->request->post( "me/following/boards", array(
+        $this->request->post("me/following/boards", array(
             "board"  => $board
-        ) );
+        ));
         return true;
     }
 
@@ -112,9 +112,9 @@ class Following extends Endpoint {
      * @throws Exceptions/PinterestExceptions
      * @return boolean
      */
-    public function unfollowBoard( $board_id )
+    public function unfollowBoard($board_id)
     {
-        $this->request->delete( sprintf("me/following/boards/%s", $board_id) );
+        $this->request->delete(sprintf("me/following/boards/%s", $board_id));
         return true;
     }
 
@@ -126,11 +126,11 @@ class Following extends Endpoint {
      * @throws Exceptions/PinterestExceptions
      * @return boolean
      */
-    public function followInterest( $interest )
+    public function followInterest($interest)
     {
-        $this->request->post( "me/following/interests", array(
+        $this->request->post("me/following/interests", array(
             "interest"  => $interest
-        ) );
+        ));
         return true;
     }
 
@@ -142,9 +142,9 @@ class Following extends Endpoint {
      * @throws Exceptions/PinterestExceptions
      * @return boolean
      */
-    public function unfollowInterest( $interest_id )
+    public function unfollowInterest($interest_id)
     {
-        $this->request->delete( sprintf("me/following/interests/%s", $interest_id) );
+        $this->request->delete(sprintf("me/following/interests/%s", $interest_id));
         return true;
     }
 }
