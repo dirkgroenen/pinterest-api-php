@@ -68,7 +68,7 @@ class Collection implements \JsonSerializable, \ArrayAccess, \IteratorAggregate{
         $this->model = ucfirst(strtolower($model));
 
         if (!class_exists("\\DirkGroenen\\Pinterest\\Models\\" . $this->model)) {
-                    throw new InvalidModelException;
+            throw new InvalidModelException;
         }
 
         // Get items and response instance
@@ -79,7 +79,7 @@ class Collection implements \JsonSerializable, \ArrayAccess, \IteratorAggregate{
             $this->response = $items;
             $this->items = $items->data;
         } else {
-           throw new PinterestException("$items needs to be an instance of Transport\Response or an array.");
+            throw new PinterestException("$items needs to be an instance of Transport\Response or an array.");
         }
 
         // Transform the raw collection data to models

@@ -178,7 +178,7 @@ class Request {
                 ));
 
                 if (!class_exists("\CURLFile") && defined('CURLOPT_SAFE_UPLOAD')) {
-                                    $ch->setOption(CURLOPT_SAFE_UPLOAD, false);
+                    $ch->setOption(CURLOPT_SAFE_UPLOAD, false);
                 }
 
                 break;

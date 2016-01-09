@@ -164,9 +164,9 @@ class CurlBuilder {
         foreach (explode("\n", $headers) as $row) {
             $header = explode(':', $row, 2);
             if (count($header) == 2) {
-                            $result[$header[0]] = trim($header[1]);
+                $result[$header[0]] = trim($header[1]);
             } else {
-                            $result[] = $header[0];
+                $result[] = $header[0];
             }
         }
         return $result;
