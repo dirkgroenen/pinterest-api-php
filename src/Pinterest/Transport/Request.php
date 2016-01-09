@@ -167,29 +167,29 @@ class Request {
             CURLOPT_SSL_VERIFYHOST  => false,
             CURLOPT_HEADER          => false,
             CURLINFO_HEADER_OUT     => true
-        ) );
+        ));
 
         switch ($method) {
             case 'POST':
-                $ch->setOptions( array(
+                $ch->setOptions(array(
                     CURLOPT_CUSTOMREQUEST   => 'POST',
                     CURLOPT_POST            => count($parameters),
                     CURLOPT_POSTFIELDS      => $parameters
-                ) );
+                ));
 
-                if(!class_exists("\CURLFile") && defined('CURLOPT_SAFE_UPLOAD')) {
-                                    $ch->setOption( CURLOPT_SAFE_UPLOAD, false );
+                if (!class_exists("\CURLFile") && defined('CURLOPT_SAFE_UPLOAD')) {
+                                    $ch->setOption(CURLOPT_SAFE_UPLOAD, false);
                 }
 
                 break;
             case 'DELETE':
-                $ch->setOption( CURLOPT_CUSTOMREQUEST, "DELETE" );
+                $ch->setOption(CURLOPT_CUSTOMREQUEST, "DELETE");
                 break;
             case 'PATCH':
-                $ch->setOption( CURLOPT_CUSTOMREQUEST, "PATCH" );
+                $ch->setOption(CURLOPT_CUSTOMREQUEST, "PATCH");
                 break;
             default:
-                $ch->setOption( CURLOPT_CUSTOMREQUEST, "GET" );
+                $ch->setOption(CURLOPT_CUSTOMREQUEST, "GET");
                 break;
         }
 

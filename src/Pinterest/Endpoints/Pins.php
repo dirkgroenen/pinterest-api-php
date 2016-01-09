@@ -58,8 +58,7 @@ class Pins extends Endpoint {
         if (array_key_exists("image", $data)) {
             if (class_exists("\CURLFile")) {
                 $data["image"] = new \CURLFile($data['image']);
-            }
-            else {
+            } else {
                 $data["image"] = '@' . $data['image'];
             }
         }

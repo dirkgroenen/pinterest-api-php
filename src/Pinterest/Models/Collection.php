@@ -67,19 +67,18 @@ class Collection implements \JsonSerializable, \ArrayAccess, \IteratorAggregate{
         // Create class path
         $this->model = ucfirst(strtolower($model));
 
-        if (!class_exists("\\DirkGroenen\\Pinterest\\Models\\" . $this->model))
-            throw new InvalidModelException;
+        if (!class_exists("\\DirkGroenen\\Pinterest\\Models\\" . $this->model)) {
+                    throw new InvalidModelException;
+        }
 
         // Get items and response instance
         if (is_array($items)) {
             $this->response = null;
             $this->items = $items;
-        }
-        else if ($items instanceof \DirkGroenen\Pinterest\Transport\Response) {
+        } else if ($items instanceof \DirkGroenen\Pinterest\Transport\Response) {
             $this->response = $items;
             $this->items = $items->data;
-        }
-        else {
+        } else {
            throw new PinterestException("$items needs to be an instance of Transport\Response or an array.");
         }
 
@@ -89,8 +88,7 @@ class Collection implements \JsonSerializable, \ArrayAccess, \IteratorAggregate{
         // Add pagination object
         if (isset($this->response->page) && !empty($this->response->page['next'])) {
             $this->pagination = $this->response->page;
-        }
-        else {
+        } else {
             $this->pagination = false;
         }
     }
