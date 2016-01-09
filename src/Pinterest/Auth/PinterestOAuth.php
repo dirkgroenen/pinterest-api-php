@@ -54,8 +54,9 @@ class PinterestOAuth {
      *
      * @param  string   $client_id
      * @param  string   $client_secret
+     * @param Request $request
      */
-    public function __construct( $client_id, $client_secret, $request )
+    public function __construct($client_id, $client_secret, $request)
     {
         $this->client_id = $client_id;
         $this->client_secret = $client_secret;
@@ -75,7 +76,7 @@ class PinterestOAuth {
      * @param  string   $redirect_uri
      * @return string
      */
-    public function getLoginUrl( $redirect_uri, $scopes = array("read_public"), $response_type = "code" )
+    public function getLoginUrl($redirect_uri, $scopes = array("read_public"), $response_type = "code")
     {
         $queryparams = array(
             "response_type"     => $response_type,
@@ -87,7 +88,7 @@ class PinterestOAuth {
         );
 
         // Build url and return it
-        return sprintf( "%s?%s", self::AUTH_HOST, http_build_query($queryparams) );
+        return sprintf("%s?%s", self::AUTH_HOST, http_build_query($queryparams));
     }
 
     /**
@@ -98,7 +99,7 @@ class PinterestOAuth {
      */
     private function generateState()
     {
-        return substr( md5( rand() ), 0, 7 );
+        return substr(md5(rand()), 0, 7);
     }
 
     /**
@@ -128,7 +129,7 @@ class PinterestOAuth {
      * @param  string   $code
      * @return array
      */
-    public function getOAuthToken( $code )
+    public function getOAuthToken($code)
     {
         // Build data array
         $data = array(
@@ -151,7 +152,7 @@ class PinterestOAuth {
      * @param  string   $access_token
      * @return void
      */
-    public function setOAuthToken( $access_token )
+    public function setOAuthToken($access_token)
     {
         $this->request->setAccessToken($access_token);
     }

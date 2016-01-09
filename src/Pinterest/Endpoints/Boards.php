@@ -11,7 +11,6 @@
 namespace DirkGroenen\Pinterest\Endpoints;
 
 use DirkGroenen\Pinterest\Models\Board;
-use DirkGroenen\Pinterest\Models\Collection;
 
 class Boards extends Endpoint {
 
@@ -22,12 +21,12 @@ class Boards extends Endpoint {
      * @param string    $board_id
      * @param array     $data
      * @throws Exceptions/PinterestExceptions
-     * @return Models\Board
+     * @return Board
      */
-    public function get( $board_id, array $data = [] )
+    public function get($board_id, array $data = [])
     {
-        $response = $this->request->get( sprintf("boards/%s", $board_id), $data );
-        return new Board( $this->master, $response );
+        $response = $this->request->get(sprintf("boards/%s", $board_id), $data);
+        return new Board($this->master, $response);
     }
 
     /**
@@ -36,12 +35,12 @@ class Boards extends Endpoint {
      * @access public
      * @param  array    $data
      * @throws Exceptions/PinterestExceptions
-     * @return Models\Board
+     * @return Board
      */
-    public function create( array $data )
+    public function create(array $data)
     {
-        $response = $this->request->post( "boards", $data );
-        return new Board( $this->master, $response );
+        $response = $this->request->post("boards", $data);
+        return new Board($this->master, $response);
     }
 
     /**
@@ -50,11 +49,11 @@ class Boards extends Endpoint {
      * @access public
      * @param  string    $board_id
      * @throws Exceptions/PinterestExceptions
-     * @return Models\Board
+     * @return boolean
      */
-    public function delete( $board_id )
+    public function delete($board_id)
     {
-        $this->request->delete( sprintf("boards/%s", $board_id) );
+        $this->request->delete(sprintf("boards/%s", $board_id));
         return true;
     }
 }

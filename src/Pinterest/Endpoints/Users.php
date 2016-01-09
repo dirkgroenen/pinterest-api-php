@@ -21,12 +21,12 @@ class Users extends Endpoint {
      * @access public
      * @param array     $data
      * @throws Exceptions/PinterestExceptions
-     * @return Models\User
+     * @return User
      */
-    public function me( array $data = [] )
+    public function me(array $data = [])
     {
-        $response = $this->request->get("me", $data );
-        return new User( $this->master, $response );
+        $response = $this->request->get("me", $data);
+        return new User($this->master, $response);
     }
 
     /**
@@ -36,12 +36,12 @@ class Users extends Endpoint {
      * @param string    $username
      * @param array     $data
      * @throws Exceptions/PinterestExceptions
-     * @return Models\User
+     * @return User
      */
-    public function find( $username, array $data = [] )
+    public function find($username, array $data = [])
     {
-        $response = $this->request->get( sprintf("users/%s", $username), $data );
-        return new User( $this->master, $response );
+        $response = $this->request->get(sprintf("users/%s", $username), $data);
+        return new User($this->master, $response);
     }
 
     /**
@@ -52,10 +52,10 @@ class Users extends Endpoint {
      * @throws Exceptions/PinterestExceptions
      * @return Collection
      */
-    public function getMePins( array $data = [] )
+    public function getMePins(array $data = [])
     {
-        $response = $this->request->get( "me/pins", $data );
-        return new Collection( $this->master, $response, "Pin" );
+        $response = $this->request->get("me/pins", $data);
+        return new Collection($this->master, $response, "Pin");
     }
 
     /**
@@ -66,11 +66,11 @@ class Users extends Endpoint {
      * @throws Exceptions/PinterestExceptions
      * @return Collection
      */
-    public function searchMePins( $query, array $data = [] )
+    public function searchMePins($query, array $data = [])
     {
         $data["query"] = $query;
-        $response = $this->request->get( "me/search/pins", $data );
-        return new Collection( $this->master, $response, "Pin" );
+        $response = $this->request->get("me/search/pins", $data);
+        return new Collection($this->master, $response, "Pin");
     }
 
     /**
@@ -81,12 +81,12 @@ class Users extends Endpoint {
      * @throws Exceptions/PinterestExceptions
      * @return Collection
      */
-    public function searchMeBoards( $query, array $data = [] )
+    public function searchMeBoards($query, array $data = [])
     {
         $data["query"] = $query;
 
-        $response = $this->request->get( "me/search/boards", $data );
-        return new Collection( $this->master, $response, "Board" );
+        $response = $this->request->get("me/search/boards", $data);
+        return new Collection($this->master, $response, "Board");
     }
 
     /**
@@ -97,10 +97,10 @@ class Users extends Endpoint {
      * @throws Exceptions/PinterestExceptions
      * @return Collection
      */
-    public function getMeBoards( array $data = [] )
+    public function getMeBoards(array $data = [])
     {
-        $response = $this->request->get( "me/boards", $data );
-        return new Collection( $this->master, $response, "Board" );
+        $response = $this->request->get("me/boards", $data);
+        return new Collection($this->master, $response, "Board");
     }
 
     /**
@@ -111,10 +111,10 @@ class Users extends Endpoint {
      * @throws Exceptions/PinterestExceptions
      * @return Collection
      */
-    public function getMeLikes( array $data = [] )
+    public function getMeLikes(array $data = [])
     {
-        $response = $this->request->get( "me/likes", $data );
-        return new Collection( $this->master, $response, "Pin" );
+        $response = $this->request->get("me/likes", $data);
+        return new Collection($this->master, $response, "Pin");
     }
 
     /**
@@ -127,8 +127,8 @@ class Users extends Endpoint {
      */
     public function getMeFollowers(array $data = [])
     {
-        $response = $this->request->get( "me/followers", $data );
-        return new Collection( $this->master, $response, "User" );
+        $response = $this->request->get("me/followers", $data);
+        return new Collection($this->master, $response, "User");
     }
 
 }
