@@ -13,6 +13,11 @@ namespace DirkGroenen\Pinterest\Transport;
 use DirkGroenen\Pinterest\Utils\CurlBuilder;
 use DirkGroenen\Pinterest\Exceptions\PinterestException;
 
+    /**
+     * @property array $page
+     * @property array $data
+     * @property string $message
+     */
 class Response {
 
     /**
@@ -32,16 +37,16 @@ class Response {
     /**
      * Constructor
      *
-     * @param  array        $response
+     * @param  string        $response
      * @param  CurlBuilder  $curl
      * @param  curl    $curl
      */
-    public function __construct( $response, CurlBuilder $curl )
+    public function __construct($response, CurlBuilder $curl)
     {
         $this->response = $response;
         $this->curl = $curl;
 
-        if( is_string($response) ){
+        if (is_string($response)) {
             $this->response = $this->decodeString($response);
         }
     }
@@ -53,7 +58,7 @@ class Response {
      * @param  string $response
      * @return array
      */
-    private function decodeString( $response )
+    private function decodeString($response)
     {
         return json_decode($response, true);
     }
@@ -75,7 +80,7 @@ class Response {
      *
      * @access public
      * @param  string   $key
-     * @return array
+     * @return boolean
      */
     public function __isset($key)
     {

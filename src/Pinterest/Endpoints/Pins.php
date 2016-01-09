@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
- * Copyright 2015 Dirk Groenen 
+ * Copyright 2015 Dirk Groenen
  *
  * (c) Dirk Groenen <dirk@bitlabs.nl>
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -14,35 +14,35 @@ use DirkGroenen\Pinterest\Models\Pin;
 use DirkGroenen\Pinterest\Models\Collection;
 
 class Pins extends Endpoint {
-    
+
     /**
      * Get a pin object
-     * 
+     *
      * @access public
      * @param  string   $pin_id
      * @param array     $data
      * @throws Exceptions/PinterestExceptions
-     * @return Models\Pin
+     * @return Pin
      */
-    public function get( $pin_id, array $data = [] )
+    public function get($pin_id, array $data = [])
     {
-        $response = $this->request->get( sprintf("pins/%s", $pin_id), $data );
-        return new Pin( $this->master, $response );
+        $response = $this->request->get(sprintf("pins/%s", $pin_id), $data);
+        return new Pin($this->master, $response);
     }
 
     /**
      * Get all pins from the given board
-     * 
+     *
      * @access public
      * @param  string   $board_id
      * @param array     $data
      * @throws Exceptions/PinterestExceptions
-     * @return Models\Collection
+     * @return Collection
      */
-    public function fromBoard( $board_id, array $data = [] )
+    public function fromBoard($board_id, array $data = [])
     {
-        $response = $this->request->get( sprintf("boards/%s/pins", $board_id), $data );
-        return new Collection( $this->master, $response, "Pin" );
+        $response = $this->request->get(sprintf("boards/%s/pins", $board_id), $data);
+        return new Collection($this->master, $response, "Pin");
     }
 
     /**
@@ -51,21 +51,20 @@ class Pins extends Endpoint {
      * @access public
      * @param  array    $data
      * @throws Exceptions/PinterestExceptions
-     * @return Models\Pin
+     * @return Pin
      */
-    public function create( array $data )
+    public function create(array $data)
     {
-        if( array_key_exists("image", $data) ){
-            if(class_exists("\CURLFile")){
+        if (array_key_exists("image", $data)) {
+            if (class_exists("\CURLFile")) {
                 $data["image"] = new \CURLFile($data['image']);
-            }
-            else{
-                $data["image"] = '@' . $data['image'];  
+            } else {
+                $data["image"] = '@' . $data['image'];
             }
         }
 
-        $response = $this->request->post( "pins", $data );
-        return new Pin( $this->master, $response );
+        $response = $this->request->post("pins", $data);
+        return new Pin($this->master, $response);
     }
 
     /**
@@ -75,12 +74,12 @@ class Pins extends Endpoint {
      * @param  string   $pin_id
      * @param  array    $data
      * @throws Exceptions/PinterestExceptions
-     * @return Models\Pin
+     * @return Pin
      */
-    public function update( $pin_id, array $data )
+    public function update($pin_id, array $data)
     {
-        $response = $this->request->update( sprintf("pins/%s", $pin_id), $data );
-        return new Pin( $this->master, $response );
+        $response = $this->request->update(sprintf("pins/%s", $pin_id), $data);
+        return new Pin($this->master, $response);
     }
 
     /**
@@ -91,9 +90,9 @@ class Pins extends Endpoint {
      * @throws Exceptions/PinterestExceptions
      * @return boolean
      */
-    public function delete( $pin_id )
+    public function delete($pin_id)
     {
-        $response = $this->request->delete( sprintf("pins/%s", $pin_id) );
+        $this->request->delete(sprintf("pins/%s", $pin_id));
         return true;
     }
 }

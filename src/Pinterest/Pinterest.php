@@ -51,15 +51,15 @@ class Pinterest {
      * @param  string       $client_id
      * @param  string       $client_secret
      * @param  CurlBuilder  $curlbuilder
-     * @param  string       $redirect_uri
      */
     public function __construct($client_id, $client_secret, $curlbuilder = null)
     {
-        if($curlbuilder == null)
-            $curlbuilder = new CurlBuilder();
+        if ($curlbuilder == null) {
+                    $curlbuilder = new CurlBuilder();
+        }
 
         // Create new instance of Transport\Request
-        $this->request = new Request( $curlbuilder );
+        $this->request = new Request($curlbuilder);
 
         // Create and set new instance of the OAuth class
         $this->auth = new PinterestOAuth($client_id, $client_secret, $this->request);
@@ -79,15 +79,16 @@ class Pinterest {
         $class = "\\DirkGroenen\\Pinterest\\Endpoints\\" . ucfirst($endpoint);
 
         // Check if an instance has already been initiated
-        if(!isset($this->cachedEndpoints[$endpoint])){
+        if (!isset($this->cachedEndpoints[$endpoint])) {
             // Check endpoint existence
-            if(!class_exists($class))
-                throw new InvalidEndpointException;
+            if (!class_exists($class)) {
+                            throw new InvalidEndpointException;
+            }
 
             // Create a reflection of the called class and initialize it
             // with a reference to the request class
             $ref = new \ReflectionClass($class);
-            $obj = $ref->newInstanceArgs([ $this->request, $this ]);
+            $obj = $ref->newInstanceArgs([$this->request, $this]);
 
             $this->cachedEndpoints[$endpoint] = $obj;
         }

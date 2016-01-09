@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
- * Copyright 2015 Dirk Groenen 
+ * Copyright 2015 Dirk Groenen
  *
  * (c) Dirk Groenen <dirk@bitlabs.nl>
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -25,14 +25,14 @@ class Model implements \JsonSerializable {
 
     /**
      * The available object keys
-     * 
+     *
      * @var array
      */
     protected $fillable = [];
 
     /**
      * Instance of the master Pinterest class
-     * 
+     *
      * @var Pinterest
      */
     protected $master;
@@ -40,12 +40,11 @@ class Model implements \JsonSerializable {
     /**
      * Create a new model instance
      *
-     * @param  Pinterest                    $master
-     * @param  array|Transport\Response     $modeldata
-     * @return void
+     * @param  Pinterest          $master
+     * @param  array|Response     $modeldata
      */
     public function __construct( Pinterest $master, $modeldata = null )
-    {   
+    {
         $this->master = $master;
 
         // Fill the model
@@ -53,13 +52,13 @@ class Model implements \JsonSerializable {
             $this->fill($modeldata);
         }
         else if( $modeldata instanceof \DirkGroenen\Pinterest\Transport\Response ){
-            $this->fill($modeldata->data);    
+            $this->fill($modeldata->data);
         }
     }
 
     /**
      * Get the model's attribute
-     * 
+     *
      * @access public
      * @param  string   $key
      * @return mixed
@@ -71,7 +70,7 @@ class Model implements \JsonSerializable {
 
     /**
      * Set the model's attribute
-     * 
+     *
      * @access public
      * @param  string   $key
      * @param  mixed   $value
@@ -117,10 +116,10 @@ class Model implements \JsonSerializable {
 
     /**
      * Check if the key is fillable
-     * 
+     *
      * @access public
      * @param  string   $key
-     * @return boolean      
+     * @return boolean
      */
     public function isFillable($key)
     {
@@ -136,7 +135,7 @@ class Model implements \JsonSerializable {
     public function toArray()
     {
         $array = array();
-        
+
         foreach($this->fillable as $key){
             $array[$key] = $this->{$key};
         }
@@ -146,7 +145,7 @@ class Model implements \JsonSerializable {
 
     /**
      * Convert the model instance to JSON
-     * 
+     *
      * @access public
      * @return string
      */
@@ -168,7 +167,7 @@ class Model implements \JsonSerializable {
 
     /**
      * Convert the model to its string representation
-     * 
+     *
      * @access public
      * @return string
      */
