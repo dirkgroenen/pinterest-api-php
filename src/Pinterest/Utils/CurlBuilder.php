@@ -52,7 +52,7 @@ class CurlBuilder {
      *
      * @access public
      * @param  string   $option
-     * @param  string   $value
+     * @param  mixed    $value
      * @return $this
      */
     public function setOption( $option, $value )
@@ -200,7 +200,6 @@ class CurlBuilder {
                 $rch = curl_copy_handle($this->curl);
 
                 curl_setopt($rch, CURLOPT_HEADER, true);
-                //curl_setopt($rch, CURLOPT_NOBODY, true);
                 curl_setopt($rch, CURLOPT_FORBID_REUSE, false);
 
                 do{
@@ -230,11 +229,11 @@ class CurlBuilder {
                 curl_close($rch);
 
                 if(!$mr){
-                    if ($maxredirect === null){
+                    if ($mr === null){
                         trigger_error('Too many redirects.', E_USER_WARNING);
                     }
                     else{
-                        $maxredirect = 0;
+                        $mr = 0;
                     }
 
                     return false;

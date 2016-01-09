@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
- * Copyright 2015 Dirk Groenen 
+ * Copyright 2015 Dirk Groenen
  *
  * (c) Dirk Groenen <dirk@bitlabs.nl>
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -18,14 +18,14 @@ class Endpoint {
 
     /**
      * Instance of the request class
-     * 
-     * @var Transport\Request
+     *
+     * @var Request
      */
     protected $request;
 
     /**
      * Instance of the master class
-     * 
+     *
      * @var Pinterest
      */
     protected $master;
@@ -33,9 +33,8 @@ class Endpoint {
     /**
      * Create a new model instance
      *
-     * @param  Transport\Request    $request
+     * @param  Request              $request
      * @param  Pinterest            $master
-     * @return void
      */
     public function __construct( Request $request, Pinterest $master )
     {

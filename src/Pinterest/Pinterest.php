@@ -51,7 +51,6 @@ class Pinterest {
      * @param  string       $client_id
      * @param  string       $client_secret
      * @param  CurlBuilder  $curlbuilder
-     * @param  string       $redirect_uri
      */
     public function __construct($client_id, $client_secret, $curlbuilder = null)
     {

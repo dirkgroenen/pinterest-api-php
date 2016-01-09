@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
- * Copyright 2015 Dirk Groenen 
+ * Copyright 2015 Dirk Groenen
  *
  * (c) Dirk Groenen <dirk@bitlabs.nl>
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -14,10 +14,10 @@ use DirkGroenen\Pinterest\Models\Pin;
 use DirkGroenen\Pinterest\Models\Collection;
 
 class Pins extends Endpoint {
-    
+
     /**
      * Get a pin object
-     * 
+     *
      * @access public
      * @param  string   $pin_id
      * @param array     $data
@@ -32,7 +32,7 @@ class Pins extends Endpoint {
 
     /**
      * Get all pins from the given board
-     * 
+     *
      * @access public
      * @param  string   $board_id
      * @param array     $data
@@ -60,7 +60,7 @@ class Pins extends Endpoint {
                 $data["image"] = new \CURLFile($data['image']);
             }
             else{
-                $data["image"] = '@' . $data['image'];  
+                $data["image"] = '@' . $data['image'];
             }
         }
 
@@ -93,7 +93,7 @@ class Pins extends Endpoint {
      */
     public function delete( $pin_id )
     {
-        $response = $this->request->delete( sprintf("pins/%s", $pin_id) );
+        $this->request->delete( sprintf("pins/%s", $pin_id) );
         return true;
     }
 }

@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
- * Copyright 2015 Dirk Groenen 
+ * Copyright 2015 Dirk Groenen
  *
  * (c) Dirk Groenen <dirk@bitlabs.nl>
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -14,11 +14,11 @@ use DirkGroenen\Pinterest\Models\User;
 use DirkGroenen\Pinterest\Models\Collection;
 
 class Following extends Endpoint {
-    
-   
+
+
     /**
      * Get the authenticated user's following users
-     * 
+     *
      * @access public
      * @param array     $data
      * @throws Exceptions/PinterestExceptions
@@ -32,7 +32,7 @@ class Following extends Endpoint {
 
     /**
      * Get the authenticated user's following boards
-     * 
+     *
      * @access public
      * @param array     $data
      * @throws Exceptions/PinterestExceptions
@@ -46,7 +46,7 @@ class Following extends Endpoint {
 
     /**
      * Get the authenticated user's following interest
-     * 
+     *
      * @access public
      * @param array     $data
      * @throws Exceptions/PinterestExceptions
@@ -68,7 +68,7 @@ class Following extends Endpoint {
      */
     public function followUser( $user )
     {
-        $user = $this->request->post( "me/following/users", array(
+        $this->request->post( "me/following/users", array(
             "user"  => $user
         ) );
         return true;
@@ -84,7 +84,7 @@ class Following extends Endpoint {
      */
     public function unfollowUser( $user )
     {
-        $user = $this->request->delete( sprintf("me/following/users/%s", $user) );
+        $this->request->delete( sprintf("me/following/users/%s", $user) );
         return true;
     }
 
@@ -98,7 +98,7 @@ class Following extends Endpoint {
      */
     public function followBoard( $board )
     {
-        $user = $this->request->post( "me/following/boards", array(
+        $this->request->post( "me/following/boards", array(
             "board"  => $board
         ) );
         return true;
@@ -114,7 +114,7 @@ class Following extends Endpoint {
      */
     public function unfollowBoard( $board_id )
     {
-        $user = $this->request->delete( sprintf("me/following/boards/%s", $board_id) );
+        $this->request->delete( sprintf("me/following/boards/%s", $board_id) );
         return true;
     }
 
@@ -128,7 +128,7 @@ class Following extends Endpoint {
      */
     public function followInterest( $interest )
     {
-        $user = $this->request->post( "me/following/interests", array(
+        $this->request->post( "me/following/interests", array(
             "interest"  => $interest
         ) );
         return true;
@@ -144,7 +144,7 @@ class Following extends Endpoint {
      */
     public function unfollowInterest( $interest_id )
     {
-        $user = $this->request->delete( sprintf("me/following/interests/%s", $interest_id) );
+        $this->request->delete( sprintf("me/following/interests/%s", $interest_id) );
         return true;
     }
 }

@@ -27,14 +27,14 @@ class Collection implements \JsonSerializable, \ArrayAccess, \IteratorAggregate{
     /**
      * The model of each collection item
      *
-     * @var Model
+     * @var string
      */
     private $model;
 
     /**
      * Stores the pagination object
      *
-     * @var array
+     * @var array|boolean
      */
     public $pagination;
 
