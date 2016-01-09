@@ -1,4 +1,9 @@
-![](http://i.imgur.com/cacgQlq.png) Pinterest API - PHP  [![](https://travis-ci.org/dirkgroenen/Pinterest-API-PHP.svg)](https://travis-ci.org/dirkgroenen/Pinterest-API-PHP) [![Packagist](https://img.shields.io/packagist/v/dirkgroenen/pinterest-api-php.svg)](https://packagist.org/packages/dirkgroenen/pinterest-api-php) [![Support me with some coffee](https://img.shields.io/badge/donate-paypal-orange.svg)](https://www.paypal.me/dirkgroenen)
+![](http://i.imgur.com/cacgQlq.png) Pinterest API - PHP  
+
+[![](https://travis-ci.org/dirkgroenen/Pinterest-API-PHP.svg)](https://travis-ci.org/dirkgroenen/Pinterest-API-PHP) 
+[![](https://scrutinizer-ci.com/g/dirkgroenen/Pinterest-API-PHP/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dirkgroenen/Pinterest-API-PHP/?branch=master) 
+[![Packagist](https://img.shields.io/packagist/v/dirkgroenen/pinterest-api-php.svg)](https://packagist.org/packages/dirkgroenen/pinterest-api-php) 
+[![Support me with some coffee](https://img.shields.io/badge/donate-paypal-orange.svg)](https://www.paypal.me/dirkgroenen)
 -------------------
 
 A PHP wrapper for the official [Pinterest API](https://dev.pinterest.com).
