@@ -193,7 +193,7 @@ class CurlBuilder {
         else{
             $this->setOption(CURLOPT_FOLLOWLOCATION, false);
 
-            if($mr > 0){
+            if($CURLOPT_MAXREDIRS  > 0){
                 $original_url = $this->getInfo(CURLINFO_EFFECTIVE_URL);
                 $newurl = $original_url;
 
@@ -231,9 +231,6 @@ class CurlBuilder {
                 if(!$mr){
                     if ($mr === null){
                         trigger_error('Too many redirects.', E_USER_WARNING);
-                    }
-                    else{
-                        $mr = 0;
                     }
 
                     return false;
