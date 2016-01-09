@@ -1,6 +1,7 @@
-### x.x.x (UNRELEASED)
+### 0.2.6 (UNRELEASED)
 
 - A lot of code cleanup based on Scruntinizer
+- Added `original_url` attribute to Pin model [#24](https://github.com/dirkgroenen/Pinterest-API-PHP/pull/24)
 
 ### 0.2.5 (09-01-2016)
 
