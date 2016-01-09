@@ -89,7 +89,7 @@ class Request {
      * Make a post request to the given endpoint
      *
      * @access public
-     * @param  string   $path
+     * @param  string   $endpoint
      * @param  array    $parameters
      * @return Response
      */
