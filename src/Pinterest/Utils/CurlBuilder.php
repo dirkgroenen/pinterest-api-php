@@ -185,13 +185,13 @@ class CurlBuilder {
         $mr = 5;
         $body = null;
 
-        if(ini_get("open_basedir") == "" && ini_get("safe_mode" == "Off")){
+        if (ini_get("open_basedir") == "" && ini_get("safe_mode" == "Off")) {
             curl_setopt($this->curl, CURLOPT_FOLLOWLOCATION, $mr > 0);
             curl_setopt($this->curl, CURLOPT_MAXREDIRS, $mr);
-        } else{
+        } else {
             $this->setOption(CURLOPT_FOLLOWLOCATION, false);
 
-            if($CURLOPT_MAXREDIRS  > 0){
+            if ($CURLOPT_MAXREDIRS > 0) {
                 $original_url = $this->getInfo(CURLINFO_EFFECTIVE_URL);
                 $newurl = $original_url;
 
@@ -208,24 +208,24 @@ class CurlBuilder {
                     $header = substr($response, 0, $header_size);
                     $body = substr($response, $header_size);
 
-                    if(curl_errno($rch)){
+                    if (curl_errno($rch)) {
                         $code = 0;
-                    } else{
+                    } else {
                         $code = curl_getinfo($rch, CURLINFO_HTTP_CODE);
 
                         if ($code == 301 || $code == 302) {
                             preg_match('/Location:(.*?)\n/i', $header, $matches);
                             $newurl = trim(array_pop($matches));
-                        } else{
+                        } else {
                             $code = 0;
                         }
                     }
-                } while($code && --$mr);
+                } while ($code && --$mr);
 
                 curl_close($rch);
 
-                if(!$mr){
-                    if ($mr === null){
+                if (!$mr) {
+                    if ($mr === null) {
                         trigger_error('Too many redirects.', E_USER_WARNING);
                     }
 

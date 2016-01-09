@@ -54,8 +54,9 @@ class Pinterest {
      */
     public function __construct($client_id, $client_secret, $curlbuilder = null)
     {
-        if ($curlbuilder == null)
-            $curlbuilder = new CurlBuilder();
+        if ($curlbuilder == null) {
+                    $curlbuilder = new CurlBuilder();
+        }
 
         // Create new instance of Transport\Request
         $this->request = new Request($curlbuilder);
@@ -80,8 +81,9 @@ class Pinterest {
         // Check if an instance has already been initiated
         if (!isset($this->cachedEndpoints[$endpoint])) {
             // Check endpoint existence
-            if (!class_exists($class))
-                throw new InvalidEndpointException;
+            if (!class_exists($class)) {
+                            throw new InvalidEndpointException;
+            }
 
             // Create a reflection of the called class and initialize it
             // with a reference to the request class
