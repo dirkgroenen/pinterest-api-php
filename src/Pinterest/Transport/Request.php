@@ -149,7 +149,7 @@ class Request {
         if ($this->access_token != null) {
             $headers = array_merge($headers, array(
                 "Authorization: Bearer " . $this->access_token,
-                "Content-ype: multipart/form-data",
+                "Content-type: multipart/form-data",
             ));
         }
 
