@@ -1,7 +1,8 @@
-### 0.2.6 (UNRELEASED)
+### 0.2.6 (01-02-2016)
 
 - A lot of code cleanup based on Scruntinizer
 - Added `original_url` attribute to Pin model [#24](https://github.com/dirkgroenen/Pinterest-API-PHP/pull/24)
+- Fixed typo in header [#27](https://github.com/dirkgroenen/Pinterest-API-PHP/pull/27)
 
 ### 0.2.5 (09-01-2016)
 
@@ -10,7 +11,7 @@
 ### 0.2.3 (03-01-2016)
 
 - Add error codes to PinterestException ( [#17](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/17) )
-- Remove `whoops` as dependency 
+- Remove `whoops` as dependency
 
 ### 0.2.2 (31-12-2015)
 
