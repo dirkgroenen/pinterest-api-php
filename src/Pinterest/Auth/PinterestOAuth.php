@@ -127,7 +127,7 @@ class PinterestOAuth {
      * Change the code for an access_token
      *
      * @param  string   $code
-     * @return array
+     * @return \DirkGroenen\Pinterest\Transport\Response
      */
     public function getOAuthToken($code)
     {
