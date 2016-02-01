@@ -191,7 +191,7 @@ class CurlBuilder {
         } else {
             $this->setOption(CURLOPT_FOLLOWLOCATION, false);
 
-            if ($CURLOPT_MAXREDIRS > 0) {
+            if ($mr > 0) {
                 $original_url = $this->getInfo(CURLINFO_EFFECTIVE_URL);
                 $newurl = $original_url;
 
