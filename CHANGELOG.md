@@ -1,3 +1,8 @@
+### 0.2.7 (01-02-2016)
+
+- Fix wrong variable name 
+[#30](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/30)
+
 ### 0.2.6 (01-02-2016)
 
 - A lot of code cleanup based on Scruntinizer
