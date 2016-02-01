@@ -11,7 +11,6 @@
 namespace DirkGroenen\Pinterest\Transport;
 
 use DirkGroenen\Pinterest\Utils\CurlBuilder;
-use DirkGroenen\Pinterest\Exceptions\PinterestException;
 
     /**
      * @property array $page
