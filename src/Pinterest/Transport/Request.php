@@ -207,8 +207,10 @@ class Request {
 
         // Check the response code
         if ($response->getResponseCode() >= 400) {
-            throw new PinterestException('Pinterest error (code: ' . $response->getResponseCode() . ') with message: ' . $response->message, $response->getResponseCode());
+            throw new PinterestException('Pinterest error (code: ' . $response->getResponseCode() . ') with message: ' . $response->getMessage(), $response->getResponseCode());
         }
+
+        // Get headers from last request
         $this->headers = $ch->getHeaders();
 
         // Close curl resource

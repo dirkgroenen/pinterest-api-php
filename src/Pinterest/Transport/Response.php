@@ -87,6 +87,18 @@ class Response {
     }
 
     /**
+     * Returns the error message which should normaly
+     * by located in the response->message key, but can
+     * also be localed in the response->error key.
+     *
+     * @return string
+     */
+    public function getMessage()
+    {
+        return (isset($this->message)) ? $this->message : $this->error;
+    }
+
+    /**
      * Get the response code from the request
      *
      * @access public

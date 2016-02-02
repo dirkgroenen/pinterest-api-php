@@ -186,8 +186,10 @@ class CurlBuilder {
         $body = null;
 
         if (ini_get("open_basedir") == "" && ini_get("safe_mode" == "Off")) {
-            curl_setopt($this->curl, CURLOPT_FOLLOWLOCATION, $mr > 0);
-            curl_setopt($this->curl, CURLOPT_MAXREDIRS, $mr);
+            $this->setOptions(array(
+                CURLOPT_FOLLOWLOCATION => $mr > 0,
+                CURLOPT_MAXREDIRS => $mr
+            ));
         } else {
             $this->setOption(CURLOPT_FOLLOWLOCATION, false);
 
@@ -195,23 +197,24 @@ class CurlBuilder {
                 $original_url = $this->getInfo(CURLINFO_EFFECTIVE_URL);
                 $newurl = $original_url;
 
-                $rch = curl_copy_handle($this->curl);
-
-                curl_setopt($rch, CURLOPT_HEADER, true);
-                curl_setopt($rch, CURLOPT_FORBID_REUSE, false);
+                $this->setOptions(array(
+                    CURLOPT_HEADER => true,
+                    CURLOPT_FORBID_REUSE => false
+                ));
 
                 do {
-                    curl_setopt($rch, CURLOPT_URL, $newurl);
-                    $response = curl_exec($rch);
+                    $this->setOption(CURLOPT_URL, $newurl);
 
-                    $header_size = curl_getinfo($rch, CURLINFO_HEADER_SIZE);
+                    $response = curl_exec($this->curl);
+
+                    $header_size = $this->getInfo(CURLINFO_HEADER_SIZE);
                     $header = substr($response, 0, $header_size);
                     $body = substr($response, $header_size);
 
-                    if (curl_errno($rch)) {
+                    if ($this->getErrorNumber()) {
                         $code = 0;
                     } else {
-                        $code = curl_getinfo($rch, CURLINFO_HTTP_CODE);
+                        $code = $this->getInfo(CURLINFO_HTTP_CODE);
 
                         if ($code == 301 || $code == 302) {
                             preg_match('/Location:(.*?)\n/i', $header, $matches);
@@ -222,8 +225,6 @@ class CurlBuilder {
                     }
                 } while ($code && --$mr);
 
-                curl_close($rch);
-
                 if (!$mr) {
                     if ($mr === null) {
                         trigger_error('Too many redirects.', E_USER_WARNING);
@@ -231,17 +232,16 @@ class CurlBuilder {
 
                     return false;
                 }
-                $this->setOption(CURLOPT_URL, $newurl);
 
                 $this->headers = $this->parseHeaders($header);
             }
         }
 
         if (!$body) {
-            curl_setopt($this->curl, CURLOPT_HEADER, true);
-            $response = curl_exec($this->curl);
+            $this->setOption(CURLOPT_HEADER, true);
+            $response = $this->execute();
 
-            $header_size = curl_getinfo($rch, CURLINFO_HEADER_SIZE);
+            $header_size = $this->getInfo(CURLINFO_HEADER_SIZE);
             $header = substr($response, 0, $header_size);
             $body = substr($response, $header_size);
 
