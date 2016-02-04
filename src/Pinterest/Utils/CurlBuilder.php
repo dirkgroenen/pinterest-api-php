@@ -185,7 +185,7 @@ class CurlBuilder {
         $mr = 5;
         $body = null;
 
-        if (ini_get("open_basedir") == "" && ini_get("safe_mode" == "Off")) {
+        if (ini_get("open_basedir") === "" && ini_get("safe_mode") === false) {
             $this->setOptions(array(
                 CURLOPT_FOLLOWLOCATION => $mr > 0,
                 CURLOPT_MAXREDIRS => $mr
