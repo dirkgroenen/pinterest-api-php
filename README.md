@@ -1,10 +1,10 @@
-## ![](http://i.imgur.com/cacgQlq.png)  Pinterest API - PHP  
+## ![](http://i.imgur.com/cacgQlq.png)  Pinterest API - PHP
 
 
-[![](https://travis-ci.org/dirkgroenen/Pinterest-API-PHP.svg)](https://travis-ci.org/dirkgroenen/Pinterest-API-PHP) 
-[![](https://img.shields.io/scrutinizer/g/dirkgroenen/Pinterest-API-PHP.svg)](https://scrutinizer-ci.com/g/dirkgroenen/Pinterest-API-PHP/?branch=master) 
-[![](https://img.shields.io/scrutinizer/coverage/g/dirkgroenen/Pinterest-API-PHP.svg)](https://scrutinizer-ci.com/g/dirkgroenen/Pinterest-API-PHP/?branch=master) 
-[![Packagist](https://img.shields.io/packagist/v/dirkgroenen/pinterest-api-php.svg)](https://packagist.org/packages/dirkgroenen/pinterest-api-php) 
+[![](https://travis-ci.org/dirkgroenen/Pinterest-API-PHP.svg)](https://travis-ci.org/dirkgroenen/Pinterest-API-PHP)
+[![](https://img.shields.io/scrutinizer/g/dirkgroenen/Pinterest-API-PHP.svg)](https://scrutinizer-ci.com/g/dirkgroenen/Pinterest-API-PHP/?branch=master)
+[![](https://img.shields.io/scrutinizer/coverage/g/dirkgroenen/Pinterest-API-PHP.svg)](https://scrutinizer-ci.com/g/dirkgroenen/Pinterest-API-PHP/?branch=master)
+[![Packagist](https://img.shields.io/packagist/v/dirkgroenen/pinterest-api-php.svg)](https://packagist.org/packages/dirkgroenen/pinterest-api-php)
 [![Support me with some coffee](https://img.shields.io/badge/donate-paypal-orange.svg)](https://www.paypal.me/dirkgroenen)
 -------------------
 
@@ -16,7 +16,7 @@ A PHP wrapper for the official [Pinterest API](https://dev.pinterest.com).
 - Registered Pinterest App
 
 # Get started
-To use the Pinterest API you have to register yourself as a developer and [create](https://dev.pinterest.com/apps/) an application. After you've created your app you will receive a `app_id` and `app_secret`. 
+To use the Pinterest API you have to register yourself as a developer and [create](https://dev.pinterest.com/apps/) an application. After you've created your app you will receive a `app_id` and `app_secret`.
 
 > The terms `client_id` and `client_secret` are in this case `app_id` and `app_secret`.
 
@@ -27,7 +27,7 @@ The Pinterest API wrapper is available on Composer.
 composer require dirkgroenen/Pinterest-API-PHP
 ```
 
-## Simple Example 
+## Simple Example
 ```php
 use DirkGroenen\Pinterest\Pinterest;
 
@@ -41,9 +41,9 @@ $loginurl = $pinterest->auth->getLoginUrl(CALLBACK_URL, array('read_public'));
 echo '<a href=' . $loginurl . '>Authorize Pinterest</a>';
 ```
 
-Check the [Pinterest documentation](https://dev.pinterest.com/docs/api/overview/#scopes) for the available scopes. 
+Check the [Pinterest documentation](https://dev.pinterest.com/docs/api/overview/#scopes) for the available scopes.
 
-After your user has used the login link to authorize he will be send back to the given `CALLBACK_URL`. The URL will contain the `code` which can be exchanged into an `access_token`. To exchange the code for an `access_token` and set it you can use the following code: 
+After your user has used the login link to authorize he will be send back to the given `CALLBACK_URL`. The URL will contain the `code` which can be exchanged into an `access_token`. To exchange the code for an `access_token` and set it you can use the following code:
 
 ```php
 if(isset($_GET["code"])){
@@ -54,7 +54,7 @@ if(isset($_GET["code"])){
 
 ## Get the user's profile
 
-To get the profile of the current logged in user you can use the `Users::me(<array>);` method. 
+To get the profile of the current logged in user you can use the `Users::me(<array>);` method.
 
 ```php
 $me = $pinterest->users->me();
@@ -62,11 +62,11 @@ echo $me;
 ```
 
 # Models
-The API wrapper will parse all data through it's corresponding model. This results in the possibility to (for example) directly `echo` your model into a JSON string. 
+The API wrapper will parse all data through it's corresponding model. This results in the possibility to (for example) directly `echo` your model into a JSON string.
 
-Models also show the available fields (which are also described in the Pinterest documentation). By default, not all fields are returned, so this can help you when providing extra fields to the request. 
+Models also show the available fields (which are also described in the Pinterest documentation). By default, not all fields are returned, so this can help you when providing extra fields to the request.
 
-## Available models 
+## Available models
 
 ### [User](https://dev.pinterest.com/docs/api/users/#user-object)
 
@@ -100,7 +100,7 @@ Response:
 }
 ```
 
-By default, not all fields are returned. The returned data from the API has been parsed into the `User` model. Every field in this model can be filled by parsing an extra `$data` array with the key `fields`. Say we want the user's username, first_name, last_name and image (small and large): 
+By default, not all fields are returned. The returned data from the API has been parsed into the `User` model. Every field in this model can be filled by parsing an extra `$data` array with the key `fields`. Say we want the user's username, first_name, last_name and image (small and large):
 
 ```php
 $pinterest->users->me(array(
@@ -108,7 +108,7 @@ $pinterest->users->me(array(
 ));
 ```
 
-The response will now be: 
+The response will now be:
 
 ```json
 {
@@ -176,9 +176,9 @@ Returns: `Boolean`
 
 # Available methods
 
-> Every method containing a `data` array can be filled with extra data. This can be for example extra fields or pagination. 
+> Every method containing a `data` array can be filled with extra data. This can be for example extra fields or pagination.
 
-## Authentication 
+## Authentication
 
 The methods below are available through `$pinterest->auth`.
 
@@ -189,7 +189,7 @@ The methods below are available through `$pinterest->auth`.
 $pinterest->auth->getLoginUrl("https://pinterest.dev/callback.php", array("read_public"));
 ```
 
-Check the [Pinterest documentation](https://dev.pinterest.com/docs/api/overview/#scopes) for the available scopes. 
+Check the [Pinterest documentation](https://dev.pinterest.com/docs/api/overview/#scopes) for the available scopes.
 
 **Note: since 0.2.0 the default authentication method has changed to `code` instead of `token`. This means you have to exchange the returned code for an access_token.**
 
@@ -219,7 +219,7 @@ Returns: `string`
 ### Set state
 `setState( string $state );`
 
-This method can be used to set a state manually, but this isn't required since the API will automatically generate a random state on initialize. 
+This method can be used to set a state manually, but this isn't required since the API will automatically generate a random state on initialize.
 
 ```php
 $pinterest->auth->setState($state);
@@ -378,7 +378,7 @@ Returns: `Pin`
 `fromBoard( string $board_id, array $data );`
 
 ```php
-$pinterest->pins->fromBoard("503066289565421201");
+$pinterest->pins->fromBoard("dirkgroenen/pinterest-api-test");
 ```
 
 Returns: `Collection<Pin>`
@@ -392,7 +392,7 @@ Creating a pin with an image hosted somewhere else:
 $pinterest->pins->create(array(
     "note"          => "Test board from API",
     "image_url"     => "https://download.unsplash.com/photo-1438216983993-cdcd7dea84ce",
-    "board"         => "503066289565421201"
+    "board"         => "dirkgroenen/pinterest-api-test"
 ));
 ```
 
@@ -402,7 +402,7 @@ Creating a pin with an image located on the server:
 $pinterest->pins->create(array(
     "note"          => "Test board from API",
     "image"         => "/path/to/image.png",
-    "board"         => "503066289565421201"
+    "board"         => "dirkgroenen/pinterest-api-test"
 ));
 ```
 
@@ -412,7 +412,7 @@ Creating a pin with a base64 encoded image:
 $pinterest->pins->create(array(
     "note"          => "Test board from API",
     "image_base64"  => "[base64 encoded image]",
-    "board"         => "503066289565421201"
+    "board"         => "dirkgroenen/pinterest-api-test"
 ));
 ```
 
