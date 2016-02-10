@@ -27,6 +27,8 @@ The Pinterest API wrapper is available on Composer.
 composer require dirkgroenen/Pinterest-API-PHP
 ```
 
+If you're not using Composer (which you should start using, unless you've got a good reason not to) you can include the `autoload.php` file in your project. 
+
 ## Simple Example
 ```php
 use DirkGroenen\Pinterest\Pinterest;
@@ -335,7 +337,7 @@ The methods below are available through `$pinterest->boards`.
 `get( string $board_id, array $data );`
 
 ```php
-$pinterest->boards->get("503066289565421201");
+$pinterest->boards->get("dirkgroenen/pinterest-api-test");
 ```
 
 Returns: `Board`
@@ -352,11 +354,22 @@ $pinterest->boards->create(array(
 
 Returns: `Board`
 
+### Edit board
+`edit( string $board_id, array $data );`
+
+```php
+$pinterest->boards-edit("dirkgroenen/pinterest-api-test", array(
+    "name"  => "Test board after edit"
+));
+```
+
+Returns: `Board`
+
 ### Delete board
 `delete( string $board_id, array $data );`
 
 ```php
-$pinterest->boards->delete("503066289565421201");
+$pinterest->boards->delete("dirkgroenen/pinterest-api-test");
 ```
 
 Returns: `True|PinterestException`

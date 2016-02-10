@@ -44,6 +44,21 @@ class Boards extends Endpoint {
     }
 
     /**
+     * Edit a board
+     *
+     * @access public
+     * @param  string   $board_id
+     * @param  array    $data
+     * @throws Exceptions/PinterestExceptions
+     * @return Board
+     */
+    public function edit($board_id, array $data)
+    {
+        $response = $this->request->update(sprintf("boards/%s", $board_id), $data);
+        return new Board($this->master, $response);
+    }
+
+    /**
      * Delete a board
      *
      * @access public
