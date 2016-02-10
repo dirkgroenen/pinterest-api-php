@@ -1,3 +1,8 @@
+### 0.2.9 (10-02-2016)
+
+- Add autoload.php as Composer alternative [#37](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/37)
+- Add board update endpoint [#34](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/34)
+
 ### 0.2.8 (02-02-2016)
 
 - Fix Curl execFollow and error handling [#31](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/31)
