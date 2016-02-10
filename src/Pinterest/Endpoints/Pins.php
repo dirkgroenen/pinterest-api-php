@@ -73,12 +73,13 @@ class Pins extends Endpoint {
      * @access public
      * @param  string   $pin_id
      * @param  array    $data
+     * @param  array    $fields
      * @throws Exceptions/PinterestExceptions
      * @return Pin
      */
-    public function update($pin_id, array $data)
+    public function update($pin_id, array $data, array $fields = array())
     {
-        $response = $this->request->update(sprintf("pins/%s", $pin_id), $data);
+        $response = $this->request->update(sprintf("pins/%s", $pin_id), $data, $fields);
         return new Pin($this->master, $response);
     }
 

@@ -355,7 +355,7 @@ $pinterest->boards->create(array(
 Returns: `Board`
 
 ### Edit board
-`edit( string $board_id, array $data );`
+`edit( string $board_id, array $data, array $fields = array() );`
 
 ```php
 $pinterest->boards-edit("dirkgroenen/pinterest-api-test", array(
@@ -435,10 +435,12 @@ Returns: `Pin`
 ### Update pin
 > According to the Pinterest documentation this endpoint exists, but for some reason their API is returning an error at the moment of writing.
 
-`update( string $pin_id, array $data );`
+`update( string $pin_id, array $data, array $fields = array() );`
 
 ```php
-$pinterest->pins->update("181692166190246650");
+$pinterest->pins->update("181692166190246650", array(
+    "note"  => "Updated name"
+));
 ```
 
 Returns: `Pin`

@@ -116,11 +116,18 @@ class Request {
      * @access public
      * @param  string   $endpoint
      * @param  array    $parameters
+     * @param  array    $queryparameters
      * @return Response
      */
-    public function update($endpoint, array $parameters = array())
+    public function update($endpoint, array $parameters = array(), array $queryparameters = array())
     {
-        return $this->execute("PATCH", sprintf("%s%s", $this->host, $endpoint) . "/", $parameters);
+        if (!empty($queryparameters)) {
+            $path = sprintf("%s/?%s", $endpoint, http_build_query($parameters));
+        } else {
+            $path = $endpoint;
+        }
+
+        return $this->execute("PATCH", sprintf("%s%s", $this->host, $path) . "/", $parameters);
     }
 
     /**
