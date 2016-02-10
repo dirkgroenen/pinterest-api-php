@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2015 Dirk Groenen 
+ * Copyright 2015 Dirk Groenen
  *
  * (c) Dirk Groenen <dirk@bitlabs.nl>
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -17,7 +17,7 @@ class PinsTest extends \PHPUnit_Framework_TestCase{
 
     /**
      * The Pinterest instance
-     * 
+     *
      * @var Pinterest
      */
     private $pinterest;
@@ -30,7 +30,7 @@ class PinsTest extends \PHPUnit_Framework_TestCase{
     public function setUp()
     {
         $curlbuilder = CurlBuilderMock::create( $this );
-        
+
         // Setup Pinterest
         $this->pinterest = new Pinterest("0", "0", $curlbuilder);
         $this->pinterest->auth->setOAuthToken( "0" );
@@ -58,6 +58,16 @@ class PinsTest extends \PHPUnit_Framework_TestCase{
             "note"      => "Test pin from API wrapper",
             "image_url" => "https://download.unsplash.com/photo-1438216983993-cdcd7dea84ce",
             "board"     => "503066289565421201"
+        ));
+
+        $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Pin", $response );
+        $this->assertEquals( $response->id , "503066220854919983" );
+    }
+
+    public function testEdit()
+    {
+        $response = $this->pinterest->pins->edit("503066220854919983", array(
+            "note"      => "Test pin from API wrapper - update"
         ));
 
         $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Pin", $response );
