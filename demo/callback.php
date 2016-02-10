@@ -12,7 +12,7 @@
 
             echo $pinterest->boards->edit("dirkgroenen/test-from-api", array(
                 "name"          => "Noted update 2 - API"
-            ), "description,creator");
+            ), "id,name,url,description,creator,created_at,counts,image");
         ?>
 
     </body>
