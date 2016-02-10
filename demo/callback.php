@@ -4,10 +4,16 @@
 <html>
     <head></head>
     <body>
-        <h1>Hey you!</h1>
-        <h2>$pinterest->boards->create()</h2>
+        <?php
+            /*echo $pinterest->boards->edit("dirkgroenen/test-from-api", array(
+                "name"          => "Test from API - update",
+                "description"   => "Test"
+            ));*/
 
-        <?php echo $pinterest->users->getMeBoards(); ?>
+            echo $pinterest->boards->edit("dirkgroenen/test-from-api", array(
+                "name"          => "Noted update 2 - API"
+            ), "id,name,url,description,creator,created_at,counts,image");
+        ?>
 
     </body>
 </html>

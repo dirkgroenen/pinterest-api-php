@@ -116,11 +116,18 @@ class Request {
      * @access public
      * @param  string   $endpoint
      * @param  array    $parameters
+     * @param  array    $queryparameters
      * @return Response
      */
-    public function update($endpoint, array $parameters = array())
+    public function update($endpoint, array $parameters = array(), array $queryparameters = array())
     {
-        return $this->execute("PATCH", sprintf("%s%s", $this->host, $endpoint) . "/", $parameters);
+        if (!empty($queryparameters)) {
+            $path = sprintf("%s/?%s", $endpoint, http_build_query($queryparameters));
+        } else {
+            $path = $endpoint;
+        }
+
+        return $this->execute("PATCH", sprintf("%s%s", $this->host, $path), $parameters);
     }
 
     /**
@@ -149,7 +156,7 @@ class Request {
         if ($this->access_token != null) {
             $headers = array_merge($headers, array(
                 "Authorization: Bearer " . $this->access_token,
-                "Content-type: multipart/form-data",
+                "Content-type: application/x-www-form-urlencoded; charset=UTF-8",
             ));
         }
 
@@ -172,7 +179,7 @@ class Request {
         switch ($method) {
             case 'POST':
                 $ch->setOptions(array(
-                    CURLOPT_CUSTOMREQUEST   => 'POST',
+                    CURLOPT_CUSTOMREQUEST   => "POST",
                     CURLOPT_POST            => count($parameters),
                     CURLOPT_POSTFIELDS      => $parameters
                 ));
@@ -186,13 +193,16 @@ class Request {
                 $ch->setOption(CURLOPT_CUSTOMREQUEST, "DELETE");
                 break;
             case 'PATCH':
-                $ch->setOption(CURLOPT_CUSTOMREQUEST, "PATCH");
+                $ch->setOptions(array(
+                    CURLOPT_CUSTOMREQUEST   => "PATCH",
+                    CURLOPT_POST            => count($parameters),
+                    CURLOPT_POSTFIELDS      => http_build_query($parameters)
+                ));
                 break;
             default:
                 $ch->setOption(CURLOPT_CUSTOMREQUEST, "GET");
                 break;
         }
-
 
         // Execute request and catch response
         $response_data = $ch->execute();
