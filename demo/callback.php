@@ -11,7 +11,7 @@
             ));*/
 
             echo $pinterest->pins->edit("503066220857432361", array(
-                "note"          => "Noted update"
+                "note"          => "Noted update 2"
             ), "id,link,note,url,image");
         ?>
 
