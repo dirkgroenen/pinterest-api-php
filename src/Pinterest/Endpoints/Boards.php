@@ -49,13 +49,15 @@ class Boards extends Endpoint {
      * @access public
      * @param  string   $board_id
      * @param  array    $data
-     * @param  array    $fields
+     * @param  string   $fields
      * @throws Exceptions/PinterestExceptions
      * @return Board
      */
-    public function edit($board_id, array $data, array $fields = array())
+    public function edit($board_id, array $data, array $fields = null)
     {
-        $response = $this->request->update(sprintf("boards/%s", $board_id), $data, $fields);
+        $query = (!$fields) ? array() : array("fields" => $fields);
+
+        $response = $this->request->update(sprintf("boards/%s", $board_id), $data, $query);
         return new Board($this->master, $response);
     }
 

@@ -3,7 +3,7 @@
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 
-    require "../autoload.php";
+    require "../vendor/autoload.php";
 
     $dotenv = new Dotenv\Dotenv(__DIR__);
     $dotenv->load();

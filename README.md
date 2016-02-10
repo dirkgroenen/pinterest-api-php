@@ -81,7 +81,7 @@ Models also show the available fields (which are also described in the Pinterest
 - name
 
 ## Retrieving extra fields
-If you want more fields you can specify these in the `$data` array. Example:
+If you want more fields you can specify these in the `$data` (GET requests) or `$fields` (PATCH requests) array. Example:
 
 ```php
 $pinterest->users->me();
@@ -355,7 +355,7 @@ $pinterest->boards->create(array(
 Returns: `Board`
 
 ### Edit board
-`edit( string $board_id, array $data, array $fields = array() );`
+`edit( string $board_id, array $data, string $fields = null );`
 
 ```php
 $pinterest->boards-edit("dirkgroenen/pinterest-api-test", array(
@@ -432,13 +432,12 @@ $pinterest->pins->create(array(
 
 Returns: `Pin`
 
-### Update pin
-> According to the Pinterest documentation this endpoint exists, but for some reason their API is returning an error at the moment of writing.
+### Edit pin
 
-`update( string $pin_id, array $data, array $fields = array() );`
+`edit( string $pin_id, array $data, string $fields = null );`
 
 ```php
-$pinterest->pins->update("181692166190246650", array(
+$pinterest->pins->edit("181692166190246650", array(
     "note"  => "Updated name"
 ));
 ```

@@ -122,12 +122,12 @@ class Request {
     public function update($endpoint, array $parameters = array(), array $queryparameters = array())
     {
         if (!empty($queryparameters)) {
-            $path = sprintf("%s/?%s", $endpoint, http_build_query($parameters));
+            $path = sprintf("%s/?%s", $endpoint, http_build_query($queryparameters));
         } else {
             $path = $endpoint;
         }
 
-        return $this->execute("PATCH", sprintf("%s%s", $this->host, $path) . "/", $parameters);
+        return $this->execute("PATCH", sprintf("%s%s", $this->host, $path), $parameters);
     }
 
     /**
@@ -156,7 +156,7 @@ class Request {
         if ($this->access_token != null) {
             $headers = array_merge($headers, array(
                 "Authorization: Bearer " . $this->access_token,
-                "Content-type: multipart/form-data",
+                "Content-type: application/x-www-form-urlencoded; charset=UTF-8",
             ));
         }
 
@@ -179,7 +179,7 @@ class Request {
         switch ($method) {
             case 'POST':
                 $ch->setOptions(array(
-                    CURLOPT_CUSTOMREQUEST   => 'POST',
+                    CURLOPT_CUSTOMREQUEST   => "POST",
                     CURLOPT_POST            => count($parameters),
                     CURLOPT_POSTFIELDS      => $parameters
                 ));
@@ -203,7 +203,6 @@ class Request {
                 $ch->setOption(CURLOPT_CUSTOMREQUEST, "GET");
                 break;
         }
-
 
         // Execute request and catch response
         $response_data = $ch->execute();

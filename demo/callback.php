@@ -4,13 +4,16 @@
 <html>
     <head></head>
     <body>
-        <h1>Hey you!</h1>
-        <h2>$pinterest->pins->create()</h2>
+        <?php
+            /*echo $pinterest->boards->edit("dirkgroenen/test-from-api", array(
+                "name"          => "Test from API - update",
+                "description"   => "Test"
+            ));*/
 
-        <?php echo $pinterest->pins->delete("503066220857361559", array(
-            "note"          => "Test from API",
-            "image_url"     => "https://download.unsplash.com/photo-1438216983993-cdcd7dea84ce"
-        )); ?>
+            echo $pinterest->pins->edit("503066220857432361", array(
+                "note"          => "Noted update"
+            ), "id,link,note,url,image");
+        ?>
 
     </body>
 </html>
