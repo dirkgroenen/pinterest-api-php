@@ -186,7 +186,11 @@ class Request {
                 $ch->setOption(CURLOPT_CUSTOMREQUEST, "DELETE");
                 break;
             case 'PATCH':
-                $ch->setOption(CURLOPT_CUSTOMREQUEST, "PATCH");
+                $ch->setOptions(array(
+                    CURLOPT_CUSTOMREQUEST   => "PATCH",
+                    CURLOPT_POST            => count($parameters),
+                    CURLOPT_POSTFIELDS      => $parameters
+                ));
                 break;
             default:
                 $ch->setOption(CURLOPT_CUSTOMREQUEST, "GET");
