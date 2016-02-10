@@ -18,8 +18,8 @@ class Boards extends Endpoint {
      * Find the provided board
      *
      * @access public
-     * @param string    $board_id
-     * @param array     $data
+     * @param  string    $board_id
+     * @param  array     $data
      * @throws Exceptions/PinterestExceptions
      * @return Board
      */

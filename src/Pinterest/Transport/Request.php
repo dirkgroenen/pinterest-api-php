@@ -149,7 +149,7 @@ class Request {
         if ($this->access_token != null) {
             $headers = array_merge($headers, array(
                 "Authorization: Bearer " . $this->access_token,
-                "Content-ype: multipart/form-data",
+                "Content-type: multipart/form-data",
             ));
         }
 
@@ -178,7 +178,7 @@ class Request {
                 ));
 
                 if (!class_exists("\CURLFile") && defined('CURLOPT_SAFE_UPLOAD')) {
-                                    $ch->setOption(CURLOPT_SAFE_UPLOAD, false);
+                    $ch->setOption(CURLOPT_SAFE_UPLOAD, false);
                 }
 
                 break;
@@ -207,8 +207,10 @@ class Request {
 
         // Check the response code
         if ($response->getResponseCode() >= 400) {
-            throw new PinterestException('Pinterest error (code: ' . $response->getResponseCode() . ') with message: ' . $response->message, $response->getResponseCode());
+            throw new PinterestException('Pinterest error (code: ' . $response->getResponseCode() . ') with message: ' . $response->getMessage(), $response->getResponseCode());
         }
+
+        // Get headers from last request
         $this->headers = $ch->getHeaders();
 
         // Close curl resource

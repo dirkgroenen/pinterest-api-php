@@ -1,7 +1,26 @@
+### 0.2.8 (02-02-2016)
+
+- Fix Curl execFollow and error handling [#31](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/31)
+
+### 0.2.7 (01-02-2016)
+
+- Fix wrong variable name
+[#30](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/30)
+
+### 0.2.6 (01-02-2016)
+
+- A lot of code cleanup based on Scruntinizer
+- Added `original_url` attribute to Pin model [#24](https://github.com/dirkgroenen/Pinterest-API-PHP/pull/24)
+- Fixed typo in header [#27](https://github.com/dirkgroenen/Pinterest-API-PHP/pull/27)
+
+### 0.2.5 (09-01-2016)
+
+- Fixed disabling CURL safe_mode issue in PHP 7.0 [#21](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/21)
+
 ### 0.2.3 (03-01-2016)
 
 - Add error codes to PinterestException ( [#17](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/17) )
-- Remove `whoops` as dependency 
+- Remove `whoops` as dependency
 
 ### 0.2.2 (31-12-2015)
 

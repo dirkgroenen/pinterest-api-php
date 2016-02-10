@@ -40,7 +40,7 @@ class PinterestOAuth {
     /**
      * A reference to the request instance
      *
-     * @var Transport\Request
+     * @var Request
      */
     private $request;
 
@@ -54,7 +54,7 @@ class PinterestOAuth {
      *
      * @param  string   $client_id
      * @param  string   $client_secret
-     * @param Request $request
+     * @param  Request  $request
      */
     public function __construct($client_id, $client_secret, $request)
     {
@@ -127,7 +127,7 @@ class PinterestOAuth {
      * Change the code for an access_token
      *
      * @param  string   $code
-     * @return array
+     * @return \DirkGroenen\Pinterest\Transport\Response
      */
     public function getOAuthToken($code)
     {

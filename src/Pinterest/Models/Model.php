@@ -40,18 +40,18 @@ class Model implements \JsonSerializable {
     /**
      * Create a new model instance
      *
-     * @param  Pinterest          $master
-     * @param  array|Response     $modeldata
+     * @param  Pinterest  $master
+     * @param  mixed      $modeldata
      */
-    public function __construct( Pinterest $master, $modeldata = null )
+    public function __construct(Pinterest $master, $modeldata = null)
     {
         $this->master = $master;
 
         // Fill the model
-        if( is_array($modeldata) ){
+        if (is_array($modeldata)) {
             $this->fill($modeldata);
         }
-        else if( $modeldata instanceof \DirkGroenen\Pinterest\Transport\Response ){
+        else if ($modeldata instanceof \DirkGroenen\Pinterest\Transport\Response) {
             $this->fill($modeldata->data);
         }
     }
@@ -79,11 +79,10 @@ class Model implements \JsonSerializable {
      */
     public function __set($key, $value)
     {
-        if($this->isFillable($key)){
+        if ($this->isFillable($key)) {
             $this->attributes[$key] = $value;
-        }
-        else{
-            throw new PinterestException( sprintf("%s is not a fillable attribute.", $key) );
+        } else {
+            throw new PinterestException(sprintf("%s is not a fillable attribute.", $key));
         }
     }
 
@@ -107,8 +106,8 @@ class Model implements \JsonSerializable {
      */
     private function fill(array $attributes)
     {
-        foreach($attributes as $key => $value){
-            if($this->isFillable($key)){
+        foreach ($attributes as $key => $value) {
+            if ($this->isFillable($key)) {
                 $this->attributes[$key] = $value;
             }
         }
@@ -136,7 +135,7 @@ class Model implements \JsonSerializable {
     {
         $array = array();
 
-        foreach($this->fillable as $key){
+        foreach ($this->fillable as $key) {
             $array[$key] = $this->{$key};
         }
 

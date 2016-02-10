@@ -11,7 +11,6 @@
 namespace DirkGroenen\Pinterest\Transport;
 
 use DirkGroenen\Pinterest\Utils\CurlBuilder;
-use DirkGroenen\Pinterest\Exceptions\PinterestException;
 
     /**
      * @property array $page
@@ -85,6 +84,18 @@ class Response {
     public function __isset($key)
     {
         return isset($this->response[$key]);
+    }
+
+    /**
+     * Returns the error message which should normaly
+     * by located in the response->message key, but can
+     * also be localed in the response->error key.
+     *
+     * @return string
+     */
+    public function getMessage()
+    {
+        return (isset($this->message)) ? $this->message : $this->error;
     }
 
     /**
