@@ -10,9 +10,9 @@
                 "description"   => "Test"
             ));*/
 
-            echo $pinterest->pins->edit("503066220857432361", array(
-                "note"          => "Noted update 2"
-            ), "id,link,note,url,image");
+            echo $pinterest->boards->edit("dirkgroenen/test-from-api", array(
+                "name"          => "Noted update 2 - API"
+            ), "description,creator");
         ?>
 
     </body>

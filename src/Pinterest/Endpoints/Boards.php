@@ -53,7 +53,7 @@ class Boards extends Endpoint {
      * @throws Exceptions/PinterestExceptions
      * @return Board
      */
-    public function edit($board_id, array $data, array $fields = null)
+    public function edit($board_id, array $data, $fields = null)
     {
         $query = (!$fields) ? array() : array("fields" => $fields);
 

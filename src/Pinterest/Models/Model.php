@@ -174,5 +174,4 @@ class Model implements \JsonSerializable {
     {
         return $this->toJson();
     }
-
 }
