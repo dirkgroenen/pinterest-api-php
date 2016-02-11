@@ -1,3 +1,7 @@
+### 0.2.10 (11-02-2016)
+
+- Fixed missing `http_build_query` in post requests [#39](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/39)
+
 ### 0.2.9 (10-02-2016)
 
 - Add autoload.php as Composer alternative [#37](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/37)
