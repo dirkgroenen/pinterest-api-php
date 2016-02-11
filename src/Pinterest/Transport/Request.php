@@ -181,7 +181,7 @@ class Request {
                 $ch->setOptions(array(
                     CURLOPT_CUSTOMREQUEST   => "POST",
                     CURLOPT_POST            => count($parameters),
-                    CURLOPT_POSTFIELDS      => $parameters
+                    CURLOPT_POSTFIELDS      => http_build_query($parameters)
                 ));
 
                 if (!class_exists("\CURLFile") && defined('CURLOPT_SAFE_UPLOAD')) {
