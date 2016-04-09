@@ -19,6 +19,8 @@
         $pinterest->auth->setOAuthToken($_GET["access_token"]);
     } else if (isset($_COOKIE["access_token"])) {
         $pinterest->auth->setOAuthToken($_COOKIE["access_token"]);
+    } else {
+        assert(false);
     }
 
 ?>
