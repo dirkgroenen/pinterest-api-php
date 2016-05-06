@@ -66,7 +66,7 @@ class Pinterest {
     }
 
     /**
-     * Get an Instagram API endpoint
+     * Get an Pinterest API endpoint
      *
      * @access public
      * @param string    $endpoint
