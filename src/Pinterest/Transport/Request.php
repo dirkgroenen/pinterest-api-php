@@ -213,7 +213,7 @@ class Request {
         $response_data = $ch->execute();
 
         if ($response_data === false && !$ch->hasErrors()) {
-            throw new CurlException("Error: Curl request failed")
+            throw new CurlException("Error: Curl request failed");
         }
         else if($ch->hasErrors()) {
             throw new PinterestException('Error: execute() - cURL error: ' . $ch->getErrors(), $ch->getErrorNumber());
