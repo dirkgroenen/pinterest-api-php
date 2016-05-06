@@ -12,6 +12,7 @@ namespace DirkGroenen\Pinterest\Transport;
 
 use DirkGroenen\Pinterest\Utils\CurlBuilder;
 use DirkGroenen\Pinterest\Exceptions\PinterestException;
+use DirkGroenen\Pinterest\Exceptions\CurlException;
 
 class Request {
 
@@ -211,8 +212,10 @@ class Request {
         // Execute request and catch response
         $response_data = $ch->execute();
 
-        // Check if we have a valid response
-        if (!$response_data || $ch->hasErrors()) {
+        if ($response_data === false && !$ch->hasErrors()) {
+            throw new CurlException("Error: Curl request failed")
+        }
+        else if($ch->hasErrors()) {
             throw new PinterestException('Error: execute() - cURL error: ' . $ch->getErrors(), $ch->getErrorNumber());
         }
 
