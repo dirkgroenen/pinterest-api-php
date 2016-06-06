@@ -115,7 +115,7 @@ class PinterestOAuth {
     /**
      * Set a state manually
      *
-     * @param  string    state
+     * @param  string    $state
      * @return void
      */
     public function setState($state)

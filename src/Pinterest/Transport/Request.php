@@ -145,11 +145,13 @@ class Request {
      * Execute the http request
      *
      * @access public
-     * @param  string   $method
-     * @param  string   $apiCall
-     * @param  array    $parameters
-     * @param  array    $headers
+     * @param  string $method
+     * @param  string $apiCall
+     * @param  array $parameters
+     * @param  array $headers
      * @return Response
+     * @throws CurlException
+     * @throws PinterestException
      */
     public function execute($method, $apiCall, array $parameters = array(), $headers = array())
     {
@@ -157,8 +159,6 @@ class Request {
         if ($this->access_token != null) {
             $headers = array_merge($headers, array(
                 "Authorization: Bearer " . $this->access_token,
-                //"Content-type: application/x-www-form-urlencoded; charset=UTF-8",
-                "Content-Type:multipart/form-data"
             ));
         }
 
@@ -183,13 +183,13 @@ class Request {
                 $ch->setOptions(array(
                     CURLOPT_CUSTOMREQUEST   => "POST",
                     CURLOPT_POST            => count($parameters),
-                    CURLOPT_POSTFIELDS      => ($parameters)
+                    CURLOPT_POSTFIELDS      => $parameters
                 ));
 
-                if (!class_exists("\CURLFile") && defined('CURLOPT_SAFE_UPLOAD')) {
+                if (!class_exists('\CURLFile') && defined('CURLOPT_SAFE_UPLOAD')) {
                     $ch->setOption(CURLOPT_SAFE_UPLOAD, false);
                 }
-                elseif (class_exists("\CURLFile") && defined('CURLOPT_SAFE_UPLOAD')) {
+                elseif (class_exists('\CURLFile') && defined('CURLOPT_SAFE_UPLOAD')) {
                     $ch->setOption(CURLOPT_SAFE_UPLOAD, true);
                 }
 
@@ -201,7 +201,7 @@ class Request {
                 $ch->setOptions(array(
                     CURLOPT_CUSTOMREQUEST   => "PATCH",
                     CURLOPT_POST            => count($parameters),
-                    CURLOPT_POSTFIELDS      => http_build_query($parameters)
+                    CURLOPT_POSTFIELDS      => $parameters
                 ));
                 break;
             default:
