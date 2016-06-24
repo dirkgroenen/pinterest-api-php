@@ -201,7 +201,7 @@ class Request {
                 $ch->setOptions(array(
                     CURLOPT_CUSTOMREQUEST   => "PATCH",
                     CURLOPT_POST            => count($parameters),
-                    CURLOPT_POSTFIELDS      => $parameters
+                    CURLOPT_POSTFIELDS      => http_build_query($parameters, '', '&')
                 ));
                 break;
             default:
