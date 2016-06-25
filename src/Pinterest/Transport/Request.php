@@ -162,6 +162,12 @@ class Request {
             ));
         }
 
+        // Force cURL to not send Expect header to workaround bug with Akamai CDN not handling
+        // this type of requests correctly
+        $headers = array_merge($headers, array(
+            "Expect:",
+        ));
+
         // Setup CURL
         $ch = $this->curlbuilder->create();
 
@@ -201,7 +207,7 @@ class Request {
                 $ch->setOptions(array(
                     CURLOPT_CUSTOMREQUEST   => "PATCH",
                     CURLOPT_POST            => count($parameters),
-                    CURLOPT_POSTFIELDS      => http_build_query($parameters, '', '&')
+                    CURLOPT_POSTFIELDS      => $parameters
                 ));
                 break;
             default:
