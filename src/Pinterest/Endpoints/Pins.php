@@ -21,7 +21,7 @@ class Pins extends Endpoint {
      * @access public
      * @param  string   $pin_id
      * @param array     $data
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return Pin
      */
     public function get($pin_id, array $data = [])
@@ -36,7 +36,7 @@ class Pins extends Endpoint {
      * @access public
      * @param  string   $board_id
      * @param array     $data
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return Collection
      */
     public function fromBoard($board_id, array $data = [])
@@ -50,13 +50,13 @@ class Pins extends Endpoint {
      *
      * @access public
      * @param  array    $data
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return Pin
      */
     public function create(array $data)
     {
         if (array_key_exists("image", $data)) {
-            if (class_exists("\CURLFile")) {
+            if (class_exists('\CURLFile')) {
                 $data["image"] = new \CURLFile($data['image']);
             } else {
                 $data["image"] = '@' . $data['image'];
@@ -74,14 +74,14 @@ class Pins extends Endpoint {
      * @param  string   $pin_id
      * @param  array    $data
      * @param  string   $fields
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return Pin
      */
     public function edit($pin_id, array $data, $fields = null)
     {
         $query = (!$fields) ? array() : array("fields" => $fields);
 
-        $response = $this->request->update(sprintf("pins/%s", $pin_id), $data, $query);
+        $response = $this->request->update(sprintf("pins/%s/", $pin_id), $data, $query);
         return new Pin($this->master, $response);
     }
 
@@ -90,7 +90,7 @@ class Pins extends Endpoint {
      *
      * @access public
      * @param  string   $pin_id
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return boolean
      */
     public function delete($pin_id)

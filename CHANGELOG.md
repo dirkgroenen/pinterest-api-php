@@ -1,3 +1,10 @@
+### 0.2.11 (10-05-2016)
+
+- Add extra exception when response is empty [#45](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/45)
+- Merge pull request [#43](https://github.com/dirkgroenen/Pinterest-API-PHP/pull/43)
+- Merge pull request [#46](https://github.com/dirkgroenen/Pinterest-API-PHP/pull/46)
+- Fix broken image upload [#47](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/47)
+
 ### 0.2.10 (11-02-2016)
 
 - Fixed missing `http_build_query` in post requests [#39](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/39)

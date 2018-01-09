@@ -82,7 +82,6 @@ class PinterestOAuth {
             "response_type"     => $response_type,
             "redirect_uri"      => $redirect_uri,
             "client_id"         => $this->client_id,
-            "client_secret"     => $this->client_secret,
             "scope"             => implode(",", $scopes),
             "state"             => $this->state
         );
@@ -115,7 +114,7 @@ class PinterestOAuth {
     /**
      * Set a state manually
      *
-     * @param  string    state
+     * @param  string    $state
      * @return void
      */
     public function setState($state)
