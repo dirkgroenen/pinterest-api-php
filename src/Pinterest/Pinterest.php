@@ -98,25 +98,25 @@ class Pinterest {
 
     /**
      * Get rate limit from the headers
-     *
+     * response header may change from X-Ratelimit-Limit to X-RateLimit-Limit
      * @access public
      * @return integer
      */
     public function getRateLimit()
     {
         $header = $this->request->getHeaders();
-        return (isset($header['X-Ratelimit-Limit']) ? $header['X-Ratelimit-Limit'] : 1000);
+        return (isset($header['X-Ratelimit-Limit']) ? $header['X-Ratelimit-Limit'] : (isset($header['X-RateLimit-Limit']) ? $header['X-RateLimit-Limit'] : 1000));
     }
 
     /**
      * Get rate limit remaining from the headers
-     *
+     * response header may change from X-Ratelimit-Remaining to X-RateLimit-Remaining
      * @access public
      * @return mixed
      */
     public function getRateLimitRemaining()
     {
         $header = $this->request->getHeaders();
-        return (isset($header['X-Ratelimit-Remaining']) ? $header['X-Ratelimit-Remaining'] : 'unknown');
+        return (isset($header['X-Ratelimit-Remaining']) ? $header['X-Ratelimit-Remaining'] : (isset($header['X-RateLimit-Remaining']) ? $header['X-RateLimit-Remaining'] : 'unknown'));
     }
 }
