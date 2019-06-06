@@ -105,7 +105,8 @@ class Pinterest {
     public function getRateLimit()
     {
         $header = $this->request->getHeaders();
-        return (isset($header['X-Ratelimit-Limit']) ? $header['X-Ratelimit-Limit'] : (isset($header['X-RateLimit-Limit']) ? $header['X-RateLimit-Limit'] : 1000));
+        $lcHeader = array_change_key_case($header, CASE_LOWER);
+        return (isset($lcHeader['x-ratelimit-limit']) ? $lcHeader['x-ratelimit-limit'] : 1000);
     }
 
     /**
@@ -117,6 +118,7 @@ class Pinterest {
     public function getRateLimitRemaining()
     {
         $header = $this->request->getHeaders();
-        return (isset($header['X-Ratelimit-Remaining']) ? $header['X-Ratelimit-Remaining'] : (isset($header['X-RateLimit-Remaining']) ? $header['X-RateLimit-Remaining'] : 'unknown'));
+        $lcHeader = array_change_key_case($header, CASE_LOWER);
+        return (isset($lcHeader['x-ratelimit-remaining']) ? $lcHeader['x-ratelimit-remaining'] : 'unknown');
     }
 }
