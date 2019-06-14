@@ -10,7 +10,7 @@
 A PHP wrapper for the official [Pinterest API](https://dev.pinterest.com).
 
 # Requirements
-- PHP 5.4 or higher
+- PHP 5.4 or higher (actively tested on PHP >=7.1)
 - cURL
 - Registered Pinterest App
 
@@ -23,7 +23,7 @@ To use the Pinterest API you have to register yourself as a developer and [creat
 The Pinterest API wrapper is available on Composer.
 
 ```
-composer require dirkgroenen/Pinterest-API-PHP
+composer require dirkgroenen/pinterest-api-php
 ```
 
 If you're not using Composer (which you should start using, unless you've got a good reason not to) you can include the `autoload.php` file in your project.
@@ -175,6 +175,18 @@ $pins->hasNextPage();
 
 Returns: `Boolean`
 
+## Get pagination data
+Returns an array with an `URL` and `cursor` for the next page, or `false` when no next page is available.
+
+`pagination`
+
+```php
+$pins = $pinterest->users->getMeLikes();
+$pins->pagination['cursor'];
+```
+
+Returns: `Array`
+
 # Available methods
 
 > Every method containing a `data` array can be filled with extra data. This can be for example extra fields or pagination.
@@ -227,6 +239,7 @@ $pinterest->auth->setState($state);
 ```
 
 ## Rate limit
+> Note that you should call an endpoint first, otherwise `getRateLimit()` will return `unknown`.
 
 ### Get limit
 `getRateLimit();`
@@ -372,6 +385,50 @@ $pinterest->boards->delete("dirkgroenen/pinterest-api-test");
 ```
 
 Returns: `True|PinterestException`
+
+## Sections
+The methods below are available through `$pinterest->sections`.
+
+### Create section on board
+`create( string $board_id, array $data );`
+
+```php
+$pinterest->sections->create("503066289565421205", array(
+    "title" => "Test from API"
+));
+```
+
+Returns: `Section`
+
+### Get sections on board
+`get( string $board_id, array $data );`
+
+```php
+$pinterest->sections->get("503066289565421205");
+```
+
+Returns: `Collection<Section>`
+
+### Get pins from section
+> Note: Returned board ids can't directly be provided to `pins()`. The id needs to be extracted from \<BoardSection xxx\>
+
+`get( string $board_id, array $data );`
+
+```php
+$pinterest->sections->pins("5027630990032422748");
+```
+
+Returns: `Collection<Pin>`
+
+### Delete section
+
+`delete( string $section_id );`
+
+```php
+$pinterest->sections->delete("5027630990032422748");
+```
+
+Returns: `boolean`
 
 ## Pins
 
