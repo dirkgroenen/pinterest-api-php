@@ -99,6 +99,19 @@ class Request {
     }
 
     /**
+     * Make a put request to the given endpoint
+     *
+     * @access public
+     * @param  string   $endpoint
+     * @param  array    $parameters
+     * @return Response
+     */
+    public function put($endpoint, array $parameters = array())
+    {
+        return $this->execute("PUT", sprintf("%s%s", $this->host, $endpoint), $parameters);
+    }
+
+    /**
      * Make a delete request to the given endpoint
      *
      * @access public
