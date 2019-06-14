@@ -23,7 +23,7 @@ To use the Pinterest API you have to register yourself as a developer and [creat
 The Pinterest API wrapper is available on Composer.
 
 ```
-composer require dirkgroenen/Pinterest-API-PHP
+composer require dirkgroenen/pinterest-api-php
 ```
 
 If you're not using Composer (which you should start using, unless you've got a good reason not to) you can include the `autoload.php` file in your project.
