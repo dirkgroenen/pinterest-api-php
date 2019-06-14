@@ -239,6 +239,7 @@ $pinterest->auth->setState($state);
 ```
 
 ## Rate limit
+> Note that you should call an endpoint first, otherwise `getRateLimit()` will return `unknown`.
 
 ### Get limit
 `getRateLimit();`
