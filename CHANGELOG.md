@@ -1,3 +1,11 @@
+### 0.2.12 (14-06-2019
+- Fix getRateLimitRemaining() issue [#100](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/100) [#99](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/99)
+- drop testing support for <=7.0 [#97](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/97)
+- Add note about Rate Limiting [#96](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/96)
+- Add info about pagination property [#94](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/94)
+- Fix instructions to match actual name [#93](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/93)
+- Add sections [#95](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/95)
+
 ### 0.2.11 (10-05-2016)
 
 - Add extra exception when response is empty [#45](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/45)
