@@ -175,6 +175,18 @@ $pins->hasNextPage();
 
 Returns: `Boolean`
 
+## Get pagination data
+Returns an array with an `URL` and `cursor` for the next page, or `false` when no next page is available.
+
+`pagination`
+
+```php
+$pins = $pinterest->users->getMeLikes();
+$pins->pagination['cursor'];
+```
+
+Returns: `Array`
+
 # Available methods
 
 > Every method containing a `data` array can be filled with extra data. This can be for example extra fields or pagination.
