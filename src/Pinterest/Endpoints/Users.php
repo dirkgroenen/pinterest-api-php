@@ -40,7 +40,7 @@ class Users extends Endpoint {
      */
     public function find($username, array $data = [])
     {
-        $response = $this->request->get(sprintf("users/%s", $username), $data);
+        $response = $this->request->get(sprintf("users/%s/", $username), $data);
         return new User($this->master, $response);
     }
 
