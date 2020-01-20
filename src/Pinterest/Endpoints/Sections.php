@@ -26,7 +26,7 @@ class Sections extends Endpoint {
      */
     public function create(string $board, array $data)
     {
-        $response = $this->request->put(sprintf("board/%s/sections", $board), $data);
+        $response = $this->request->put(sprintf("board/%s/sections/", $board), $data);
         return new Section($this->master, ['id' => $response->data]);
     }
 
@@ -58,7 +58,7 @@ class Sections extends Endpoint {
      */
     public function pins(string $section, array $data = [])
     {
-        $response = $this->request->get(sprintf("board/sections/%s/pins", $section), $data);
+        $response = $this->request->get(sprintf("board/sections/%s/pins/", $section), $data);
         return new Collection($this->master, $response, "Pin");
     }
 
@@ -72,7 +72,7 @@ class Sections extends Endpoint {
      */
     public function delete($section)
     {
-        $this->request->delete(sprintf("board/sections/%s", $section));
+        $this->request->delete(sprintf("board/sections/%s/", $section));
         return true;
     }
 }

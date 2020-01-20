@@ -25,7 +25,7 @@ class Users extends Endpoint {
      */
     public function me(array $data = [])
     {
-        $response = $this->request->get("me", $data);
+        $response = $this->request->get("me/", $data);
         return new User($this->master, $response);
     }
 
@@ -54,7 +54,7 @@ class Users extends Endpoint {
      */
     public function getMePins(array $data = [])
     {
-        $response = $this->request->get("me/pins", $data);
+        $response = $this->request->get("me/pins/", $data);
         return new Collection($this->master, $response, "Pin");
     }
 
@@ -69,7 +69,7 @@ class Users extends Endpoint {
     public function searchMePins($query, array $data = [])
     {
         $data["query"] = $query;
-        $response = $this->request->get("me/search/pins", $data);
+        $response = $this->request->get("me/search/pins/", $data);
         return new Collection($this->master, $response, "Pin");
     }
 
@@ -85,7 +85,7 @@ class Users extends Endpoint {
     {
         $data["query"] = $query;
 
-        $response = $this->request->get("me/search/boards", $data);
+        $response = $this->request->get("me/search/boards/", $data);
         return new Collection($this->master, $response, "Board");
     }
 
@@ -99,7 +99,7 @@ class Users extends Endpoint {
      */
     public function getMeBoards(array $data = [])
     {
-        $response = $this->request->get("me/boards", $data);
+        $response = $this->request->get("me/boards/", $data);
         return new Collection($this->master, $response, "Board");
     }
 
@@ -113,7 +113,7 @@ class Users extends Endpoint {
      */
     public function getMeLikes(array $data = [])
     {
-        $response = $this->request->get("me/likes", $data);
+        $response = $this->request->get("me/likes/", $data);
         return new Collection($this->master, $response, "Pin");
     }
 
@@ -127,7 +127,7 @@ class Users extends Endpoint {
      */
     public function getMeFollowers(array $data = [])
     {
-        $response = $this->request->get("me/followers", $data);
+        $response = $this->request->get("me/followers/", $data);
         return new Collection($this->master, $response, "User");
     }
 
