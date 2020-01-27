@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2015 Dirk Groenen
  *
@@ -13,7 +14,8 @@ namespace DirkGroenen\Pinterest\Tests\Endpoints;
 use \DirkGroenen\Pinterest\Pinterest;
 use \DirkGroenen\Pinterest\Tests\Utils\CurlBuilderMock;
 
-class ImageUploadTest extends \PHPUnit_Framework_TestCase{
+class ImageUploadTest extends \PHPUnit\Framework\TestCase
+{
 
     /**
      * The Pinterest instance
@@ -27,7 +29,7 @@ class ImageUploadTest extends \PHPUnit_Framework_TestCase{
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         // Setup Pinterest without the curlbuilder mock (since we wan't to test real interaction)
         $this->pinterest = new Pinterest(CLIENT_ID, CLIENT_SECRET);
@@ -54,5 +56,4 @@ class ImageUploadTest extends \PHPUnit_Framework_TestCase{
             "This test has not been implemented yet."
         );
     }
-
 }

@@ -1,9 +1,10 @@
 <?php
+
 /**
- * Copyright 2015 Dirk Groenen 
+ * Copyright 2015 Dirk Groenen
  *
  * (c) Dirk Groenen <dirk@bitlabs.nl>
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -13,11 +14,12 @@ namespace DirkGroenen\Pinterest\Tests\Endpoints;
 use \DirkGroenen\Pinterest\Pinterest;
 use \DirkGroenen\Pinterest\Tests\Utils\CurlBuilderMock;
 
-class ModelTest extends \PHPUnit_Framework_TestCase{
+class ModelTest extends \PHPUnit\Framework\TestCase
+{
 
     /**
      * The Pinterest instance
-     * 
+     *
      * @var Pinterest
      */
     private $pinterest;
@@ -27,13 +29,13 @@ class ModelTest extends \PHPUnit_Framework_TestCase{
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
-        $curlbuilder = CurlBuilderMock::create( $this );
-        
+        $curlbuilder = CurlBuilderMock::create($this);
+
         // Setup Pinterest
         $this->pinterest = new Pinterest("0", "0", $curlbuilder);
-        $this->pinterest->auth->setOAuthToken( "0" );
+        $this->pinterest->auth->setOAuthToken("0");
     }
 
     /**
@@ -43,7 +45,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase{
     {
         $response = $this->pinterest->pins->get("181692166190246650");
 
-        $this->assertTrue( is_string($response->toJson()) );
+        $this->assertTrue(is_string($response->toJson()));
     }
 
     /**
@@ -53,7 +55,6 @@ class ModelTest extends \PHPUnit_Framework_TestCase{
     {
         $response = $this->pinterest->pins->get("181692166190246650");
 
-        $this->assertTrue( is_array($response->toArray()) );
+        $this->assertTrue(is_array($response->toArray()));
     }
-
 }

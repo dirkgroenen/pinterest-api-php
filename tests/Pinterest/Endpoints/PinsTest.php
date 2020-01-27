@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2015 Dirk Groenen
  *
@@ -13,7 +14,8 @@ namespace DirkGroenen\Pinterest\Tests\Endpoints;
 use \DirkGroenen\Pinterest\Pinterest;
 use \DirkGroenen\Pinterest\Tests\Utils\CurlBuilderMock;
 
-class PinsTest extends \PHPUnit_Framework_TestCase{
+class PinsTest extends \PHPUnit\Framework\TestCase
+{
 
     /**
      * The Pinterest instance
@@ -27,29 +29,29 @@ class PinsTest extends \PHPUnit_Framework_TestCase{
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
-        $curlbuilder = CurlBuilderMock::create( $this );
+        $curlbuilder = CurlBuilderMock::create($this);
 
         // Setup Pinterest
         $this->pinterest = new Pinterest("0", "0", $curlbuilder);
-        $this->pinterest->auth->setOAuthToken( "0" );
+        $this->pinterest->auth->setOAuthToken("0");
     }
 
     public function testGet()
     {
         $response = $this->pinterest->pins->get("181692166190246650");
 
-        $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Pin", $response );
-        $this->assertEquals( $response->id , "181692166190246650" );
+        $this->assertInstanceOf("DirkGroenen\Pinterest\Models\Pin", $response);
+        $this->assertEquals($response->id, "181692166190246650");
     }
 
     public function testFromBoard()
     {
         $response = $this->pinterest->pins->fromBoard("503066289565421201");
 
-        $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Collection", $response );
-        $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Pin", $response->get(0) );
+        $this->assertInstanceOf("DirkGroenen\Pinterest\Models\Collection", $response);
+        $this->assertInstanceOf("DirkGroenen\Pinterest\Models\Pin", $response->get(0));
     }
 
     public function testCreate()
@@ -60,8 +62,8 @@ class PinsTest extends \PHPUnit_Framework_TestCase{
             "board"     => "503066289565421201"
         ));
 
-        $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Pin", $response );
-        $this->assertEquals( $response->id , "503066220854919983" );
+        $this->assertInstanceOf("DirkGroenen\Pinterest\Models\Pin", $response);
+        $this->assertEquals($response->id, "503066220854919983");
     }
 
     public function testEdit()
@@ -70,15 +72,14 @@ class PinsTest extends \PHPUnit_Framework_TestCase{
             "note"      => "Test pin from API wrapper - update"
         ));
 
-        $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Pin", $response );
-        $this->assertEquals( $response->id , "503066220854919983" );
+        $this->assertInstanceOf("DirkGroenen\Pinterest\Models\Pin", $response);
+        $this->assertEquals($response->id, "503066220854919983");
     }
 
     public function testDelete()
     {
         $response = $this->pinterest->pins->delete("503066220854919983");
 
-        $this->assertTrue( $response );
+        $this->assertTrue($response);
     }
-
 }

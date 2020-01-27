@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2015 Dirk Groenen
  *
@@ -13,7 +14,8 @@ namespace DirkGroenen\Pinterest\Tests;
 use \DirkGroenen\Pinterest\Pinterest;
 use \DirkGroenen\Pinterest\Tests\Utils\CurlBuilderMock;
 
-class PinterestTest extends \PHPUnit_Framework_TestCase{
+class PinterestTest extends \PHPUnit\Framework\TestCase
+{
 
     /**
      * The Pinterest instance
@@ -27,24 +29,24 @@ class PinterestTest extends \PHPUnit_Framework_TestCase{
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
-        $curlbuilder = CurlBuilderMock::create( $this );
+        $curlbuilder = CurlBuilderMock::create($this);
 
         // Setup Pinterest
         $this->pinterest = new Pinterest("0", "0", $curlbuilder);
-        $this->pinterest->auth->setOAuthToken( "0" );
+        $this->pinterest->auth->setOAuthToken("0");
     }
 
     public function testGetRateLimit()
     {
         $ratelimit = $this->pinterest->getRateLimit();
-        $this->assertEquals( $ratelimit, 1000 );
+        $this->assertEquals($ratelimit, 1000);
     }
 
     public function testGetRateLimitRemaining()
     {
         $ratelimit = $this->pinterest->getRateLimitRemaining();
-        $this->assertEquals( $ratelimit, 'unknown' );
+        $this->assertEquals($ratelimit, 'unknown');
     }
 }

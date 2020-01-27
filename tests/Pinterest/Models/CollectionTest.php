@@ -1,9 +1,10 @@
 <?php
+
 /**
- * Copyright 2015 Dirk Groenen 
+ * Copyright 2015 Dirk Groenen
  *
  * (c) Dirk Groenen <dirk@bitlabs.nl>
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -13,11 +14,12 @@ namespace DirkGroenen\Pinterest\Tests\Endpoints;
 use \DirkGroenen\Pinterest\Pinterest;
 use \DirkGroenen\Pinterest\Tests\Utils\CurlBuilderMock;
 
-class CollectionTest extends \PHPUnit_Framework_TestCase{
+class CollectionTest extends \PHPUnit\Framework\TestCase
+{
 
     /**
      * The Pinterest instance
-     * 
+     *
      * @var Pinterest
      */
     private $pinterest;
@@ -27,13 +29,13 @@ class CollectionTest extends \PHPUnit_Framework_TestCase{
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
-        $curlbuilder = CurlBuilderMock::create( $this );
-        
+        $curlbuilder = CurlBuilderMock::create($this);
+
         // Setup Pinterest
         $this->pinterest = new Pinterest("0", "0", $curlbuilder);
-        $this->pinterest->auth->setOAuthToken( "0" );
+        $this->pinterest->auth->setOAuthToken("0");
     }
 
     /**
@@ -43,8 +45,8 @@ class CollectionTest extends \PHPUnit_Framework_TestCase{
     {
         $response = $this->pinterest->following->interests();
 
-        $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Collection", $response );
-        $this->assertTrue( is_array( $response->all() ) );
+        $this->assertInstanceOf("DirkGroenen\Pinterest\Models\Collection", $response);
+        $this->assertTrue(is_array($response->all()));
     }
 
     /**
@@ -54,9 +56,9 @@ class CollectionTest extends \PHPUnit_Framework_TestCase{
     {
         $response = $this->pinterest->following->interests();
 
-        $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Collection", $response );
-        $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Interest", $response->get(1) );
-        $this->assertEquals( $response->get(1)->id, "955147773988" );
+        $this->assertInstanceOf("DirkGroenen\Pinterest\Models\Collection", $response);
+        $this->assertInstanceOf("DirkGroenen\Pinterest\Models\Interest", $response->get(1));
+        $this->assertEquals($response->get(1)->id, "955147773988");
     }
 
     /**
@@ -66,7 +68,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase{
     {
         $response = $this->pinterest->following->interests();
 
-        $this->assertTrue( $response->hasNextPage() );
+        $this->assertTrue($response->hasNextPage());
     }
 
     /**
@@ -76,7 +78,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase{
     {
         $response = $this->pinterest->following->interests();
 
-        $this->assertTrue( is_string($response->toJson()) );
+        $this->assertTrue(is_string($response->toJson()));
     }
 
     /**
@@ -86,7 +88,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase{
     {
         $response = $this->pinterest->following->interests();
 
-        $this->assertTrue( is_array($response->toArray()) );
+        $this->assertTrue(is_array($response->toArray()));
     }
-
 }

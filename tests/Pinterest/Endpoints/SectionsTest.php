@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2015 Dirk Groenen
  *
@@ -13,7 +14,8 @@ namespace DirkGroenen\Pinterest\Tests\Endpoints;
 use \DirkGroenen\Pinterest\Pinterest;
 use \DirkGroenen\Pinterest\Tests\Utils\CurlBuilderMock;
 
-class SectionsTest extends \PHPUnit_Framework_TestCase{
+class SectionsTest extends \PHPUnit\Framework\TestCase
+{
 
     /**
      * The Pinterest instance
@@ -27,21 +29,21 @@ class SectionsTest extends \PHPUnit_Framework_TestCase{
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
-        $curlbuilder = CurlBuilderMock::create( $this );
+        $curlbuilder = CurlBuilderMock::create($this);
 
         // Setup Pinterest
         $this->pinterest = new Pinterest("0", "0", $curlbuilder);
-        $this->pinterest->auth->setOAuthToken( "0" );
+        $this->pinterest->auth->setOAuthToken("0");
     }
 
     public function testGet()
     {
         $response = $this->pinterest->sections->get("503066289565421201");
 
-        $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Collection", $response );
-        $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Section", $response->get(0) );
+        $this->assertInstanceOf("DirkGroenen\Pinterest\Models\Collection", $response);
+        $this->assertInstanceOf("DirkGroenen\Pinterest\Models\Section", $response->get(0));
         $this->assertEquals($response->get(0)->id, "<BoardSection 5027629787972154693>");
     }
 
@@ -49,8 +51,8 @@ class SectionsTest extends \PHPUnit_Framework_TestCase{
     {
         $response = $this->pinterest->sections->pins("503066289565421201");
 
-        $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Collection", $response );
-        $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Pin", $response->get(0) );
+        $this->assertInstanceOf("DirkGroenen\Pinterest\Models\Collection", $response);
+        $this->assertInstanceOf("DirkGroenen\Pinterest\Models\Pin", $response->get(0));
     }
 
     public function testCreate()
@@ -59,15 +61,14 @@ class SectionsTest extends \PHPUnit_Framework_TestCase{
             "title" => "Test from API"
         ));
 
-        $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Section", $response );
-        $this->assertEquals( $response->id , "<BoardSection 5027630990032422748>" );
+        $this->assertInstanceOf("DirkGroenen\Pinterest\Models\Section", $response);
+        $this->assertEquals($response->id, "<BoardSection 5027630990032422748>");
     }
 
     public function testDelete()
     {
         $response = $this->pinterest->sections->delete("5027630990032422748");
 
-        $this->assertTrue( $response );
+        $this->assertTrue($response);
     }
-
 }

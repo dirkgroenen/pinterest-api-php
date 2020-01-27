@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2015 Dirk Groenen
  *
@@ -13,7 +14,8 @@ namespace DirkGroenen\Pinterest\Tests\Endpoints;
 use \DirkGroenen\Pinterest\Pinterest;
 use \DirkGroenen\Pinterest\Tests\Utils\CurlBuilderMock;
 
-class BoardsTest extends \PHPUnit_Framework_TestCase{
+class BoardsTest extends \PHPUnit\Framework\TestCase
+{
 
     /**
      * The Pinterest instance
@@ -27,21 +29,21 @@ class BoardsTest extends \PHPUnit_Framework_TestCase{
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
-        $curlbuilder = CurlBuilderMock::create( $this );
+        $curlbuilder = CurlBuilderMock::create($this);
 
         // Setup Pinterest
         $this->pinterest = new Pinterest("0", "0", $curlbuilder);
-        $this->pinterest->auth->setOAuthToken( "0" );
+        $this->pinterest->auth->setOAuthToken("0");
     }
 
     public function testGet()
     {
         $response = $this->pinterest->boards->get("503066289565421201");
 
-        $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Board", $response );
-        $this->assertEquals( $response->id , "503066289565421201" );
+        $this->assertInstanceOf("DirkGroenen\Pinterest\Models\Board", $response);
+        $this->assertEquals($response->id, "503066289565421201");
     }
 
     public function testGetWithExtraFields()
@@ -50,8 +52,8 @@ class BoardsTest extends \PHPUnit_Framework_TestCase{
             "fields" => "url,description,creator,counts"
         ));
 
-        $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Board", $response );
-        $this->assertTrue( isset($response->creator['first_name']) );
+        $this->assertInstanceOf("DirkGroenen\Pinterest\Models\Board", $response);
+        $this->assertTrue(isset($response->creator['first_name']));
     }
 
     public function testCreate()
@@ -61,8 +63,8 @@ class BoardsTest extends \PHPUnit_Framework_TestCase{
             "description"   => "Test Board From API Test"
         ));
 
-        $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Board", $response );
-        $this->assertEquals( $response->id , "503066289565421205" );
+        $this->assertInstanceOf("DirkGroenen\Pinterest\Models\Board", $response);
+        $this->assertEquals($response->id, "503066289565421205");
     }
 
     public function testEdit()
@@ -71,15 +73,14 @@ class BoardsTest extends \PHPUnit_Framework_TestCase{
             "name"          => "Test board from API"
         ));
 
-        $this->assertInstanceOf( "DirkGroenen\Pinterest\Models\Board", $response );
-        $this->assertEquals( $response->id , "503066289565421205" );
+        $this->assertInstanceOf("DirkGroenen\Pinterest\Models\Board", $response);
+        $this->assertEquals($response->id, "503066289565421205");
     }
 
     public function testDelete()
     {
         $response = $this->pinterest->boards->delete("503066289565421205");
 
-        $this->assertTrue( $response );
+        $this->assertTrue($response);
     }
-
 }

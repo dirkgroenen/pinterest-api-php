@@ -17,7 +17,7 @@ class CurlBuilderMock {
      * the given filename as content
      *
      * @access public
-     * @param  PHPUnit_Framework_TestCase   $instance
+     * @param  PHPUnit\Framework\TestCase   $instance
      * @return mock
      */
     public static function create( $instance )
