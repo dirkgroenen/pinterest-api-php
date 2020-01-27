@@ -54,7 +54,7 @@ class Users extends Endpoint {
      */
     public function getMePins(array $data = [])
     {
-        $response = $this->request->get("me/pins", $data);
+        $response = $this->request->get("me/pins/", $data);
         return new Collection($this->master, $response, "Pin");
     }
 
