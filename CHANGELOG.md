@@ -1,3 +1,6 @@
+### 0.2.13 (27-01-2020)
+- Fix paths which return redirect errors [#106](https://github.com/dirkgroenen/Pinterest-API-PHP/pull/106) [#107](https://github.com/dirkgroenen/Pinterest-API-PHP/pull/107) [#108](https://github.com/dirkgroenen/Pinterest-API-PHP/pull/108) [#109](https://github.com/dirkgroenen/Pinterest-API-PHP/pull/109)
+
 ### 0.2.12 (14-06-2019
 - Fix getRateLimitRemaining() issue [#100](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/100) [#99](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/99)
 - drop testing support for <=7.0 [#97](https://github.com/dirkgroenen/Pinterest-API-PHP/issues/97)
