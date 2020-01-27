@@ -77,7 +77,7 @@ class Request {
     public function get($endpoint, array $parameters = array())
     {
         if (!empty($parameters)) {
-            $path = sprintf("%s/?%s", $endpoint, http_build_query($parameters));
+            $path = sprintf("%s?%s", $endpoint, http_build_query($parameters));
         } else {
             $path = $endpoint;
         }
@@ -136,7 +136,7 @@ class Request {
     public function update($endpoint, array $parameters = array(), array $queryparameters = array())
     {
         if (!empty($queryparameters)) {
-            $path = sprintf("%s/?%s", $endpoint, http_build_query($queryparameters));
+            $path = sprintf("%s?%s", $endpoint, http_build_query($queryparameters));
         } else {
             $path = $endpoint;
         }

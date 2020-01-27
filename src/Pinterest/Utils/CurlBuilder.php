@@ -10,6 +10,8 @@
 
 namespace DirkGroenen\Pinterest\Utils;
 
+use DirkGroenen\Pinterest\Exceptions\PinterestException;
+
 class CurlBuilder {
 
     /**
@@ -216,9 +218,11 @@ class CurlBuilder {
                     } else {
                         $code = $this->getInfo(CURLINFO_HTTP_CODE);
 
-                        if ($code == 301 || $code == 302) {
+                        if ($code == 301 || $code == 302 || $code == 308) {
                             preg_match('/Location:(.*?)\n/i', $header, $matches);
                             $newurl = trim(array_pop($matches));
+                        } else if ($code >= 300 && $code <= 399) {
+                            throw new PinterestException('Error: Unhandled 3xx HTTP code: ' . $code);
                         } else {
                             $code = 0;
                         }

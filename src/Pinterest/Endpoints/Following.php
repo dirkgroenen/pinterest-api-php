@@ -26,7 +26,7 @@ class Following extends Endpoint {
      */
     public function users(array $data = [])
     {
-        $response = $this->request->get("me/following/users", $data);
+        $response = $this->request->get("me/following/users/", $data);
         return new Collection($this->master, $response, "User");
     }
 
@@ -40,7 +40,7 @@ class Following extends Endpoint {
      */
     public function boards(array $data = [])
     {
-        $response = $this->request->get("me/following/boards", $data);
+        $response = $this->request->get("me/following/boards/", $data);
         return new Collection($this->master, $response, "Board");
     }
 
@@ -54,7 +54,7 @@ class Following extends Endpoint {
      */
     public function interests(array $data = [])
     {
-        $response = $this->request->get("me/following/interests", $data);
+        $response = $this->request->get("me/following/interests/", $data);
         return new Collection($this->master, $response, "Interest");
     }
 
@@ -68,7 +68,7 @@ class Following extends Endpoint {
      */
     public function followUser($user)
     {
-        $this->request->post("me/following/users", array(
+        $this->request->post("me/following/users/", array(
             "user"  => $user
         ));
         return true;
@@ -84,7 +84,7 @@ class Following extends Endpoint {
      */
     public function unfollowUser($user)
     {
-        $this->request->delete(sprintf("me/following/users/%s", $user));
+        $this->request->delete(sprintf("me/following/users/%s/", $user));
         return true;
     }
 
@@ -98,7 +98,7 @@ class Following extends Endpoint {
      */
     public function followBoard($board)
     {
-        $this->request->post("me/following/boards", array(
+        $this->request->post("me/following/boards/", array(
             "board"  => $board
         ));
         return true;
@@ -114,7 +114,7 @@ class Following extends Endpoint {
      */
     public function unfollowBoard($board_id)
     {
-        $this->request->delete(sprintf("me/following/boards/%s", $board_id));
+        $this->request->delete(sprintf("me/following/boards/%s/", $board_id));
         return true;
     }
 
@@ -128,7 +128,7 @@ class Following extends Endpoint {
      */
     public function followInterest($interest)
     {
-        $this->request->post("me/following/interests", array(
+        $this->request->post("me/following/interests/", array(
             "interest"  => $interest
         ));
         return true;
@@ -144,7 +144,7 @@ class Following extends Endpoint {
      */
     public function unfollowInterest($interest_id)
     {
-        $this->request->delete(sprintf("me/following/interests/%s", $interest_id));
+        $this->request->delete(sprintf("me/following/interests/%s/", $interest_id));
         return true;
     }
 }
