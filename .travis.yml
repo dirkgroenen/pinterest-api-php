@@ -8,8 +8,3 @@ before_script:
     - composer install --prefer-source --no-interaction
 script:
     - ./vendor/bin/phpunit -c phpunit.xml
-
-branches:
-    only:
-        - master
-        - development
