@@ -21,7 +21,7 @@ class Request {
      *
      * @var string
      */
-    private $host = "https://api.pinterest.com/v1/";
+    private $host = "https://api.pinterest.com/v5/";
 
     /**
      * Access token
@@ -72,9 +72,10 @@ class Request {
      * @access public
      * @param  string   $endpoint
      * @param  array    $parameters
+     * @param  array    $headers
      * @return Response
      */
-    public function get($endpoint, array $parameters = array())
+    public function get($endpoint, array $parameters = array(), array $headers = array())
     {
         if (!empty($parameters)) {
             $path = sprintf("%s?%s", $endpoint, http_build_query($parameters));
@@ -82,7 +83,7 @@ class Request {
             $path = $endpoint;
         }
 
-        return $this->execute("GET", sprintf("%s%s", $this->host, $path));
+        return $this->execute("GET", sprintf("%s%s", $this->host, $path), $headers);
     }
 
     /**
@@ -91,11 +92,12 @@ class Request {
      * @access public
      * @param  string   $endpoint
      * @param  array    $parameters
+     * @param  array    $headers
      * @return Response
      */
-    public function post($endpoint, array $parameters = array())
+    public function post($endpoint, array $parameters = array(), array $headers = array())
     {
-        return $this->execute("POST", sprintf("%s%s", $this->host, $endpoint), $parameters);
+        return $this->execute("POST", sprintf("%s%s", $this->host, $endpoint), $parameters, $headers);
     }
 
     /**
@@ -104,11 +106,12 @@ class Request {
      * @access public
      * @param  string   $endpoint
      * @param  array    $parameters
+     * @param  array    $headers
      * @return Response
      */
-    public function put($endpoint, array $parameters = array())
+    public function put($endpoint, array $parameters = array(), array $headers = array())
     {
-        return $this->execute("PUT", sprintf("%s%s", $this->host, $endpoint), $parameters);
+        return $this->execute("PUT", sprintf("%s%s", $this->host, $endpoint), $parameters, $headers);
     }
 
     /**
@@ -117,11 +120,12 @@ class Request {
      * @access public
      * @param  string   $endpoint
      * @param  array    $parameters
+     * @param  array    $headers
      * @return Response
      */
-    public function delete($endpoint, array $parameters = array())
+    public function delete($endpoint, array $parameters = array(), array $headers = array())
     {
-        return $this->execute("DELETE", sprintf("%s%s", $this->host, $endpoint) . "/", $parameters);
+        return $this->execute("DELETE", sprintf("%s%s", $this->host, $endpoint) . "/", $parameters, $headers);
     }
 
     /**
@@ -131,9 +135,10 @@ class Request {
      * @param  string   $endpoint
      * @param  array    $parameters
      * @param  array    $queryparameters
+     * @param  array    $headers
      * @return Response
      */
-    public function update($endpoint, array $parameters = array(), array $queryparameters = array())
+    public function update($endpoint, array $parameters = array(), array $queryparameters = array(), array $headers = array())
     {
         if (!empty($queryparameters)) {
             $path = sprintf("%s?%s", $endpoint, http_build_query($queryparameters));
@@ -141,7 +146,7 @@ class Request {
             $path = $endpoint;
         }
 
-        return $this->execute("PATCH", sprintf("%s%s", $this->host, $path), $parameters);
+        return $this->execute("PATCH", sprintf("%s%s", $this->host, $path), $parameters, $headers);
     }
 
     /**

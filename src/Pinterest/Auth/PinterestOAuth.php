@@ -45,9 +45,16 @@ class PinterestOAuth {
     private $request;
 
     /**
+     * The redirect uri
+     *
+     * @var string
+     */
+    private $redirect_uri;
+
+    /**
      * Pinterest's oauth endpoint
      */
-    const AUTH_HOST = "https://api.pinterest.com/oauth/";
+    const AUTH_HOST = "https://www.pinterest.com/oauth/";
 
     /**
      * Construct
@@ -86,8 +93,20 @@ class PinterestOAuth {
             "state"             => $this->state
         );
 
+        $this->setRedirectUri($redirect_uri);
+
         // Build url and return it
         return sprintf("%s?%s", self::AUTH_HOST, http_build_query($queryparams));
+    }
+
+    /**
+     * @param string $redirect_uri
+     * @return PinterestOAuth
+     */
+    public function setRedirectUri($redirect_uri)
+    {
+        $this->redirect_uri = $redirect_uri;
+        return $this;
     }
 
     /**
@@ -133,13 +152,44 @@ class PinterestOAuth {
         // Build data array
         $data = array(
             "grant_type"    => "authorization_code",
-            "client_id"     => $this->client_id,
-            "client_secret" => $this->client_secret,
-            "code"          => $code
+            "code"          => $code,
+            "redirect_uri"  => $this->redirect_uri
+        );
+
+        // Build headers array
+        $headers = array(
+            'Authorization' => sprintf('Basic %s', base64_encode($this->client_id. ':' .$this->client_secret))
         );
 
         // Perform post request
-        $response = $this->request->post("oauth/token", $data);
+        $response = $this->request->post("oauth/token", $data, $headers);
+
+        return $response;
+    }
+
+    /**
+     * Change the code for an access_token
+     *
+     * @param  string   $refresh_token
+     * @param  string   $scope
+     * @return \DirkGroenen\Pinterest\Transport\Response
+     */
+    public function refreshOAuthToken($refresh_token, $scope)
+    {
+        // Build data array
+        $data = array(
+            "grant_type"    => "refresh_token",
+            "refresh_token" => $refresh_token,
+            "$scope" => $scope
+        );
+
+        // Build headers array
+        $headers = array(
+            'Authorization' => sprintf('Basic %s', base64_encode($this->client_id. ':' .$this->client_secret))
+        );
+
+        // Perform post request
+        $response = $this->request->post("oauth/token", $data, $headers);
 
         return $response;
     }
