@@ -21,7 +21,7 @@ class Following extends Endpoint {
      *
      * @access public
      * @param array     $data
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return Collection
      */
     public function users(array $data = [])
@@ -35,7 +35,7 @@ class Following extends Endpoint {
      *
      * @access public
      * @param array     $data
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return Collection
      */
     public function boards(array $data = [])
@@ -49,7 +49,7 @@ class Following extends Endpoint {
      *
      * @access public
      * @param array     $data
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return Collection
      */
     public function interests(array $data = [])
@@ -63,7 +63,7 @@ class Following extends Endpoint {
      *
      * @access public
      * @param  string $user
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return boolean
      */
     public function followUser($user)
@@ -79,7 +79,7 @@ class Following extends Endpoint {
      *
      * @access public
      * @param  string $user
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return boolean
      */
     public function unfollowUser($user)
@@ -93,7 +93,7 @@ class Following extends Endpoint {
      *
      * @access public
      * @param  string $board
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return boolean
      */
     public function followBoard($board)
@@ -109,7 +109,7 @@ class Following extends Endpoint {
      *
      * @access public
      * @param  string $board_id
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return boolean
      */
     public function unfollowBoard($board_id)
@@ -123,7 +123,7 @@ class Following extends Endpoint {
      *
      * @access public
      * @param  string $interest
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return boolean
      */
     public function followInterest($interest)
@@ -139,7 +139,7 @@ class Following extends Endpoint {
      *
      * @access public
      * @param  string $interest_id
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return boolean
      */
     public function unfollowInterest($interest_id)
