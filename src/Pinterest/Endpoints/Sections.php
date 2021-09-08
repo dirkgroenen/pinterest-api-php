@@ -19,46 +19,61 @@ class Sections extends Endpoint {
      * Create a section
      *
      * @access public
-     * @param  string   $board
+     * @param  string   $boardId
      * @param  array    $data
      * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return Section
      */
-    public function create(string $board, array $data)
+    public function create(string $boardId, array $data)
     {
-        $response = $this->request->put(sprintf("board/%s/sections/", $board), $data);
-        return new Section($this->master, ['id' => $response->data]);
+        $response = $this->request->post(sprintf("boards/%s/sections", $boardId), $data);
+        return new Section($this->master, $response);
+    }
+
+    /**
+     * Update a section
+     *
+     * @access public
+     * @param  string   $boardId
+     * @param  string   $sectionId
+     * @param  array    $data
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
+     * @return Section
+     */
+    public function update(string $boardId, string $sectionId, array $data)
+    {
+        $response = $this->request->put(sprintf("boards/%s/sections/%s", $boardId, $sectionId), $data);
+        return new Section($this->master, $response);
     }
 
     /**
      * Get sections for the given board
      *
      * @access public
-     * @param  string   $board
+     * @param  string   $boardId
      * @param  array    $data
      * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return Collection<Section>
      */
-    public function get(string $board, array $data = [])
+    public function get(string $boardId, array $data = [])
     {
-        $response = $this->request->get(sprintf("board/%s/sections/", $board), $data);
-        return new Collection($this->master, array_map(function($r) {
-            return ['id' => $r];
-        }, $response->data), "Section");
+        $response = $this->request->get(sprintf("boards/%s/sections", $boardId), $data);
+        return new Collection($this->master, $response, "Section");
     }
 
     /**
      * Get pins for section
      *
      * @access public
-     * @param  string   $section
+     * @param  string   $boardId
+     * @param  string   $sectionId
      * @param  array    $data
      * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return Collection<Pin>
      */
-    public function pins(string $section, array $data = [])
+    public function pins(string $boardId, string $sectionId, array $data = [])
     {
-        $response = $this->request->get(sprintf("board/sections/%s/pins/", $section), $data);
+        $response = $this->request->get(sprintf("boards/%s/sections/%s/pins", $boardId, $sectionId), $data);
         return new Collection($this->master, $response, "Pin");
     }
 
@@ -66,13 +81,14 @@ class Sections extends Endpoint {
      * Delete a board's section
      *
      * @access public
-     * @param  string   $section
+     * @param  string   $boardId
+     * @param  string   $sectionId
      * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return Collection<Pin>
      */
-    public function delete($section)
+    public function delete($boardId, $sectionId)
     {
-        $this->request->delete(sprintf("board/sections/%s/", $section));
+        $this->request->delete(sprintf("boards/%s/sections/%s", $boardId, $sectionId));
         return true;
     }
 }

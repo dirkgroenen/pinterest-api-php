@@ -11,6 +11,7 @@
 namespace DirkGroenen\Pinterest\Endpoints;
 
 use DirkGroenen\Pinterest\Models\Board;
+use DirkGroenen\Pinterest\Models\Collection;
 
 class Boards extends Endpoint {
 
@@ -18,14 +19,28 @@ class Boards extends Endpoint {
      * Find the provided board
      *
      * @access public
-     * @param  string    $board_id
      * @param  array     $data
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
+     * @return Collection
+     */
+    public function listBoards(array $data = [])
+    {
+        $response = $this->request->get("boards", $data);
+        return new Collection($this->master, $response, "Board");
+    }
+
+    /**
+     * Find the provided board
+     *
+     * @access public
+     * @param  string    $boardId
+     * @param  array     $data
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return Board
      */
-    public function get($board_id, array $data = [])
+    public function get($boardId, array $data = [])
     {
-        $response = $this->request->get(sprintf("boards/%s/", $board_id), $data);
+        $response = $this->request->get(sprintf("boards/%s", $boardId), $data);
         return new Board($this->master, $response);
     }
 
@@ -34,12 +49,12 @@ class Boards extends Endpoint {
      *
      * @access public
      * @param  array    $data
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return Board
      */
     public function create(array $data)
     {
-        $response = $this->request->post("boards/", $data);
+        $response = $this->request->post("boards", $data);
         return new Board($this->master, $response);
     }
 
@@ -47,31 +62,46 @@ class Boards extends Endpoint {
      * Edit a board
      *
      * @access public
-     * @param  string   $board_id
+     * @param  string   $boardId
      * @param  array    $data
      * @param  string   $fields
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return Board
      */
-    public function edit($board_id, array $data, $fields = null)
+    public function edit($boardId, array $data, $fields = null)
     {
         $query = (!$fields) ? array() : array("fields" => $fields);
 
-        $response = $this->request->update(sprintf("boards/%s/", $board_id), $data, $query);
+        $response = $this->request->update(sprintf("boards/%s", $boardId), $data, $query);
         return new Board($this->master, $response);
+    }
+
+    /**
+     * Get pins for section
+     *
+     * @access public
+     * @param  string   $boardId
+     * @param  array    $data
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
+     * @return Collection<Pin>
+     */
+    public function pins(string $boardId, array $data = [])
+    {
+        $response = $this->request->get(sprintf("boards/%s/pins", $boardId), $data);
+        return new Collection($this->master, $response, "Pin");
     }
 
     /**
      * Delete a board
      *
      * @access public
-     * @param  string    $board_id
-     * @throws Exceptions/PinterestExceptions
+     * @param  string    $boardId
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return boolean
      */
-    public function delete($board_id)
+    public function delete($boardId)
     {
-        $this->request->delete(sprintf("boards/%s/", $board_id));
+        $this->request->delete(sprintf("boards/%s", $boardId));
         return true;
     }
 }

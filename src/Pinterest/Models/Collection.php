@@ -29,6 +29,13 @@ class Collection implements \JsonSerializable, \ArrayAccess, \IteratorAggregate{
      *
      * @var string
      */
+    private $bookmark;
+
+    /**
+     * The model of each collection item
+     *
+     * @var string
+     */
     private $model;
 
     /**
@@ -77,7 +84,8 @@ class Collection implements \JsonSerializable, \ArrayAccess, \IteratorAggregate{
             $this->items = $items;
         } else if ($items instanceof \DirkGroenen\Pinterest\Transport\Response) {
             $this->response = $items;
-            $this->items = $items->data;
+            $this->items = $items->items;
+            $this->bookmark = $items->bookmark;
         } else {
             throw new PinterestException("$items needs to be an instance of Transport\Response or an array.");
         }

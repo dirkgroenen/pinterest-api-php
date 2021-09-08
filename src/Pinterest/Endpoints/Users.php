@@ -20,7 +20,7 @@ class Users extends Endpoint {
      *
      * @access public
      * @param array     $data
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return User
      */
     public function me(array $data = [])
@@ -35,7 +35,7 @@ class Users extends Endpoint {
      * @access public
      * @param string    $username
      * @param array     $data
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return User
      */
     public function find($username, array $data = [])
@@ -49,7 +49,7 @@ class Users extends Endpoint {
      *
      * @access public
      * @param array     $data
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return Collection
      */
     public function getMePins(array $data = [])
@@ -63,7 +63,7 @@ class Users extends Endpoint {
      *
      * @param  string   $query
      * @param  array    $data
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return Collection
      */
     public function searchMePins($query, array $data = [])
@@ -78,7 +78,7 @@ class Users extends Endpoint {
      *
      * @param  string   $query
      * @param  array    $data
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return Collection
      */
     public function searchMeBoards($query, array $data = [])
@@ -94,7 +94,7 @@ class Users extends Endpoint {
      *
      * @access public
      * @param array     $data
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return Collection
      */
     public function getMeBoards(array $data = [])
@@ -108,7 +108,7 @@ class Users extends Endpoint {
      *
      * @access public
      * @param array     $data
-     * @throws Exceptions/PinterestExceptions
+     * @throws \DirkGroenen\Pinterest\Exceptions\PinterestException
      * @return Collection
      */
     public function getMeLikes(array $data = [])

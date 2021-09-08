@@ -11,7 +11,7 @@
     $pinterest = new DirkGroenen\Pinterest\Pinterest(getenv("APP_ID"), getenv("APP_SECRET"));
 
     if (isset($_GET["code"])) {
-        $token = $pinterest->auth->getOAuthToken($_GET["code"]);
+        $token = $pinterest->auth->setRedirectUri(getenv("REDIRECT_URI"))->getOAuthToken($_GET["code"]);
         $pinterest->auth->setOAuthToken($token->access_token);
 
         setcookie("access_token", $token->access_token);
