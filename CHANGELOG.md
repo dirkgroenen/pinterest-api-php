@@ -1,3 +1,7 @@
+### 0.2.14 (27-01-2020)
+- added pagination to collection #118
+- Fix Notice: Array to string conversion #115
+
 ### 0.2.13 (27-01-2020)
 - Upgrade PHPunit and add tests for PHP 7.4
 - Fix paths which return redirect errors [#106](https://github.com/dirkgroenen/Pinterest-API-PHP/pull/106) [#107](https://github.com/dirkgroenen/Pinterest-API-PHP/pull/107) [#108](https://github.com/dirkgroenen/Pinterest-API-PHP/pull/108) [#109](https://github.com/dirkgroenen/Pinterest-API-PHP/pull/109)
