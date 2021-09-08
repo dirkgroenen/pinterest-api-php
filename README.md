@@ -20,7 +20,7 @@ To use the Pinterest API you have to register yourself as a developer and [creat
 > The terms `client_id` and `client_secret` are in this case `app_id` and `app_secret`.
 
 ## Installation
-The Pinterest API wrapper is available on Github only so you need two step to install it.
+The Pinterest API wrapper is available on Github only so you need two steps to install it.
 
 1 - Add siapepfrance/pinterest-api-php to the "require" and "repositories" nodes in the composer.json file : 
 ```json
