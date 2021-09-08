@@ -243,7 +243,7 @@ class Request {
 
         // Check the response code
         if ($response->getResponseCode() >= 400) {
-            throw new PinterestException('Pinterest error (code: ' . $response->getResponseCode() . ') with message: ' . $response->getMessage(), $response->getResponseCode());
+            throw new PinterestException('Pinterest error (code: ' . $response->getResponseCode() . ') with message: ' . (is_array($response->getMessage()) ? implode(' ', $response->getMessage()) : $response->getMessage()), $response->getResponseCode());
         }
 
         // Get headers from last request
