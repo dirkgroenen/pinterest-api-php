@@ -13,4 +13,4 @@ require __DIR__ . "/../../vendor/autoload.php";
 define('CLIENT_ID', getenv('CLIENT_ID'));
 define('CLIENT_SECRET', getenv('CLIENT_SECRET'));
 define('ACCESS_TOKEN', getenv('ACCESS_TOKEN'));
-define('CALLBACK_URL', getenv('CALLBACK_URL'));
+define('REDIRECT_URI', getenv('REDIRECT_URI'));

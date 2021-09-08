@@ -20,10 +20,33 @@ To use the Pinterest API you have to register yourself as a developer and [creat
 > The terms `client_id` and `client_secret` are in this case `app_id` and `app_secret`.
 
 ## Installation
-The Pinterest API wrapper is available on Composer.
+The Pinterest API wrapper is available on Github only so you need two step to install it.
 
+1 - Add siapepfrance/pinterest-api-php to the "require" and "repositories" nodes in the composer.json file : 
+```json
+{
+    "require": {
+      "siapepfrance/pinterest-api-php": "^0.3.13"
+    },
+    "repositories": [
+      {
+         "type": "package",
+         "package": {
+           "name": "siapepfrance/pinterest-api-php",
+           "version": "0.3.13",
+           "source": {
+             "url": "https://github.com/siapepfrance/pinterest-api-php.git",
+             "type": "git",
+             "reference": "master"
+           }
+         }
+      }
+    ]
+}
 ```
-composer require dirkgroenen/pinterest-api-php
+2 - Then run composer install
+```
+composer install
 ```
 
 If you're not using Composer (which you should start using, unless you've got a good reason not to) you can include the `autoload.php` file in your project.
@@ -38,17 +61,17 @@ $pinterest = new Pinterest(CLIENT_ID, CLIENT_SECRET);
 After you have initialized the class you can get a login URL:
 
 ```php
-$loginurl = $pinterest->auth->getLoginUrl(CALLBACK_URL, array('read_public'));
+$loginurl = $pinterest->auth->getLoginUrl(REDIRECT_URI, array('read_public'));
 echo '<a href=' . $loginurl . '>Authorize Pinterest</a>';
 ```
 
 Check the [Pinterest documentation](https://dev.pinterest.com/docs/api/overview/#scopes) for the available scopes.
 
-After your user has used the login link to authorize he will be send back to the given `CALLBACK_URL`. The URL will contain the `code` which can be exchanged into an `access_token`. To exchange the code for an `access_token` and set it you can use the following code:
+After your user has used the login link to authorize he will be send back to the given `REDIRECT_URI`. The URL will contain the `code` which can be exchanged into an `access_token`. To exchange the code for an `access_token` and set it you can use the following code:
 
 ```php
 if(isset($_GET["code"])){
-    $token = $pinterest->auth->getOAuthToken($_GET["code"]);
+    $token = $pinterest->auth->setRedirectUri(REDIRECT_URI)->getOAuthToken($_GET["code"]);
     $pinterest->auth->setOAuthToken($token->access_token);
 }
 ```
